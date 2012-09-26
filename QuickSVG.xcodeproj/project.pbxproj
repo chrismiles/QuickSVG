@@ -1,0 +1,411 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C9090D2B161316BC001145EC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9090D2A161316BC001145EC /* Foundation.framework */; };
+		C9090D30161316BC001145EC /* QuickSVG.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C9090D2F161316BC001145EC /* QuickSVG.h */; };
+		C9090D32161316BC001145EC /* QuickSVG.m in Sources */ = {isa = PBXBuildFile; fileRef = C9090D31161316BC001145EC /* QuickSVG.m */; };
+		C9090D3A161316BC001145EC /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9090D39161316BC001145EC /* SenTestingKit.framework */; };
+		C9090D3C161316BC001145EC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9090D3B161316BC001145EC /* UIKit.framework */; };
+		C9090D3D161316BC001145EC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9090D2A161316BC001145EC /* Foundation.framework */; };
+		C9090D40161316BC001145EC /* libQuickSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9090D27161316BC001145EC /* libQuickSVG.a */; };
+		C9090D46161316BC001145EC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9090D44161316BC001145EC /* InfoPlist.strings */; };
+		C9090D49161316BC001145EC /* QuickSVGTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9090D48161316BC001145EC /* QuickSVGTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C9090D3E161316BC001145EC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9090D1E161316BC001145EC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C9090D26161316BC001145EC;
+			remoteInfo = QuickSVG;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C9090D25161316BC001145EC /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/${PRODUCT_NAME}";
+			dstSubfolderSpec = 16;
+			files = (
+				C9090D30161316BC001145EC /* QuickSVG.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		C9090D27161316BC001145EC /* libQuickSVG.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libQuickSVG.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9090D2A161316BC001145EC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		C9090D2E161316BC001145EC /* QuickSVG-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "QuickSVG-Prefix.pch"; sourceTree = "<group>"; };
+		C9090D2F161316BC001145EC /* QuickSVG.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuickSVG.h; sourceTree = "<group>"; };
+		C9090D31161316BC001145EC /* QuickSVG.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuickSVG.m; sourceTree = "<group>"; };
+		C9090D38161316BC001145EC /* QuickSVGTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuickSVGTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9090D39161316BC001145EC /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		C9090D3B161316BC001145EC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		C9090D43161316BC001145EC /* QuickSVGTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "QuickSVGTests-Info.plist"; sourceTree = "<group>"; };
+		C9090D45161316BC001145EC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C9090D47161316BC001145EC /* QuickSVGTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuickSVGTests.h; sourceTree = "<group>"; };
+		C9090D48161316BC001145EC /* QuickSVGTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuickSVGTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C9090D24161316BC001145EC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9090D2B161316BC001145EC /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9090D34161316BC001145EC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9090D3A161316BC001145EC /* SenTestingKit.framework in Frameworks */,
+				C9090D3C161316BC001145EC /* UIKit.framework in Frameworks */,
+				C9090D3D161316BC001145EC /* Foundation.framework in Frameworks */,
+				C9090D40161316BC001145EC /* libQuickSVG.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C9090D1C161316BC001145EC = {
+			isa = PBXGroup;
+			children = (
+				C9090D2C161316BC001145EC /* QuickSVG */,
+				C9090D41161316BC001145EC /* QuickSVGTests */,
+				C9090D29161316BC001145EC /* Frameworks */,
+				C9090D28161316BC001145EC /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C9090D28161316BC001145EC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C9090D27161316BC001145EC /* libQuickSVG.a */,
+				C9090D38161316BC001145EC /* QuickSVGTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C9090D29161316BC001145EC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C9090D2A161316BC001145EC /* Foundation.framework */,
+				C9090D39161316BC001145EC /* SenTestingKit.framework */,
+				C9090D3B161316BC001145EC /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C9090D2C161316BC001145EC /* QuickSVG */ = {
+			isa = PBXGroup;
+			children = (
+				C9090D2F161316BC001145EC /* QuickSVG.h */,
+				C9090D31161316BC001145EC /* QuickSVG.m */,
+				C9090D2D161316BC001145EC /* Supporting Files */,
+			);
+			path = QuickSVG;
+			sourceTree = "<group>";
+		};
+		C9090D2D161316BC001145EC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C9090D2E161316BC001145EC /* QuickSVG-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C9090D41161316BC001145EC /* QuickSVGTests */ = {
+			isa = PBXGroup;
+			children = (
+				C9090D47161316BC001145EC /* QuickSVGTests.h */,
+				C9090D48161316BC001145EC /* QuickSVGTests.m */,
+				C9090D42161316BC001145EC /* Supporting Files */,
+			);
+			path = QuickSVGTests;
+			sourceTree = "<group>";
+		};
+		C9090D42161316BC001145EC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C9090D43161316BC001145EC /* QuickSVGTests-Info.plist */,
+				C9090D44161316BC001145EC /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C9090D26161316BC001145EC /* QuickSVG */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C9090D4C161316BC001145EC /* Build configuration list for PBXNativeTarget "QuickSVG" */;
+			buildPhases = (
+				C9090D23161316BC001145EC /* Sources */,
+				C9090D24161316BC001145EC /* Frameworks */,
+				C9090D25161316BC001145EC /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = QuickSVG;
+			productName = QuickSVG;
+			productReference = C9090D27161316BC001145EC /* libQuickSVG.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		C9090D37161316BC001145EC /* QuickSVGTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C9090D4F161316BC001145EC /* Build configuration list for PBXNativeTarget "QuickSVGTests" */;
+			buildPhases = (
+				C9090D33161316BC001145EC /* Sources */,
+				C9090D34161316BC001145EC /* Frameworks */,
+				C9090D35161316BC001145EC /* Resources */,
+				C9090D36161316BC001145EC /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C9090D3F161316BC001145EC /* PBXTargetDependency */,
+			);
+			name = QuickSVGTests;
+			productName = QuickSVGTests;
+			productReference = C9090D38161316BC001145EC /* QuickSVGTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C9090D1E161316BC001145EC /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = "Matthew Newberry";
+			};
+			buildConfigurationList = C9090D21161316BC001145EC /* Build configuration list for PBXProject "QuickSVG" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = C9090D1C161316BC001145EC;
+			productRefGroup = C9090D28161316BC001145EC /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C9090D26161316BC001145EC /* QuickSVG */,
+				C9090D37161316BC001145EC /* QuickSVGTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C9090D35161316BC001145EC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9090D46161316BC001145EC /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		C9090D36161316BC001145EC /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C9090D23161316BC001145EC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9090D32161316BC001145EC /* QuickSVG.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9090D33161316BC001145EC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9090D49161316BC001145EC /* QuickSVGTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C9090D3F161316BC001145EC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C9090D26161316BC001145EC /* QuickSVG */;
+			targetProxy = C9090D3E161316BC001145EC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		C9090D44161316BC001145EC /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C9090D45161316BC001145EC /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C9090D4A161316BC001145EC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		C9090D4B161316BC001145EC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C9090D4D161316BC001145EC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/QuickSVG.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "QuickSVG/QuickSVG-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		C9090D4E161316BC001145EC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/QuickSVG.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "QuickSVG/QuickSVG-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		C9090D50161316BC001145EC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "QuickSVG/QuickSVG-Prefix.pch";
+				INFOPLIST_FILE = "QuickSVGTests/QuickSVGTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		C9090D51161316BC001145EC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "QuickSVG/QuickSVG-Prefix.pch";
+				INFOPLIST_FILE = "QuickSVGTests/QuickSVGTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C9090D21161316BC001145EC /* Build configuration list for PBXProject "QuickSVG" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C9090D4A161316BC001145EC /* Debug */,
+				C9090D4B161316BC001145EC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C9090D4C161316BC001145EC /* Build configuration list for PBXNativeTarget "QuickSVG" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C9090D4D161316BC001145EC /* Debug */,
+				C9090D4E161316BC001145EC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		C9090D4F161316BC001145EC /* Build configuration list for PBXNativeTarget "QuickSVGTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C9090D50161316BC001145EC /* Debug */,
+				C9090D51161316BC001145EC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C9090D1E161316BC001145EC /* Project object */;
+}
