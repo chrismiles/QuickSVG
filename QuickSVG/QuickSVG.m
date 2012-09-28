@@ -5,6 +5,7 @@
 //  Created by Matthew Newberry on 9/26/12.
 //  Copyright (c) 2012 Matthew Newberry. All rights reserved.
 //
+
 #import "QuickSVG.h"
 
 #define DEBUG 1
@@ -36,7 +37,6 @@
 	
 	if(self){
 		
-		//self.documentURL = url;
 		self.symbols = [[NSMutableDictionary alloc] init];
 		self.currentSymbolElements = [[NSMutableArray alloc] init];
 		self.parsedSymbolInstances = [[NSMutableArray alloc] init];
@@ -55,6 +55,8 @@
 	if(_view == nil)
 	{
 		self.view = [[UIView alloc] init];
+		_view.frame = _canvasFrame;
+		
 		for(QuickSVGInstance *instance in self.instances)
 		{
 			[_view addSubview:instance];

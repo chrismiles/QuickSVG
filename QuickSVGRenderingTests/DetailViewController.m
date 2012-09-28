@@ -14,7 +14,6 @@
 
 @property (strong, nonatomic) UIPopoverController *masterPopoverController;
 @property (strong, nonatomic) QuickSVG *quickSVG;
-@property (strong, nonatomic) UIView *symbolView;
 @property (strong, nonatomic) UIScrollView *scrollView;
 
 - (void)configureView;
@@ -39,15 +38,13 @@
 - (void)configureView
 {
 	BOOL success = [_quickSVG parseSVGFileWithURL:_detailItem];
-	
-	[self.symbolView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-	
+		
 	if(success)
 	{
-		[_symbolView addSubview:_quickSVG.view];
+		[_quickSVG.view removeFromSuperview];
+		[_scrollView addSubview:_quickSVG.view];
 		
-		_symbolView.frame = _quickSVG.canvasFrame;
-		_scrollView.contentSize = _symbolView.frame.size;
+		_scrollView.contentSize = _quickSVG.canvasFrame.size;
 	}
 }
 
@@ -57,8 +54,6 @@
 
 	self.view.backgroundColor = [UIColor whiteColor];
 	self.scrollView = [[UIScrollView alloc] initWithFrame:self.view.frame];
-	self.symbolView = [[UIView alloc] initWithFrame:_scrollView.frame];
-	[self.scrollView addSubview:_symbolView];
 	
 	_scrollView.minimumZoomScale = 1.0;
 	_scrollView.maximumZoomScale = 3.0;
@@ -74,7 +69,7 @@
 
 - (UIView *) viewForZoomingInScrollView:(UIScrollView *)scrollView
 {
-	return _symbolView;
+	return _quickSVG.view;
 }
 
 - (void) scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(float)scale{
