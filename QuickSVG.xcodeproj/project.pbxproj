@@ -6,20 +6,86 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		C9090DA116136387001145EC /* Framework */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = C9090DA216136387001145EC /* Build configuration list for PBXAggregateTarget "Framework" */;
+			buildPhases = (
+				C9090DA716136395001145EC /* Build Framework */,
+			);
+			dependencies = (
+				C9090DA616136392001145EC /* PBXTargetDependency */,
+			);
+			name = Framework;
+			productName = Framework;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
+		C90061B51615C5BC000BD559 /* QuickSVGSymbol.h in Headers */ = {isa = PBXBuildFile; fileRef = C90061B31615C5BC000BD559 /* QuickSVGSymbol.h */; };
+		C90061B61615C5BC000BD559 /* QuickSVGSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = C90061B41615C5BC000BD559 /* QuickSVGSymbol.m */; };
+		C90061B71615C5BC000BD559 /* QuickSVGSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = C90061B41615C5BC000BD559 /* QuickSVGSymbol.m */; };
+		C90061B81615C5BC000BD559 /* QuickSVGSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = C90061B41615C5BC000BD559 /* QuickSVGSymbol.m */; };
+		C90061BC1615C5CD000BD559 /* QuickSVGSymbolElement.h in Headers */ = {isa = PBXBuildFile; fileRef = C90061BA1615C5CD000BD559 /* QuickSVGSymbolElement.h */; };
+		C90061BD1615C5CD000BD559 /* QuickSVGSymbolElement.m in Sources */ = {isa = PBXBuildFile; fileRef = C90061BB1615C5CD000BD559 /* QuickSVGSymbolElement.m */; };
+		C90061BE1615C5CD000BD559 /* QuickSVGSymbolElement.m in Sources */ = {isa = PBXBuildFile; fileRef = C90061BB1615C5CD000BD559 /* QuickSVGSymbolElement.m */; };
+		C90061BF1615C5CD000BD559 /* QuickSVGSymbolElement.m in Sources */ = {isa = PBXBuildFile; fileRef = C90061BB1615C5CD000BD559 /* QuickSVGSymbolElement.m */; };
+		C90061C21615C5DE000BD559 /* QuickSVGInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = C90061C01615C5DE000BD559 /* QuickSVGInstance.h */; };
+		C90061C31615C5DE000BD559 /* QuickSVGInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = C90061C11615C5DE000BD559 /* QuickSVGInstance.m */; };
+		C90061C41615C5DE000BD559 /* QuickSVGInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = C90061C11615C5DE000BD559 /* QuickSVGInstance.m */; };
+		C90061C51615C5DE000BD559 /* QuickSVGInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = C90061C11615C5DE000BD559 /* QuickSVGInstance.m */; };
 		C9090D2B161316BC001145EC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9090D2A161316BC001145EC /* Foundation.framework */; };
 		C9090D30161316BC001145EC /* QuickSVG.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C9090D2F161316BC001145EC /* QuickSVG.h */; };
 		C9090D32161316BC001145EC /* QuickSVG.m in Sources */ = {isa = PBXBuildFile; fileRef = C9090D31161316BC001145EC /* QuickSVG.m */; };
 		C9090D3A161316BC001145EC /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9090D39161316BC001145EC /* SenTestingKit.framework */; };
-		C9090D3C161316BC001145EC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9090D3B161316BC001145EC /* UIKit.framework */; };
 		C9090D3D161316BC001145EC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9090D2A161316BC001145EC /* Foundation.framework */; };
 		C9090D40161316BC001145EC /* libQuickSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9090D27161316BC001145EC /* libQuickSVG.a */; };
 		C9090D46161316BC001145EC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9090D44161316BC001145EC /* InfoPlist.strings */; };
 		C9090D49161316BC001145EC /* QuickSVGTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9090D48161316BC001145EC /* QuickSVGTests.m */; };
+		C9090D581613187B001145EC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9090D561613187B001145EC /* CoreGraphics.framework */; };
+		C9090D591613187B001145EC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9090D571613187B001145EC /* QuartzCore.framework */; };
+		C9090D5B16131B8E001145EC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9090D5A16131B8E001145EC /* UIKit.framework */; };
+		C9090D6316135B19001145EC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9090D5A16131B8E001145EC /* UIKit.framework */; };
+		C9090D6A16135E10001145EC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9090D5A16131B8E001145EC /* UIKit.framework */; };
+		C9090D6B16135E10001145EC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9090D2A161316BC001145EC /* Foundation.framework */; };
+		C9090D6C16135E10001145EC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9090D561613187B001145EC /* CoreGraphics.framework */; };
+		C9090D7216135E10001145EC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9090D7016135E10001145EC /* InfoPlist.strings */; };
+		C9090D7416135E10001145EC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C9090D7316135E10001145EC /* main.m */; };
+		C9090D7816135E10001145EC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C9090D7716135E10001145EC /* AppDelegate.m */; };
+		C9090D7A16135E10001145EC /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = C9090D7916135E10001145EC /* Default.png */; };
+		C9090D7C16135E10001145EC /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C9090D7B16135E10001145EC /* Default@2x.png */; };
+		C9090D7E16135E10001145EC /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C9090D7D16135E10001145EC /* Default-568h@2x.png */; };
+		C9090D8116135E10001145EC /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9090D8016135E10001145EC /* MasterViewController.m */; };
+		C9090D8416135E10001145EC /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9090D8316135E10001145EC /* DetailViewController.m */; };
+		C9090DAC1613642E001145EC /* QuickSVG.h in Headers */ = {isa = PBXBuildFile; fileRef = C9090D2F161316BC001145EC /* QuickSVG.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C9090DAE16136478001145EC /* libQuickSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9090D27161316BC001145EC /* libQuickSVG.a */; };
+		C9090DB2161367DF001145EC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9090D571613187B001145EC /* QuartzCore.framework */; };
+		C9090DB31613682F001145EC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9090D571613187B001145EC /* QuartzCore.framework */; };
+		C9090DB5161368B6001145EC /* Sample SVGs in Resources */ = {isa = PBXBuildFile; fileRef = C9090DB4161368B6001145EC /* Sample SVGs */; };
+		C9090DB6161368B6001145EC /* Sample SVGs in Resources */ = {isa = PBXBuildFile; fileRef = C9090DB4161368B6001145EC /* Sample SVGs */; };
+		C9090DC416137AEA001145EC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9090D561613187B001145EC /* CoreGraphics.framework */; };
+		C9090DC716137E1A001145EC /* UIColor+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = C9090DC516137E1A001145EC /* UIColor+Additions.h */; };
+		C9090DC816137E1A001145EC /* UIColor+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = C9090DC616137E1A001145EC /* UIColor+Additions.m */; };
+		C9090DC916137E1A001145EC /* UIColor+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = C9090DC616137E1A001145EC /* UIColor+Additions.m */; };
+		C9090DCA16137E1A001145EC /* UIColor+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = C9090DC616137E1A001145EC /* UIColor+Additions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		C9090D3E161316BC001145EC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9090D1E161316BC001145EC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C9090D26161316BC001145EC;
+			remoteInfo = QuickSVG;
+		};
+		C9090DA516136392001145EC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9090D1E161316BC001145EC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C9090D26161316BC001145EC;
+			remoteInfo = QuickSVG;
+		};
+		C9090DB016136563001145EC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C9090D1E161316BC001145EC /* Project object */;
 			proxyType = 1;
@@ -42,18 +108,43 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C90061B31615C5BC000BD559 /* QuickSVGSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuickSVGSymbol.h; sourceTree = "<group>"; };
+		C90061B41615C5BC000BD559 /* QuickSVGSymbol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuickSVGSymbol.m; sourceTree = "<group>"; };
+		C90061BA1615C5CD000BD559 /* QuickSVGSymbolElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuickSVGSymbolElement.h; sourceTree = "<group>"; };
+		C90061BB1615C5CD000BD559 /* QuickSVGSymbolElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuickSVGSymbolElement.m; sourceTree = "<group>"; };
+		C90061C01615C5DE000BD559 /* QuickSVGInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuickSVGInstance.h; sourceTree = "<group>"; };
+		C90061C11615C5DE000BD559 /* QuickSVGInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuickSVGInstance.m; sourceTree = "<group>"; };
 		C9090D27161316BC001145EC /* libQuickSVG.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libQuickSVG.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9090D2A161316BC001145EC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C9090D2E161316BC001145EC /* QuickSVG-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "QuickSVG-Prefix.pch"; sourceTree = "<group>"; };
 		C9090D2F161316BC001145EC /* QuickSVG.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuickSVG.h; sourceTree = "<group>"; };
 		C9090D31161316BC001145EC /* QuickSVG.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuickSVG.m; sourceTree = "<group>"; };
-		C9090D38161316BC001145EC /* QuickSVGTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuickSVGTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9090D38161316BC001145EC /* QuickSVGTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = QuickSVGTests.octest; path = UnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9090D39161316BC001145EC /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		C9090D3B161316BC001145EC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		C9090D43161316BC001145EC /* QuickSVGTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "QuickSVGTests-Info.plist"; sourceTree = "<group>"; };
 		C9090D45161316BC001145EC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C9090D47161316BC001145EC /* QuickSVGTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuickSVGTests.h; sourceTree = "<group>"; };
 		C9090D48161316BC001145EC /* QuickSVGTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuickSVGTests.m; sourceTree = "<group>"; };
+		C9090D561613187B001145EC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		C9090D571613187B001145EC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		C9090D5A16131B8E001145EC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		C9090D6816135E10001145EC /* RenderingTests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RenderingTests.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9090D6F16135E10001145EC /* QuickSVGRenderingTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "QuickSVGRenderingTests-Info.plist"; sourceTree = "<group>"; };
+		C9090D7116135E10001145EC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C9090D7316135E10001145EC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		C9090D7516135E10001145EC /* QuickSVGRenderingTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "QuickSVGRenderingTests-Prefix.pch"; sourceTree = "<group>"; };
+		C9090D7616135E10001145EC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		C9090D7716135E10001145EC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		C9090D7916135E10001145EC /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		C9090D7B16135E10001145EC /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		C9090D7D16135E10001145EC /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		C9090D8016135E10001145EC /* MasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
+		C9090D8216135E10001145EC /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		C9090D8316135E10001145EC /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		C9090D9F1613622C001145EC /* en */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = en; path = en.lproj/MasterViewController.h; sourceTree = "<group>"; };
+		C9090DB4161368B6001145EC /* Sample SVGs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Sample SVGs"; sourceTree = SOURCE_ROOT; };
+		C9090DC516137E1A001145EC /* UIColor+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Additions.h"; sourceTree = "<group>"; };
+		C9090DC616137E1A001145EC /* UIColor+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Additions.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +152,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9090D5B16131B8E001145EC /* UIKit.framework in Frameworks */,
+				C9090D581613187B001145EC /* CoreGraphics.framework in Frameworks */,
+				C9090D591613187B001145EC /* QuartzCore.framework in Frameworks */,
 				C9090D2B161316BC001145EC /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -70,9 +164,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9090D3A161316BC001145EC /* SenTestingKit.framework in Frameworks */,
-				C9090D3C161316BC001145EC /* UIKit.framework in Frameworks */,
 				C9090D3D161316BC001145EC /* Foundation.framework in Frameworks */,
 				C9090D40161316BC001145EC /* libQuickSVG.a in Frameworks */,
+				C9090D6316135B19001145EC /* UIKit.framework in Frameworks */,
+				C9090DB31613682F001145EC /* QuartzCore.framework in Frameworks */,
+				C9090DC416137AEA001145EC /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9090D6516135E10001145EC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9090DAE16136478001145EC /* libQuickSVG.a in Frameworks */,
+				C9090D6A16135E10001145EC /* UIKit.framework in Frameworks */,
+				C9090D6B16135E10001145EC /* Foundation.framework in Frameworks */,
+				C9090D6C16135E10001145EC /* CoreGraphics.framework in Frameworks */,
+				C9090DB2161367DF001145EC /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +192,8 @@
 			children = (
 				C9090D2C161316BC001145EC /* QuickSVG */,
 				C9090D41161316BC001145EC /* QuickSVGTests */,
+				C9090D6D16135E10001145EC /* QuickSVGRenderingTests */,
+				C9090DB4161368B6001145EC /* Sample SVGs */,
 				C9090D29161316BC001145EC /* Frameworks */,
 				C9090D28161316BC001145EC /* Products */,
 			);
@@ -94,6 +204,7 @@
 			children = (
 				C9090D27161316BC001145EC /* libQuickSVG.a */,
 				C9090D38161316BC001145EC /* QuickSVGTests.octest */,
+				C9090D6816135E10001145EC /* RenderingTests.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -101,9 +212,11 @@
 		C9090D29161316BC001145EC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C9090D5A16131B8E001145EC /* UIKit.framework */,
+				C9090D561613187B001145EC /* CoreGraphics.framework */,
+				C9090D571613187B001145EC /* QuartzCore.framework */,
 				C9090D2A161316BC001145EC /* Foundation.framework */,
 				C9090D39161316BC001145EC /* SenTestingKit.framework */,
-				C9090D3B161316BC001145EC /* UIKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -113,6 +226,12 @@
 			children = (
 				C9090D2F161316BC001145EC /* QuickSVG.h */,
 				C9090D31161316BC001145EC /* QuickSVG.m */,
+				C90061B31615C5BC000BD559 /* QuickSVGSymbol.h */,
+				C90061B41615C5BC000BD559 /* QuickSVGSymbol.m */,
+				C90061BA1615C5CD000BD559 /* QuickSVGSymbolElement.h */,
+				C90061BB1615C5CD000BD559 /* QuickSVGSymbolElement.m */,
+				C90061C01615C5DE000BD559 /* QuickSVGInstance.h */,
+				C90061C11615C5DE000BD559 /* QuickSVGInstance.m */,
 				C9090D2D161316BC001145EC /* Supporting Files */,
 			);
 			path = QuickSVG;
@@ -121,6 +240,8 @@
 		C9090D2D161316BC001145EC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C9090DC516137E1A001145EC /* UIColor+Additions.h */,
+				C9090DC616137E1A001145EC /* UIColor+Additions.m */,
 				C9090D2E161316BC001145EC /* QuickSVG-Prefix.pch */,
 			);
 			name = "Supporting Files";
@@ -145,7 +266,50 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		C9090D6D16135E10001145EC /* QuickSVGRenderingTests */ = {
+			isa = PBXGroup;
+			children = (
+				C9090D7616135E10001145EC /* AppDelegate.h */,
+				C9090D7716135E10001145EC /* AppDelegate.m */,
+				C9090DA01613622C001145EC /* MasterViewController.h */,
+				C9090D8016135E10001145EC /* MasterViewController.m */,
+				C9090D8216135E10001145EC /* DetailViewController.h */,
+				C9090D8316135E10001145EC /* DetailViewController.m */,
+				C9090D6E16135E10001145EC /* Supporting Files */,
+			);
+			path = QuickSVGRenderingTests;
+			sourceTree = "<group>";
+		};
+		C9090D6E16135E10001145EC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C9090D6F16135E10001145EC /* QuickSVGRenderingTests-Info.plist */,
+				C9090D7016135E10001145EC /* InfoPlist.strings */,
+				C9090D7316135E10001145EC /* main.m */,
+				C9090D7516135E10001145EC /* QuickSVGRenderingTests-Prefix.pch */,
+				C9090D7916135E10001145EC /* Default.png */,
+				C9090D7B16135E10001145EC /* Default@2x.png */,
+				C9090D7D16135E10001145EC /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		C9090DAB1613641A001145EC /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9090DAC1613642E001145EC /* QuickSVG.h in Headers */,
+				C9090DC716137E1A001145EC /* UIColor+Additions.h in Headers */,
+				C90061B51615C5BC000BD559 /* QuickSVGSymbol.h in Headers */,
+				C90061BC1615C5CD000BD559 /* QuickSVGSymbolElement.h in Headers */,
+				C90061C21615C5DE000BD559 /* QuickSVGInstance.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		C9090D26161316BC001145EC /* QuickSVG */ = {
@@ -154,7 +318,9 @@
 			buildPhases = (
 				C9090D23161316BC001145EC /* Sources */,
 				C9090D24161316BC001145EC /* Frameworks */,
+				C9090DAB1613641A001145EC /* Headers */,
 				C9090D25161316BC001145EC /* CopyFiles */,
+				C9090D9E16136135001145EC /* Prepare Framework */,
 			);
 			buildRules = (
 			);
@@ -165,9 +331,9 @@
 			productReference = C9090D27161316BC001145EC /* libQuickSVG.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		C9090D37161316BC001145EC /* QuickSVGTests */ = {
+		C9090D37161316BC001145EC /* UnitTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C9090D4F161316BC001145EC /* Build configuration list for PBXNativeTarget "QuickSVGTests" */;
+			buildConfigurationList = C9090D4F161316BC001145EC /* Build configuration list for PBXNativeTarget "UnitTests" */;
 			buildPhases = (
 				C9090D33161316BC001145EC /* Sources */,
 				C9090D34161316BC001145EC /* Frameworks */,
@@ -179,10 +345,28 @@
 			dependencies = (
 				C9090D3F161316BC001145EC /* PBXTargetDependency */,
 			);
-			name = QuickSVGTests;
+			name = UnitTests;
 			productName = QuickSVGTests;
 			productReference = C9090D38161316BC001145EC /* QuickSVGTests.octest */;
 			productType = "com.apple.product-type.bundle";
+		};
+		C9090D6716135E10001145EC /* RenderingTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C9090D9116135E10001145EC /* Build configuration list for PBXNativeTarget "RenderingTests" */;
+			buildPhases = (
+				C9090D6416135E10001145EC /* Sources */,
+				C9090D6516135E10001145EC /* Frameworks */,
+				C9090D6616135E10001145EC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C9090DB116136563001145EC /* PBXTargetDependency */,
+			);
+			name = RenderingTests;
+			productName = QuickSVGRenderingTests;
+			productReference = C9090D6816135E10001145EC /* RenderingTests.app */;
+			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
@@ -206,7 +390,9 @@
 			projectRoot = "";
 			targets = (
 				C9090D26161316BC001145EC /* QuickSVG */,
-				C9090D37161316BC001145EC /* QuickSVGTests */,
+				C9090D37161316BC001145EC /* UnitTests */,
+				C9090D6716135E10001145EC /* RenderingTests */,
+				C9090DA116136387001145EC /* Framework */,
 			);
 		};
 /* End PBXProject section */
@@ -217,6 +403,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9090D46161316BC001145EC /* InfoPlist.strings in Resources */,
+				C9090DB5161368B6001145EC /* Sample SVGs in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9090D6616135E10001145EC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9090D7216135E10001145EC /* InfoPlist.strings in Resources */,
+				C9090D7A16135E10001145EC /* Default.png in Resources */,
+				C9090D7C16135E10001145EC /* Default@2x.png in Resources */,
+				C9090D7E16135E10001145EC /* Default-568h@2x.png in Resources */,
+				C9090DB6161368B6001145EC /* Sample SVGs in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,6 +435,34 @@
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
+		C9090D9E16136135001145EC /* Prepare Framework */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Prepare Framework";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\n\nmkdir -p \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Versions/A\"\nmkdir -p \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Versions/A/Headers\"\n\n# Link the \"Current\" version to \"A\"\nln -sfh A \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Versions/Current\"\nln -sfh Versions/Current/Headers \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Headers\"\nln -sfh \"Versions/Current/${PRODUCT_NAME}\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/${PRODUCT_NAME}\"\n\n# The -a ensures that the headers maintain the source modification date so that we don't constantly\n# cause propagating rebuilds of files that import these headers.\ncp -a \"${TARGET_BUILD_DIR}/${PUBLIC_HEADERS_FOLDER_PATH}/\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Versions/A/Headers\"";
+		};
+		C9090DA716136395001145EC /* Build Framework */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Build Framework";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\nset +u\n# Avoid recursively calling this script.\nif [[ $SF_MASTER_SCRIPT_RUNNING ]]\nthen\nexit 0\nfi\nset -u\nexport SF_MASTER_SCRIPT_RUNNING=1\n\nSF_TARGET_NAME=${PROJECT_NAME}\nSF_EXECUTABLE_PATH=\"lib${SF_TARGET_NAME}.a\"\nSF_WRAPPER_NAME=\"${SF_TARGET_NAME}.framework\"\n\n# The following conditionals come from\n# https://github.com/kstenerud/iOS-Universal-Framework\n\nif [[ \"$SDK_NAME\" =~ ([A-Za-z]+) ]]\nthen\nSF_SDK_PLATFORM=${BASH_REMATCH[1]}\nelse\necho \"Could not find platform name from SDK_NAME: $SDK_NAME\"\nexit 1\nfi\n\nif [[ \"$SDK_NAME\" =~ ([0-9]+.*$) ]]\nthen\nSF_SDK_VERSION=${BASH_REMATCH[1]}\nelse\necho \"Could not find sdk version from SDK_NAME: $SDK_NAME\"\nexit 1\nfi\n\nif [[ \"$SF_SDK_PLATFORM\" = \"iphoneos\" ]]\nthen\nSF_OTHER_PLATFORM=iphonesimulator\nelse\nSF_OTHER_PLATFORM=iphoneos\nfi\n\nif [[ \"$BUILT_PRODUCTS_DIR\" =~ (.*)$SF_SDK_PLATFORM$ ]]\nthen\nSF_OTHER_BUILT_PRODUCTS_DIR=\"${BASH_REMATCH[1]}${SF_OTHER_PLATFORM}\"\nelse\necho \"Could not find platform name from build products directory: $BUILT_PRODUCTS_DIR\"\nexit 1\nfi\n\n# Build the other platform.\nxcodebuild -project \"${PROJECT_FILE_PATH}\" -target \"${TARGET_NAME}\" -configuration \"${CONFIGURATION}\" -sdk ${SF_OTHER_PLATFORM}${SF_SDK_VERSION} BUILD_DIR=\"${BUILD_DIR}\" OBJROOT=\"${OBJROOT}\" BUILD_ROOT=\"${BUILD_ROOT}\" SYMROOT=\"${SYMROOT}\" $ACTION\n\n# Smash the two static libraries into one fat binary and store it in the .framework\nlipo -create \"${BUILT_PRODUCTS_DIR}/${SF_EXECUTABLE_PATH}\" \"${SF_OTHER_BUILT_PRODUCTS_DIR}/${SF_EXECUTABLE_PATH}\" -output \"${BUILT_PRODUCTS_DIR}/${SF_WRAPPER_NAME}/Versions/A/${SF_TARGET_NAME}\"\n\n# Copy the binary to the other architecture folder to have a complete framework in both.\ncp -a \"${BUILT_PRODUCTS_DIR}/${SF_WRAPPER_NAME}/Versions/A/${SF_TARGET_NAME}\" \"${SF_OTHER_BUILT_PRODUCTS_DIR}/${SF_WRAPPER_NAME}/Versions/A/${SF_TARGET_NAME}\"\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -244,6 +471,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9090D32161316BC001145EC /* QuickSVG.m in Sources */,
+				C9090DC816137E1A001145EC /* UIColor+Additions.m in Sources */,
+				C90061B61615C5BC000BD559 /* QuickSVGSymbol.m in Sources */,
+				C90061BD1615C5CD000BD559 /* QuickSVGSymbolElement.m in Sources */,
+				C90061C31615C5DE000BD559 /* QuickSVGInstance.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,6 +483,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9090D49161316BC001145EC /* QuickSVGTests.m in Sources */,
+				C9090DC916137E1A001145EC /* UIColor+Additions.m in Sources */,
+				C90061B71615C5BC000BD559 /* QuickSVGSymbol.m in Sources */,
+				C90061BE1615C5CD000BD559 /* QuickSVGSymbolElement.m in Sources */,
+				C90061C41615C5DE000BD559 /* QuickSVGInstance.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9090D6416135E10001145EC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9090D7416135E10001145EC /* main.m in Sources */,
+				C9090D7816135E10001145EC /* AppDelegate.m in Sources */,
+				C9090D8116135E10001145EC /* MasterViewController.m in Sources */,
+				C9090D8416135E10001145EC /* DetailViewController.m in Sources */,
+				C9090DCA16137E1A001145EC /* UIColor+Additions.m in Sources */,
+				C90061B81615C5BC000BD559 /* QuickSVGSymbol.m in Sources */,
+				C90061BF1615C5CD000BD559 /* QuickSVGSymbolElement.m in Sources */,
+				C90061C51615C5DE000BD559 /* QuickSVGInstance.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,6 +513,16 @@
 			target = C9090D26161316BC001145EC /* QuickSVG */;
 			targetProxy = C9090D3E161316BC001145EC /* PBXContainerItemProxy */;
 		};
+		C9090DA616136392001145EC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C9090D26161316BC001145EC /* QuickSVG */;
+			targetProxy = C9090DA516136392001145EC /* PBXContainerItemProxy */;
+		};
+		C9090DB116136563001145EC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C9090D26161316BC001145EC /* QuickSVG */;
+			targetProxy = C9090DB016136563001145EC /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -272,6 +532,22 @@
 				C9090D45161316BC001145EC /* en */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		C9090D7016135E10001145EC /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C9090D7116135E10001145EC /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		C9090DA01613622C001145EC /* MasterViewController.h */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C9090D9F1613622C001145EC /* en */,
+			);
+			name = MasterViewController.h;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -326,24 +602,32 @@
 		C9090D4D161316BC001145EC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = NO;
 				DSTROOT = /tmp/QuickSVG.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "QuickSVG/QuickSVG-Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = Headers;
 				SKIP_INSTALL = YES;
+				STRIP_STYLE = "non-global";
 			};
 			name = Debug;
 		};
 		C9090D4E161316BC001145EC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = NO;
 				DSTROOT = /tmp/QuickSVG.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "QuickSVG/QuickSVG-Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = Headers;
 				SKIP_INSTALL = YES;
+				STRIP_STYLE = "non-global";
 			};
 			name = Release;
 		};
@@ -377,6 +661,47 @@
 			};
 			name = Release;
 		};
+		C9090D9216135E10001145EC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "QuickSVGRenderingTests/QuickSVGRenderingTests-Prefix.pch";
+				INFOPLIST_FILE = "QuickSVGRenderingTests/QuickSVGRenderingTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		C9090D9316135E10001145EC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "QuickSVGRenderingTests/QuickSVGRenderingTests-Prefix.pch";
+				INFOPLIST_FILE = "QuickSVGRenderingTests/QuickSVGRenderingTests-Info.plist";
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		C9090DA316136387001145EC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		C9090DA416136387001145EC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -396,14 +721,34 @@
 				C9090D4E161316BC001145EC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
-		C9090D4F161316BC001145EC /* Build configuration list for PBXNativeTarget "QuickSVGTests" */ = {
+		C9090D4F161316BC001145EC /* Build configuration list for PBXNativeTarget "UnitTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C9090D50161316BC001145EC /* Debug */,
 				C9090D51161316BC001145EC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C9090D9116135E10001145EC /* Build configuration list for PBXNativeTarget "RenderingTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C9090D9216135E10001145EC /* Debug */,
+				C9090D9316135E10001145EC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C9090DA216136387001145EC /* Build configuration list for PBXAggregateTarget "Framework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C9090DA316136387001145EC /* Debug */,
+				C9090DA416136387001145EC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

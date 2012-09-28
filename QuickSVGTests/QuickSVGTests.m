@@ -7,6 +7,13 @@
 //
 
 #import "QuickSVGTests.h"
+#import "QuickSVG.h"
+
+@interface QuickSVGTests ()
+
+@property (nonatomic, strong) QuickSVG *quickSVG;
+
+@end
 
 @implementation QuickSVGTests
 
@@ -14,19 +21,45 @@
 {
     [super setUp];
     
-    // Set-up code here.
+	self.quickSVG = [[QuickSVG alloc] init];
 }
 
 - (void)tearDown
 {
-    // Tear-down code here.
+    self.quickSVG = nil;
     
     [super tearDown];
 }
 
-- (void)testExample
+- (void) testParsingSVGFiles
 {
-    STFail(@"Unit tests are not implemented yet in QuickSVGTests");
+	NSArray *svgFiles = [[NSBundle bundleForClass:[self class]] pathsForResourcesOfType:@"svg" inDirectory:@"Sample SVGs"];
+	
+	for(NSString *filePath in svgFiles)
+	{
+		NSURL *fileURL = [NSURL fileURLWithPath:svgFiles[0]];
+		STAssertTrue([_quickSVG parseSVGFileWithURL:fileURL], @"Failed To Parse SVG File: %@", @"");
+	}
+}
+
+- (void) testAddingRects
+{
+	STAssertTrue(NO, @"Failed to added rects");
+}
+
+- (void) testAddingCircles
+{
+	STAssertTrue(NO, @"Failed to added circles");
+}
+
+- (void) testAddingEllipses
+{
+	STAssertTrue(NO, @"Failed to added ellipses");
+}
+
+- (void) testSymbolLinkageWithUse
+{
+	
 }
 
 @end
