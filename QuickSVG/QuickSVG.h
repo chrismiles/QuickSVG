@@ -18,6 +18,7 @@
 @property (nonatomic, strong) UIView *view;
 @property (nonatomic, assign) CGRect canvasFrame;
 
++ (QuickSVG *) svgFromURL:(NSURL *) url;
 - (BOOL) parseSVGFileWithURL:(NSURL *) url;
 
 @end

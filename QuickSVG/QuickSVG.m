@@ -21,6 +21,15 @@
 
 @implementation QuickSVG
 
++ (QuickSVG *) svgFromURL:(NSURL *) url
+
+{
+	QuickSVG *svg = [[QuickSVG alloc] init];
+	[svg parseSVGFileWithURL:url];
+	
+	return svg;
+}
+
 - (id) init
 {
 	self = [super init];
