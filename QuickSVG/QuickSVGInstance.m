@@ -88,8 +88,6 @@ unichar const invalidCommand		= '*';
 		[self reset];
 		_separatorSet = [NSCharacterSet characterSetWithCharactersInString:separatorCharString];
 		_commandSet = [NSCharacterSet characterSetWithCharactersInString:commandCharString];
-		
-		//self.frame = CGRectMake(-100, -100, 500, 500);
 	}
 	
 	return self;
@@ -104,7 +102,7 @@ unichar const invalidCommand		= '*';
 - (void) drawRect:(CGRect)rect
 {
 	NSArray *elements = [NSArray arrayWithArray:_symbol.elements];
-	
+		
 	for(NSDictionary *element in elements)
 	{		
 		if(![element isKindOfClass:[NSDictionary class]])
@@ -144,7 +142,7 @@ unichar const invalidCommand		= '*';
 		
 		CGAffineTransform transform = CGAffineTransformMakeTranslation(transX, transY);
 		[path applyTransform:transform];
-						
+		
 		[self applyStyleAttributes:element[shapeKey] toBezierPath:path];
 	}
 }
@@ -269,7 +267,9 @@ unichar const invalidCommand		= '*';
 {
 	self.bezierPathBeingDrawn = [UIBezierPath bezierPath];
 	
-	[self parsePath:attributes[@"d"]];
+	NSString *pathData = [attributes[@"d"] stringByReplacingOccurrencesOfString:@" " withString:@""];
+	
+	[self parsePath:pathData];
 	
 	[self reset];
 	
@@ -301,7 +301,7 @@ unichar const invalidCommand		= '*';
 				[_bezierPathBeingDrawn closePath];
 				break;
 			default:
-				NSLog(@"*** PocketSVG Error: Cannot process command : '%c'", command);
+				NSLog(@"*** Error: Cannot process command : '%c'", command);
 				break;
 		}
 	}
@@ -332,23 +332,15 @@ unichar const invalidCommand		= '*';
 }
 
 - (UIBezierPath *) drawPolyElementWithAttributes:(NSDictionary *) attributes isPolygon:(BOOL) isPolygon
-{
+{	
 	NSArray *points = [self arrayFromPointsAttribute:attributes[@"points"]];
 	UIBezierPath *polygon = [UIBezierPath bezierPath];
 	
-	CGPoint firstPoint;
-	CGPoint lastPoint;
+	CGPoint firstPoint = CGPointFromString(points[0]);
+	[polygon moveToPoint:firstPoint];
 	
 	for(int x = 0; x < [points count]; x++)
-	{
-		CGPoint startingPoint = CGPointFromString(points[x]);
-		[polygon moveToPoint:startingPoint];
-		
-		if(x == 0)
-			firstPoint = startingPoint;
-		else if(x == [points count] - 1)
-			lastPoint = startingPoint;
-		
+	{		
 		if(x + 1 < [points count])
 		{
 			CGPoint endPoint = CGPointFromString(points[x + 1]);
@@ -358,8 +350,8 @@ unichar const invalidCommand		= '*';
 	
 	if(isPolygon)
 	{
-		[polygon moveToPoint:lastPoint];
 		[polygon addLineToPoint:firstPoint];
+		[polygon closePath];
 	}
 	
 	return polygon;
@@ -404,7 +396,7 @@ unichar const invalidCommand		= '*';
 	
 	if ([stringTokens count] == 0) {
 		
-		NSLog(@"*** PocketSVG Error: Path string is empty of tokens");
+		NSLog(@"*** Error: Path string is empty of tokens");
 		return nil;
 	}
 	
@@ -415,7 +407,7 @@ unichar const invalidCommand		= '*';
 	unichar command = [stringToken characterAtIndex:0];
 	while (index < [stringTokens count]) {
 		if (![_commandSet characterIsMember:command]) {
-			NSLog(@"*** PocketSVG Error: Path string parse error: found float where expecting command at token %d in path %s.",
+			NSLog(@"*** Error: Path string parse error: found float where expecting command at token %d in path %s.",
 				  index, [attr cStringUsingEncoding:NSUTF8StringEncoding]);
 			return nil;
 		}
@@ -428,7 +420,7 @@ unichar const invalidCommand		= '*';
 			NSScanner *floatScanner = [NSScanner scannerWithString:stringToken];
 			float value;
 			if (![floatScanner scanFloat:&value]) {
-				NSLog(@"*** PocketSVG Error: Path string parse error: expected float or command at token %d (but found %s) in path %s.",
+				NSLog(@"*** Error: Path string parse error: expected float or command at token %d (but found %s) in path %s.",
 					  index, [stringToken cStringUsingEncoding:NSUTF8StringEncoding], [attr cStringUsingEncoding:NSUTF8StringEncoding]);
 				return nil;
 			}
@@ -458,7 +450,7 @@ unichar const invalidCommand		= '*';
 	while (index < [token valence]) {
 		CGFloat x = [token parameter:index] + ([token command] == 'm' ? _lastPoint.x : 0);
 		if (++index == [token valence]) {
-			NSLog(@"*** PocketSVG Error: Invalid parameter count in M style token");
+			NSLog(@"*** Error: Invalid parameter count in M style token");
 			return;
 		}
 		CGFloat y = [token parameter:index] + ([token command] == 'm' ? _lastPoint.y : 0);
@@ -488,7 +480,7 @@ unichar const invalidCommand		= '*';
 			case 'L':
 				x += [token parameter:index];
 				if (++index == [token valence]) {
-					NSLog(@"*** PocketSVG Error: Invalid parameter count in L style token");
+					NSLog(@"*** Error: Invalid parameter count in L style token");
 					return;
 				}
 				y += [token parameter:index];
@@ -506,7 +498,7 @@ unichar const invalidCommand		= '*';
 				x = _lastPoint.x;
 				break;
 			default:
-				NSLog(@"*** PocketSVG Error: Unrecognised L style command.");
+				NSLog(@"*** Error: Unrecognised L style command.");
 				return;
 		}
 		_lastPoint = CGPointMake(x, y);
@@ -537,14 +529,14 @@ unichar const invalidCommand		= '*';
 	}
 	
 	if (index == 0) {
-		NSLog(@"*** PocketSVG Error: Insufficient parameters for C command");
+		NSLog(@"*** Error: Insufficient parameters for C command");
 	}
 }
 
 - (void)appendSVGSCommand:(Token *)token
 {
 	if (!_validLastControlPoint) {
-		NSLog(@"*** PocketSVG Error: Invalid last control point in S command");
+		NSLog(@"*** Error: Invalid last control point in S command");
 	}
 	
 	NSInteger index = 0;
@@ -566,7 +558,7 @@ unichar const invalidCommand		= '*';
 	}
 	
 	if (index == 0) {
-		NSLog(@"*** PocketSVG Error: Insufficient parameters for S command");
+		NSLog(@"*** Error: Insufficient parameters for S command");
 	}
 }
 
@@ -591,6 +583,7 @@ unichar const invalidCommand		= '*';
 			[pointsArray addObject:NSStringFromCGPoint(point)];
 		}
 	}
+	NSLog(@"%@", pointsArray);
 	
 	return pointsArray;
 }
@@ -662,7 +655,7 @@ unichar const invalidCommand		= '*';
 				alpha = [obj floatValue];
 			}
 			
-			NSString *hexString = [obj stringByReplacingOccurrencesOfString:@"#" withString:@""];
+			NSString *hexString = [obj substringFromIndex:1];
 			UIColor *color = [UIColor colorWithHexString:hexString withAlpha:alpha];
 			[color setStroke];
 			
@@ -683,8 +676,9 @@ unichar const invalidCommand		= '*';
 			}
 			else
 			{
-				NSString *hexString = [obj stringByReplacingOccurrencesOfString:@"#" withString:@""];
+				NSString *hexString = [obj substringFromIndex:1];
 				UIColor *color = [UIColor colorWithHexString:hexString withAlpha:alpha];
+
 				[color setFill];
 			}
 			
@@ -692,14 +686,16 @@ unichar const invalidCommand		= '*';
 		}
 	}];
 	
+	if(fill)
+	{
+		[bezierPath fill];
+	}
+	
 	if(stroke)
 	{
 		bezierPath.lineWidth = lineWidth;
 		[bezierPath stroke];
-	}
-	
-	if(fill)
-		[bezierPath fill];
+	}	
 }
 
 @end

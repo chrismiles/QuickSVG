@@ -54,13 +54,16 @@
 {
 	if(_view == nil)
 	{
-		self.view = [[UIView alloc] init];
-		_view.frame = _canvasFrame;
-		
-		for(QuickSVGInstance *instance in self.instances)
-		{
-			[_view addSubview:instance];
-		}
+		_view = [[UIView alloc] initWithFrame:_canvasFrame];
+	}
+	else
+	{
+		[_view.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+	}
+	
+	for(QuickSVGInstance *instance in self.instances)
+	{
+		[_view addSubview:instance];
 	}
 	
 	return _view;
@@ -74,7 +77,9 @@
 	if (url == nil)
         return NO;
 	
-	self.view = nil;
+	[_instances removeAllObjects];
+	[_groups removeAllObjects];
+	[_symbols removeAllObjects];
     
 	[_symbols removeAllObjects];
     self.xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:url];

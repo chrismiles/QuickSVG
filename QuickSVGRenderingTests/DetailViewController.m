@@ -41,7 +41,6 @@
 		
 	if(success)
 	{
-		[_quickSVG.view removeFromSuperview];
 		[_scrollView addSubview:_quickSVG.view];
 		
 		_scrollView.contentSize = _quickSVG.canvasFrame.size;

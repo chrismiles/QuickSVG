@@ -37,9 +37,6 @@
 	self.navigationItem.leftBarButtonItem = self.editButtonItem;
 	self.tableView.delegate = self;
 	
-	UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
-	self.navigationItem.rightBarButtonItem = addButton;
-	
 	_objects = [[NSMutableArray alloc] init];
 	
 	for(NSString *path in [[NSBundle mainBundle] pathsForResourcesOfType:@"svg" inDirectory:@"Sample SVGs"])
