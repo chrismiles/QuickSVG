@@ -143,7 +143,10 @@ unichar const invalidCommand		= '*';
 			{
 				CATextLayer *textLayer = [self addTextWithAttributes:element[shapeKey]];
 				textLayer.affineTransform = CGAffineTransformConcat(textLayer.affineTransform, transform);
+				[self.layer setShouldRasterize:NO];
 				[self.layer addSublayer:textLayer];
+				
+				textLayer.frame = CGRectIntegral(textLayer.frame);
 			}
 				break;
 			case QuickSVGElementTypeUnknown:
