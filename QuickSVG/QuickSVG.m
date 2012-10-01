@@ -9,7 +9,6 @@
 #import "QuickSVG.h"
 
 #define DEBUG 1
-#define kTransformKey @"matrix"
 
 @interface QuickSVG ()
 
@@ -17,6 +16,7 @@
 @property (nonatomic, strong) NSMutableArray *currentSymbolElements;
 @property (nonatomic, assign) BOOL currentlyParsingASymbol;
 @property (nonatomic, strong) NSMutableArray *parsedSymbolInstances;
+@property (nonatomic, strong) NSMutableString *currentElementStringValue;
 
 @end
 
@@ -41,7 +41,8 @@
 		self.currentSymbolElements = [[NSMutableArray alloc] init];
 		self.parsedSymbolInstances = [[NSMutableArray alloc] init];
 		self.instances = [[NSMutableArray alloc] init];
-		self.groups = [[NSMutableArray alloc] init];		
+		self.groups = [[NSMutableArray alloc] init];
+		self.currentElementStringValue = [[NSMutableString alloc] initWithCapacity:50];
 	}
 	
 	return self;
@@ -126,60 +127,6 @@
 	return symbol;
 }
 
-- (void) resolveLinkedSymbolPaths
-{
-	[_symbols enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop)
-	 {
-		 QuickSVGSymbol *symbol = (QuickSVGSymbol *) obj;
-		 __block NSMutableArray *resolvedElements = [NSMutableArray arrayWithArray:symbol.elements];
-		 
-		 int x = 0;
-		 for(NSDictionary *element in symbol.elements)
-		 {
-			 if([[[element allKeys] objectAtIndex:0] isEqualToString:@"use"])
-			 {
-				 NSArray *newElements = [self instanceFromLinkedSymbolWithAttributes:element[@"use"]];
-				 [resolvedElements removeObject:element];
-				 [resolvedElements addObjectsFromArray:newElements];
-			 }
-			 
-			 x++;
-		 }
-		 
-		 [symbol.elements removeAllObjects];
-		 [symbol.elements addObjectsFromArray:resolvedElements];
-	 }];
-}
-
-- (NSArray *) instanceFromLinkedSymbolWithAttributes:(NSDictionary *) attributes
-{
-	__block NSMutableArray *resolvedSymbolElements = [NSMutableArray array];
-	__block NSString *symbolRef = [attributes[@"xlink:href"] substringFromIndex:1];
-	
-	[_symbols enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop)
-	 {
-		 NSComparisonResult result = [symbolRef caseInsensitiveCompare:key];
-		 
-		 if(result == NSOrderedSame)
-		 {
-			 QuickSVGSymbol *symbol = (QuickSVGSymbol *) obj;
-			 
-			 for(NSDictionary *pathData in symbol.elements)
-			 {
-				 NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:attributes];
-				 [data addEntriesFromDictionary:[[pathData allValues] objectAtIndex:0]];
-				 
-				 CGAffineTransform transform = [self transformForSVGMatrix:data];
-				 [data setObject:[NSValue valueWithCGAffineTransform:transform] forKey:@"transform"];
-				 
-				 [resolvedSymbolElements addObject:@{[[pathData allKeys] objectAtIndex:0] : data}];
-			 }
-		 }
-	 }];
-	
-	return resolvedSymbolElements;
-}
-
 - (void) addInstanceOfSymbol:(NSDictionary *) attributes
 {
 	__block NSString *symbolRef = [attributes[@"xlink:href"] substringFromIndex:1];
@@ -203,9 +150,9 @@
 - (QuickSVGInstance *) instanceWithAttributes:(NSDictionary *) attributes
 {
 	CGRect frame = CGRectMake([attributes[@"x"] floatValue], [attributes[@"y"] floatValue], [attributes[@"width"] floatValue], [attributes[@"height"] floatValue]);
-	
+
 	QuickSVGInstance *instance = [[QuickSVGInstance alloc] initWithFrame:frame];
-	instance.transform = [self transformForSVGMatrix:attributes];
+	instance.attributes = attributes;
 	
 	return instance;
 }
@@ -227,7 +174,7 @@
 	{
 		[_parsedSymbolInstances addObject:attributeDict];
 	}
-	
+		
 	if(_currentlyParsingASymbol)
 	{
 		[_currentSymbolElements addObject:@{[elementName lowercaseString] : attributeDict}];
@@ -236,18 +183,31 @@
 
 - (void) parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
-	if(_currentlyParsingASymbol && ([elementName isEqualToString:@"symbol"]))
+	if(_currentlyParsingASymbol && [elementName isEqualToString:@"text"])
+	{
+		NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:[_currentSymbolElements lastObject][elementName]];
+		data[@"text"] = [NSString stringWithString:_currentElementStringValue];
+		[_currentSymbolElements replaceObjectAtIndex:[_currentSymbolElements count] - 1 withObject:@{[elementName lowercaseString] : data}];
+		[_currentElementStringValue setString:@""];
+	}
+	
+	if(_currentlyParsingASymbol && [elementName isEqualToString:@"symbol"])
 	{
 		[self addCurrentElementsToCurrentSymbol];
 		[_currentSymbolElements removeAllObjects];
 		_currentlyParsingASymbol = NO;
 	}
+	
+	
+}
+
+- (void) parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
+{
+	[self.currentElementStringValue appendString:[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
 }
 
 - (void) parserDidEndDocument:(NSXMLParser *)parser
-{
-	[self resolveLinkedSymbolPaths];
-	
+{	
 	for(NSDictionary *data in _parsedSymbolInstances)
 	{
 		[self addInstanceOfSymbol:data];
@@ -279,16 +239,6 @@
 {
 	NSArray *pieces = [viewBox componentsSeparatedByString:@" "];
 	return CGRectMake([pieces[0] floatValue], [pieces[1] floatValue], [pieces[2] floatValue], [pieces[3] floatValue]);
-}
-
-- (CGAffineTransform ) transformForSVGMatrix:(NSDictionary *) attributes
-{
-	NSString *transformString = [attributes[@"transform"] substringWithRange:NSMakeRange([kTransformKey length] + 1, [attributes[@"transform"] length] - [kTransformKey length] - 2)];
-	NSArray *c = [transformString componentsSeparatedByString:@" "];
-	
-	CGAffineTransform transform = CGAffineTransformMake([c[0] floatValue], [c[1] floatValue], [c[2] floatValue], [c[3] floatValue], [c[4] floatValue], [c[5] floatValue]);
-	
-	return transform;
 }
 
 @end

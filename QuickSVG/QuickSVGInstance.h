@@ -12,5 +12,13 @@
 
 @property (nonatomic, strong) QuickSVGSymbol *symbol;
 @property (nonatomic, strong) id object;
+@property (nonatomic, strong) NSDictionary *attributes;
 
 @end
+
+
+
+
+
+
+#warning It's redrawing everytime you zoom, every path
