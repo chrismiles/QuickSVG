@@ -22,15 +22,15 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		C90061B51615C5BC000BD559 /* QuickSVGSymbol.h in Headers */ = {isa = PBXBuildFile; fileRef = C90061B31615C5BC000BD559 /* QuickSVGSymbol.h */; };
+		C90061B51615C5BC000BD559 /* QuickSVGSymbol.h in Headers */ = {isa = PBXBuildFile; fileRef = C90061B31615C5BC000BD559 /* QuickSVGSymbol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C90061B61615C5BC000BD559 /* QuickSVGSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = C90061B41615C5BC000BD559 /* QuickSVGSymbol.m */; };
 		C90061B71615C5BC000BD559 /* QuickSVGSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = C90061B41615C5BC000BD559 /* QuickSVGSymbol.m */; };
 		C90061B81615C5BC000BD559 /* QuickSVGSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = C90061B41615C5BC000BD559 /* QuickSVGSymbol.m */; };
-		C90061BC1615C5CD000BD559 /* QuickSVGSymbolElement.h in Headers */ = {isa = PBXBuildFile; fileRef = C90061BA1615C5CD000BD559 /* QuickSVGSymbolElement.h */; };
+		C90061BC1615C5CD000BD559 /* QuickSVGSymbolElement.h in Headers */ = {isa = PBXBuildFile; fileRef = C90061BA1615C5CD000BD559 /* QuickSVGSymbolElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C90061BD1615C5CD000BD559 /* QuickSVGSymbolElement.m in Sources */ = {isa = PBXBuildFile; fileRef = C90061BB1615C5CD000BD559 /* QuickSVGSymbolElement.m */; };
 		C90061BE1615C5CD000BD559 /* QuickSVGSymbolElement.m in Sources */ = {isa = PBXBuildFile; fileRef = C90061BB1615C5CD000BD559 /* QuickSVGSymbolElement.m */; };
 		C90061BF1615C5CD000BD559 /* QuickSVGSymbolElement.m in Sources */ = {isa = PBXBuildFile; fileRef = C90061BB1615C5CD000BD559 /* QuickSVGSymbolElement.m */; };
-		C90061C21615C5DE000BD559 /* QuickSVGInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = C90061C01615C5DE000BD559 /* QuickSVGInstance.h */; };
+		C90061C21615C5DE000BD559 /* QuickSVGInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = C90061C01615C5DE000BD559 /* QuickSVGInstance.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C90061C31615C5DE000BD559 /* QuickSVGInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = C90061C11615C5DE000BD559 /* QuickSVGInstance.m */; };
 		C90061C41615C5DE000BD559 /* QuickSVGInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = C90061C11615C5DE000BD559 /* QuickSVGInstance.m */; };
 		C90061C51615C5DE000BD559 /* QuickSVGInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = C90061C11615C5DE000BD559 /* QuickSVGInstance.m */; };
@@ -302,10 +302,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9090DAC1613642E001145EC /* QuickSVG.h in Headers */,
-				C9090DC716137E1A001145EC /* UIColor+Additions.h in Headers */,
 				C90061B51615C5BC000BD559 /* QuickSVGSymbol.h in Headers */,
 				C90061BC1615C5CD000BD559 /* QuickSVGSymbolElement.h in Headers */,
 				C90061C21615C5DE000BD559 /* QuickSVGInstance.h in Headers */,
+				C9090DC716137E1A001145EC /* UIColor+Additions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -602,6 +602,7 @@
 		C9090D4D161316BC001145EC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/framework";
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
 				DSTROOT = /tmp/QuickSVG.dst;
@@ -618,6 +619,7 @@
 		C9090D4E161316BC001145EC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/framework";
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
 				DSTROOT = /tmp/QuickSVG.dst;

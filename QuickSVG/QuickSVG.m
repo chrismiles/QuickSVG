@@ -7,6 +7,8 @@
 //
 
 #import "QuickSVG.h"
+#import "QuickSVGSymbol.h"
+#import "QuickSVGInstance.h"
 
 #define DEBUG 1
 
@@ -153,6 +155,7 @@
 
 	QuickSVGInstance *instance = [[QuickSVGInstance alloc] initWithFrame:frame];
 	instance.attributes = attributes;
+	instance.quickSVG = self;
 	
 	return instance;
 }

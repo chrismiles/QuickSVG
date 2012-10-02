@@ -7,6 +7,7 @@
 //
 
 #import "QuickSVGInstance.h"
+#import "QuickSVG.h"
 #import "UIColor+Additions.h"
 
 #define kTransformKey @"matrix"
@@ -97,8 +98,20 @@ unichar const invalidCommand		= '*';
 
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-	self.layer.borderColor = [UIColor redColor].CGColor;
-	self.layer.borderWidth = self.layer.borderWidth == 0 ? 2 : 0;
+	BOOL shouldSelect = YES;
+	
+	if(_quickSVG.delegate == nil)
+		return;
+	
+	if([_quickSVG.delegate respondsToSelector:@selector(quickSVG:shouldSelectInstance:)])
+	{
+		shouldSelect = [_quickSVG.delegate quickSVG:_quickSVG shouldSelectInstance:self];
+	}
+	
+	if(shouldSelect)
+	{
+		[_quickSVG.delegate quickSVG:_quickSVG didSelectInstance:self];
+	}
 }
 
 - (void) drawRect:(CGRect)rect
@@ -143,7 +156,6 @@ unichar const invalidCommand		= '*';
 			{
 				CATextLayer *textLayer = [self addTextWithAttributes:element[shapeKey]];
 				textLayer.affineTransform = CGAffineTransformConcat(textLayer.affineTransform, transform);
-				[self.layer setShouldRasterize:NO];
 				[self.layer addSublayer:textLayer];
 				
 				textLayer.frame = CGRectIntegral(textLayer.frame);
