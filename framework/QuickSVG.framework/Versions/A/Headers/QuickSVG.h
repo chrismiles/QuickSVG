@@ -27,6 +27,7 @@
 @property (nonatomic, strong) UIView *view;
 @property (nonatomic, assign) CGRect canvasFrame;
 
+- (id) initWithDelegate:(id <QuickSVGDelegate>) delegate;
 + (QuickSVG *) svgFromURL:(NSURL *) url;
 - (BOOL) parseSVGFileWithURL:(NSURL *) url;
 
