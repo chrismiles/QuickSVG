@@ -10,11 +10,8 @@
 
 @protocol QuickSVGDelegate <NSObject>
 
-@optional
-- (BOOL) quickSVG:(QuickSVG *) quickSVG shouldSelectInstance:(QuickSVGInstance *) instance;
-
-@required
 - (void) quickSVG:(QuickSVG *) quickSVG didSelectInstance:(QuickSVGInstance *) instance;
+- (BOOL) quickSVG:(QuickSVG *) quickSVG shouldSelectInstance:(QuickSVGInstance *) instance;
 
 @end
 
