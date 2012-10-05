@@ -147,6 +147,11 @@
 			[_instances addObject:instance];
 		}
 	}];
+	
+	if(_delegate != nil && [_delegate respondsToSelector:@selector(quickSVG:didParseInstance:)])
+	{
+		[_delegate quickSVG:self didParseInstance:instance];
+	}
 }
 
 - (QuickSVGInstance *) instanceWithAttributes:(NSDictionary *) attributes
