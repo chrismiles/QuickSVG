@@ -24,6 +24,18 @@
 
 @implementation QuickSVG
 
+- (id) initWithDelegate:(id <QuickSVGDelegate>) delegate
+{
+	self = [super init];
+	
+	if(self)
+	{
+		self.delegate = delegate;
+	}
+	
+	return self;
+}
+
 + (QuickSVG *) svgFromURL:(NSURL *) url
 
 {
