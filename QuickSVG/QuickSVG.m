@@ -31,6 +31,12 @@
 	if(self)
 	{
 		self.delegate = delegate;
+		self.symbols = [[NSMutableDictionary alloc] init];
+		self.currentSymbolElements = [[NSMutableArray alloc] init];
+		self.parsedSymbolInstances = [[NSMutableArray alloc] init];
+		self.instances = [[NSMutableArray alloc] init];
+		self.groups = [[NSMutableArray alloc] init];
+		self.currentElementStringValue = [[NSMutableString alloc] initWithCapacity:50];
 	}
 	
 	return self;
@@ -43,23 +49,6 @@
 	[svg parseSVGFileWithURL:url];
 	
 	return svg;
-}
-
-- (id) init
-{
-	self = [super init];
-	
-	if(self){
-		
-		self.symbols = [[NSMutableDictionary alloc] init];
-		self.currentSymbolElements = [[NSMutableArray alloc] init];
-		self.parsedSymbolInstances = [[NSMutableArray alloc] init];
-		self.instances = [[NSMutableArray alloc] init];
-		self.groups = [[NSMutableArray alloc] init];
-		self.currentElementStringValue = [[NSMutableString alloc] initWithCapacity:50];
-	}
-	
-	return self;
 }
 
 #pragma mark -
@@ -171,7 +160,7 @@
 	CGRect frame = CGRectMake([attributes[@"x"] floatValue], [attributes[@"y"] floatValue], [attributes[@"width"] floatValue], [attributes[@"height"] floatValue]);
 
 	QuickSVGInstance *instance = [[QuickSVGInstance alloc] initWithFrame:frame];
-	instance.attributes = attributes;
+	[instance.attributes addEntriesFromDictionary:attributes];
 	instance.quickSVG = self;
 	
 	return instance;
@@ -192,7 +181,9 @@
 	}
 	else if([elementName isEqualToString:@"use"] && !_currentlyParsingASymbol)
 	{
+		NSLog(@"%@", attributeDict);
 		[_parsedSymbolInstances addObject:attributeDict];
+		NSLog(@"%@", _parsedSymbolInstances);
 	}
 		
 	if(_currentlyParsingASymbol)
@@ -217,8 +208,6 @@
 		[_currentSymbolElements removeAllObjects];
 		_currentlyParsingASymbol = NO;
 	}
-	
-	
 }
 
 - (void) parser:(NSXMLParser *)parser foundCharacters:(NSString *)string

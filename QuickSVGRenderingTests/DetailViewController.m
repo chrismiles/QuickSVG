@@ -9,6 +9,7 @@
 #import "DetailViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import <QuickSVG/QuickSVG.h>
+#import <QuickSVG/QuickSVGInstance.h>
 
 @interface DetailViewController ()
 
@@ -41,7 +42,12 @@
 		
 	if(success)
 	{
-		[_scrollView addSubview:_quickSVG.view];
+		[_scrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+		
+		for(QuickSVGInstance *instance in _quickSVG.instances)
+		{
+			[_scrollView addSubview:instance];
+		}
 		
 		_scrollView.contentSize = _quickSVG.canvasFrame.size;
 	}
@@ -104,9 +110,15 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
 		self.title = NSLocalizedString(@"Detail", @"Detail");
-		self.quickSVG = [[QuickSVG alloc] init];
+		self.quickSVG = [[QuickSVG alloc] initWithDelegate:self];
     }
     return self;
+}
+
+- (void) quickSVG:(QuickSVG *)quickSVG didSelectInstance:(QuickSVGInstance *)instance
+{
+	instance.attributes[@"fill"] = @"#4F99D3";
+	[instance setNeedsDisplay];
 }
 							
 #pragma mark - Split view

@@ -602,7 +602,6 @@
 		C9090D4D161316BC001145EC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/framework";
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
 				DSTROOT = /tmp/QuickSVG.dst;
@@ -619,7 +618,6 @@
 		C9090D4E161316BC001145EC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/framework";
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
 				DSTROOT = /tmp/QuickSVG.dst;

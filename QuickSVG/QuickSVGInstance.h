@@ -15,7 +15,8 @@
 @property (nonatomic, weak) QuickSVG *quickSVG;
 @property (nonatomic, strong) QuickSVGSymbol *symbol;
 @property (nonatomic, strong) id object;
-@property (nonatomic, strong) NSDictionary *attributes;
+@property (nonatomic, strong) NSMutableDictionary *attributes;
+@property (nonatomic, strong) UIBezierPath *shapePath;
 
 @end
 

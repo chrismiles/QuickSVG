@@ -149,7 +149,7 @@
 <use xlink:href="#Table_Chair"  width="18.75" height="23" x="-9.375" y="-11.5" transform="matrix(-1 0 0 -1 141.3745 86)" overflow="visible" enable-background="new    "/>
 <g>
 	
-		<use xlink:href="#Booth"  width="52.066" height="89" x="-26.033" y="-44.5" transform="matrix(1 0 0 -1 484 120.9995)" overflow="visible" enable-background="new    "/>
+		<use xlink:href="#Booth" fill="#666666"  width="52.066" height="89" x="-26.033" y="-44.5" transform="matrix(1 0 0 -1 484 120.9995)" overflow="visible" enable-background="new    "/>
 		<text transform="matrix(1 0 0 1 481.5 117.5)" font-family="'MyriadPro-Regular'" font-size="12" display="none">54</text>
 </g>
 </svg>

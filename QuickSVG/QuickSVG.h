@@ -12,7 +12,7 @@
 
 @optional
 - (BOOL) quickSVG:(QuickSVG *) quickSVG shouldSelectInstance:(QuickSVGInstance *) instance;
-- (void) quickSVG:(QuickSVG *) quickSVG didParseInstance:(QuickSVGInstance *)insance;
+- (void) quickSVG:(QuickSVG *) quickSVG didParseInstance:(QuickSVGInstance *)instance;
 
 @required
 - (void) quickSVG:(QuickSVG *) quickSVG didSelectInstance:(QuickSVGInstance *) instance;

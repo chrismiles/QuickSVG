@@ -91,6 +91,7 @@ unichar const invalidCommand		= '*';
 		[self reset];
 		_separatorSet = [NSCharacterSet characterSetWithCharactersInString:separatorCharString];
 		_commandSet = [NSCharacterSet characterSetWithCharactersInString:commandCharString];
+		self.attributes = [NSMutableDictionary dictionary];
 	}
 	
 	return self;
@@ -112,6 +113,10 @@ unichar const invalidCommand		= '*';
 	{
 		[_quickSVG.delegate quickSVG:_quickSVG didSelectInstance:self];
 	}
+	else
+	{
+		[super touchesBegan:touches withEvent:event];
+	}
 }
 
 - (void) drawRect:(CGRect)rect
@@ -119,6 +124,7 @@ unichar const invalidCommand		= '*';
 	NSArray *elements = [NSArray arrayWithArray:_symbol.elements];
 	
 	CGContextRef ctx = UIGraphicsGetCurrentContext();
+	CGContextClearRect(ctx, rect);
 	CGAffineTransform viewTransform = [self transformForSVGMatrix:_attributes];
 	self.transform = viewTransform;
 	
@@ -129,13 +135,14 @@ unichar const invalidCommand		= '*';
 	
 	CGAffineTransform transform = CGAffineTransformMakeTranslation(transX, transY);
 
+	self.shapePath = [UIBezierPath bezierPath];
+	
 	for(NSDictionary *element in elements)
 	{
 		if(![element isKindOfClass:[NSDictionary class]])
 			continue;
 		
 		UIBezierPath *path;
-		[path addClip];
 		
 		NSString *shapeKey = [[element allKeys] objectAtIndex:0];
 		QuickSVGElementType type = [self elementTypeForElement:element];
@@ -176,7 +183,12 @@ unichar const invalidCommand		= '*';
 			}
 			
 			[path applyTransform:transform];
-			[self applyStyleAttributes:element[shapeKey] toBezierPath:path];
+			
+			NSMutableDictionary *styles = [NSMutableDictionary dictionaryWithDictionary:element[shapeKey]];
+			[styles addEntriesFromDictionary:_attributes];
+			[self applyStyleAttributes:styles toBezierPath:path];
+			
+			[_shapePath appendPath:path];
 		}
 	}
 }
@@ -664,7 +676,9 @@ unichar const invalidCommand		= '*';
 	// Defaults
 	__block BOOL stroke = NO;
 	__block BOOL fill = NO;
-	__block CGFloat lineWidth = 1;
+	__block CGFloat fillAlpha = 1.0;
+	__block CGFloat strokeAlpha = 1.0;
+	__block CGFloat lineWidth = 1.0;
 	bezierPath.lineCapStyle = kCGLineCapSquare;
 	bezierPath.lineJoinStyle = kCGLineJoinMiter;
 	
@@ -716,26 +730,22 @@ unichar const invalidCommand		= '*';
 		}
 		else if([key isEqualToString:@"stroke"])
 		{
-			CGFloat alpha = 1.0f;
-			
 			if([key isEqualToString:@"stroke-opacity"])
 			{
-				alpha = [obj floatValue];
+				strokeAlpha = [obj floatValue];
 			}
 			
 			NSString *hexString = [obj substringFromIndex:1];
-			UIColor *color = [UIColor colorWithHexString:hexString withAlpha:alpha];
+			UIColor *color = [UIColor colorWithHexString:hexString withAlpha:1];
 			[color setStroke];
 			
 			stroke = YES;
 		}
 		else if([key isEqualToString:@"fill"])
-		{
-			CGFloat alpha = 1.0f;
-			
-			if([key isEqualToString:@"fill-opacity"])
+		{			
+			if([[attributes allKeys] containsObject:@"fill-opacity"])
 			{
-				alpha = [obj floatValue];
+				fillAlpha = [attributes[@"fill-opacity"] floatValue];
 			}
 			
 			if([attributes[@"fill"] isEqualToString:@"none"])
@@ -745,7 +755,7 @@ unichar const invalidCommand		= '*';
 			else
 			{
 				NSString *hexString = [obj substringFromIndex:1];
-				UIColor *color = [UIColor colorWithHexString:hexString withAlpha:alpha];
+				UIColor *color = [UIColor colorWithHexString:hexString withAlpha:1];
 
 				[color setFill];
 			}
@@ -754,15 +764,26 @@ unichar const invalidCommand		= '*';
 		}
 	}];
 	
+	if([[attributes allKeys] containsObject:@"enable-background"] && !fill)
+	{		
+		if([[attributes allKeys] containsObject:@"opacity"])
+		{
+			fillAlpha = [attributes[@"opacity"] floatValue];
+		}
+				
+		[UIColor colorWithWhite:0 alpha:fillAlpha];
+		fill = YES;
+	}
+	
 	if(fill)
 	{
-		[bezierPath fill];
+		[bezierPath fillWithBlendMode:kCGBlendModeNormal alpha:fillAlpha];
 	}
 	
 	if(stroke)
 	{
 		bezierPath.lineWidth = lineWidth;
-		[bezierPath stroke];
+		[bezierPath strokeWithBlendMode:kCGBlendModeNormal alpha:strokeAlpha];
 	}	
 }
 
