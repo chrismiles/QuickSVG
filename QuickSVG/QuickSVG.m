@@ -161,6 +161,8 @@
 
 	QuickSVGInstance *instance = [[QuickSVGInstance alloc] initWithFrame:frame];
 	[instance.attributes addEntriesFromDictionary:attributes];
+	CGAffineTransform viewTransform = [self transformForSVGMatrix:attributes];
+	instance.transform = viewTransform;
 	instance.quickSVG = self;
 	
 	return instance;
@@ -181,9 +183,7 @@
 	}
 	else if([elementName isEqualToString:@"use"] && !_currentlyParsingASymbol)
 	{
-		NSLog(@"%@", attributeDict);
 		[_parsedSymbolInstances addObject:attributeDict];
-		NSLog(@"%@", _parsedSymbolInstances);
 	}
 		
 	if(_currentlyParsingASymbol)
@@ -215,11 +215,24 @@
 	[self.currentElementStringValue appendString:[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
 }
 
+- (void) parserDidStartDocument:(NSXMLParser *)parser
+{
+	if(_delegate != nil && [_delegate respondsToSelector:@selector(quickSVGWillParse:)])
+	{
+		[_delegate quickSVGWillParse:self];
+	}
+}
+
 - (void) parserDidEndDocument:(NSXMLParser *)parser
-{	
+{
 	for(NSDictionary *data in _parsedSymbolInstances)
 	{
 		[self addInstanceOfSymbol:data];
+	}
+	
+	if(_delegate != nil && [_delegate respondsToSelector:@selector(quickSVGDidParse:)])
+	{
+		[_delegate quickSVGDidParse:self];
 	}
 }
 

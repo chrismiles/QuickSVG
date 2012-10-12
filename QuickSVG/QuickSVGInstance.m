@@ -19,6 +19,19 @@ NSString* const separatorCharString = @"-,CcMmLlHhVvZzqQaAsS";
 NSString* const commandCharString	= @"CcMmLlHhVvZzqQaAsS";
 unichar const invalidCommand		= '*';
 
+@interface QuickSVGTiledLayer : CATiledLayer
+
+@end
+
+@implementation QuickSVGTiledLayer
+
++ (CFTimeInterval) fadeDuration
+{
+	return 0.01;
+}
+
+@end
+
 @interface Token : NSObject {
 @private
 	unichar			command;
@@ -74,6 +87,7 @@ unichar const invalidCommand		= '*';
 @property (nonatomic, assign) BOOL validLastControlPoint;
 @property (nonatomic, strong) NSMutableArray *tokens;
 @property (nonatomic, strong) UIBezierPath *bezierPathBeingDrawn;
+@property (nonatomic, assign) BOOL drawn;
 
 @end
 
@@ -84,9 +98,7 @@ unichar const invalidCommand		= '*';
 	self = [super initWithFrame:frame];
 	
 	if(self)
-	{
-		self.backgroundColor = [UIColor clearColor];
-		
+	{		
 		_pathScale = 0;
 		[self reset];
 		_separatorSet = [NSCharacterSet characterSetWithCharactersInString:separatorCharString];
@@ -119,22 +131,17 @@ unichar const invalidCommand		= '*';
 	}
 }
 
-- (void) drawRect:(CGRect)rect
+- (void) addElements
 {
 	NSArray *elements = [NSArray arrayWithArray:_symbol.elements];
 	
 	CGContextRef ctx = UIGraphicsGetCurrentContext();
-	CGContextClearRect(ctx, rect);
-	CGAffineTransform viewTransform = [self transformForSVGMatrix:_attributes];
-	self.transform = viewTransform;
-	
-	CGContextClearRect(ctx, rect);
-	
+		
 	CGFloat transX = _symbol.frame.origin.x * -1;
 	CGFloat transY = _symbol.frame.origin.y * -1;
 	
 	CGAffineTransform transform = CGAffineTransformMakeTranslation(transX, transY);
-
+	
 	self.shapePath = [UIBezierPath bezierPath];
 	
 	for(NSDictionary *element in elements)
@@ -146,6 +153,8 @@ unichar const invalidCommand		= '*';
 		
 		NSString *shapeKey = [[element allKeys] objectAtIndex:0];
 		QuickSVGElementType type = [self elementTypeForElement:element];
+		
+		CAShapeLayer *shapeLayer = [CAShapeLayer layer];
 		
 		switch (type) {
 			case QuickSVGElementTypeBasicShape:
@@ -163,9 +172,8 @@ unichar const invalidCommand		= '*';
 			{
 				CATextLayer *textLayer = [self addTextWithAttributes:element[shapeKey]];
 				textLayer.affineTransform = CGAffineTransformConcat(textLayer.affineTransform, transform);
-				[self.layer addSublayer:textLayer];
+				[textLayer renderInContext:ctx];
 				
-				textLayer.frame = CGRectIntegral(textLayer.frame);
 			}
 				break;
 			case QuickSVGElementTypeUnknown:
@@ -173,7 +181,7 @@ unichar const invalidCommand		= '*';
 				// NSLog(@"**** Invalid element type: %@", element);
 				break;
 		}
-				
+		
 		if(path != nil)
 		{
 			if([[element[shapeKey] allKeys] containsObject:@"transform"] && [element[shapeKey][@"transform"] isKindOfClass:[NSValue class]])
@@ -186,9 +194,12 @@ unichar const invalidCommand		= '*';
 			
 			NSMutableDictionary *styles = [NSMutableDictionary dictionaryWithDictionary:element[shapeKey]];
 			[styles addEntriesFromDictionary:_attributes];
-			[self applyStyleAttributes:styles toBezierPath:path];
 			
-			[_shapePath appendPath:path];
+			shapeLayer.path = path.CGPath;
+			[self applyStyleAttributes:styles toShapeLayer:shapeLayer];
+			
+			shapeLayer.backgroundColor = [UIColor blueColor].CGColor;
+			[self.layer addSublayer:shapeLayer];
 		}
 	}
 }
@@ -355,7 +366,9 @@ unichar const invalidCommand		= '*';
 	
 	[self reset];
 	
-	for (Token *thisToken in _tokens) {
+	NSArray *tokens = [NSArray arrayWithArray:_tokens];
+	
+	for (Token *thisToken in tokens) {
 		unichar command = [thisToken command];
 		switch (command) {
 			case 'M':
@@ -671,16 +684,18 @@ unichar const invalidCommand		= '*';
 #pragma mark -
 #pragma mark Shape Styling
 
-- (void) applyStyleAttributes:(NSDictionary *) attributes toBezierPath:(UIBezierPath *) bezierPath
+- (void) applyStyleAttributes:(NSDictionary *) attributes toShapeLayer:(CAShapeLayer *) shapeLayer
 {
 	// Defaults
 	__block BOOL stroke = NO;
 	__block BOOL fill = NO;
+	__block UIColor *fillColor = [UIColor blackColor];
+	__block UIColor *strokeColor = [UIColor blackColor];
 	__block CGFloat fillAlpha = 1.0;
 	__block CGFloat strokeAlpha = 1.0;
 	__block CGFloat lineWidth = 1.0;
-	bezierPath.lineCapStyle = kCGLineCapSquare;
-	bezierPath.lineJoinStyle = kCGLineJoinMiter;
+	shapeLayer.lineCap = kCALineCapSquare;
+	shapeLayer.lineJoin = kCALineJoinMiter;
 	
 	[attributes enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
 		
@@ -692,15 +707,15 @@ unichar const invalidCommand		= '*';
 		{
 			if([obj isEqualToString:@"butt"])
 			{
-				bezierPath.lineCapStyle = kCGLineCapButt;
+				shapeLayer.lineCap = kCALineCapButt;
 			}
 			else if([obj isEqualToString:@"round"])
 			{
-				bezierPath.lineCapStyle = kCGLineCapRound;
+				shapeLayer.lineCap = kCALineCapRound;
 			}
 			else if([obj isEqualToString:@"square"])
 			{
-				bezierPath.lineCapStyle = kCGLineCapSquare;
+				shapeLayer.lineCap = kCALineCapSquare;
 			}
 		}
 		else if([key isEqualToString:@"stroke-dasharray"])
@@ -708,24 +723,23 @@ unichar const invalidCommand		= '*';
 			NSArray *pieces = [attributes[@"stroke-dasharray"] componentsSeparatedByString:@","];
 			int a = [pieces[0] intValue];
 			int b = [pieces[1] intValue];
-			
-			const float p[2] = {a,b};
-			
-			[bezierPath setLineDash:p count:2 phase:0.3];
+									
+			shapeLayer.lineDashPhase = 0.3;
+			shapeLayer.lineDashPattern = @[[NSNumber numberWithInt:a], [NSNumber numberWithInt:b]];
 		}
 		else if([key isEqualToString:@"stroke-linejoin"])
 		{
 			if([obj isEqualToString:@"bevel"])
 			{
-				bezierPath.lineJoinStyle = kCGLineJoinBevel;
+				shapeLayer.lineJoin = kCALineJoinBevel;
 			}
 			else if([obj isEqualToString:@"round"])
 			{
-				bezierPath.lineJoinStyle = kCGLineJoinRound;
+				shapeLayer.lineJoin = kCALineJoinRound;
 			}
 			else if([obj isEqualToString:@"miter"])
 			{
-				bezierPath.lineJoinStyle = kCGLineJoinMiter;
+				shapeLayer.lineJoin = kCALineJoinMiter;
 			}
 		}
 		else if([key isEqualToString:@"stroke"])
@@ -736,8 +750,7 @@ unichar const invalidCommand		= '*';
 			}
 			
 			NSString *hexString = [obj substringFromIndex:1];
-			UIColor *color = [UIColor colorWithHexString:hexString withAlpha:1];
-			[color setStroke];
+			strokeColor = [UIColor colorWithHexString:hexString withAlpha:1];
 			
 			stroke = YES;
 		}
@@ -750,17 +763,15 @@ unichar const invalidCommand		= '*';
 			
 			if([attributes[@"fill"] isEqualToString:@"none"])
 			{
-				[[UIColor clearColor] set];
+				fill = NO;
 			}
 			else
 			{
 				NSString *hexString = [obj substringFromIndex:1];
-				UIColor *color = [UIColor colorWithHexString:hexString withAlpha:1];
-
-				[color setFill];
+				fillColor = [UIColor colorWithHexString:hexString withAlpha:1];
+				
+				fill = YES;
 			}
-			
-			fill = YES;
 		}
 	}];
 	
@@ -771,23 +782,32 @@ unichar const invalidCommand		= '*';
 			fillAlpha = [attributes[@"opacity"] floatValue];
 		}
 				
-		[UIColor colorWithWhite:0 alpha:fillAlpha];
+		[UIColor colorWithWhite:0 alpha:1];
 		fill = YES;
 	}
 	
-	if(fill)
-	{
-		[bezierPath fillWithBlendMode:kCGBlendModeNormal alpha:fillAlpha];
-	}
+	shapeLayer.fillColor = fill ? fillColor.CGColor : nil;
 	
 	if(stroke)
 	{
-		bezierPath.lineWidth = lineWidth;
-		[bezierPath strokeWithBlendMode:kCGBlendModeNormal alpha:strokeAlpha];
+		shapeLayer.strokeColor = strokeColor.CGColor;
+		shapeLayer.lineWidth = lineWidth;
 	}	
 }
 
+#pragma KVO
+- (void) addAttribute:(NSDictionary *) attributes andObserveKey:(NSString *) key forObject:(id) object
+{
+	[_attributes addObserver:self forKeyPath:key options:NSKeyValueObservingOptionNew context:NULL];
+}
 
+- (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+	[self setNeedsDisplay];
+}
+
+
+#pragma Utilities
 
 - (CGAffineTransform ) transformForSVGMatrix:(NSDictionary *) attributes
 {

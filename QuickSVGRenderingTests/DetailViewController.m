@@ -46,9 +46,11 @@
 		
 		for(QuickSVGInstance *instance in _quickSVG.instances)
 		{
+			[instance addElements];
 			[_scrollView addSubview:instance];
 		}
 		
+		_scrollView.backgroundColor = [UIColor blackColor];
 		_scrollView.contentSize = _quickSVG.canvasFrame.size;
 	}
 }

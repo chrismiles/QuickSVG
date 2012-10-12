@@ -18,11 +18,7 @@
 @property (nonatomic, strong) NSMutableDictionary *attributes;
 @property (nonatomic, strong) UIBezierPath *shapePath;
 
+- (void) addElements;
+- (CGAffineTransform ) transformForSVGMatrix:(NSDictionary *) attributes;
+
 @end
-
-
-
-
-
-
-#warning It's redrawing everytime you zoom, every path
