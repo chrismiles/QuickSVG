@@ -20,4 +20,29 @@
 	return symbol;
 }
 
+- (void) encodeWithCoder:(NSCoder *)aCoder
+{
+	[aCoder encodeObject:_elements forKey:@"elements"];
+	[aCoder encodeObject:_title forKey:@"title"];
+	[aCoder encodeObject:_bezierPath forKey:@"bezierPath"];
+	[aCoder encodeObject:@(_type) forKey:@"type"];
+	[aCoder encodeCGRect:self.frame forKey:@"frame"];
+}
+
+- (id) initWithCoder:(NSCoder *)aDecoder
+{
+	self = [QuickSVGSymbol symbol];
+	
+	if(self)
+	{
+		self.elements = [aDecoder decodeObjectForKey:@"elements"];
+		self.title = [aDecoder decodeObjectForKey:@"title"];
+		self.bezierPath = [aDecoder decodeObjectForKey:@"bezierPath"];
+		self.type = [[aDecoder decodeObjectForKey:@"type"] intValue];
+		self.frame = [aDecoder decodeCGRectForKey:@"frame"];
+	}
+	
+	return self;
+}
+
 @end

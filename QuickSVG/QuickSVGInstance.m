@@ -131,9 +131,30 @@ unichar const invalidCommand		= '*';
 	}
 }
 
+- (void) setSymbol:(QuickSVGSymbol *)symbol
+{
+	_symbol = symbol;
+	[self addElements];
+}
+
+- (void) layoutSubviews
+{
+	CGFloat scale = self.frame.size.width / [_shapePath bounds].size.width;
+	
+	for(CAShapeLayer *l in self.layer.sublayers){
+		
+		l.affineTransform = CGAffineTransformMakeScale(scale, scale);
+	}
+}
+
 - (void) addElements
 {
 	NSArray *elements = [NSArray arrayWithArray:_symbol.elements];
+	
+	if([elements count] == 0)
+		return;
+	
+	[self.layer.sublayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
 	
 	CGContextRef ctx = UIGraphicsGetCurrentContext();
 		
@@ -142,6 +163,7 @@ unichar const invalidCommand		= '*';
 	
 	CGAffineTransform transform = CGAffineTransformMakeTranslation(transX, transY);
 	
+	[self.layer.sublayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
 	self.shapePath = [UIBezierPath bezierPath];
 	
 	for(NSDictionary *element in elements)
@@ -155,6 +177,7 @@ unichar const invalidCommand		= '*';
 		QuickSVGElementType type = [self elementTypeForElement:element];
 		
 		CAShapeLayer *shapeLayer = [CAShapeLayer layer];
+		shapeLayer.needsDisplayOnBoundsChange = YES;
 		
 		switch (type) {
 			case QuickSVGElementTypeBasicShape:
@@ -198,10 +221,13 @@ unichar const invalidCommand		= '*';
 			shapeLayer.path = path.CGPath;
 			[self applyStyleAttributes:styles toShapeLayer:shapeLayer];
 			
-			shapeLayer.backgroundColor = [UIColor blueColor].CGColor;
 			[self.layer addSublayer:shapeLayer];
+			
+			[_shapePath appendPath:path];
 		}
 	}
+	
+	_drawn = YES;
 }
 
 - (QuickSVGElementType) elementTypeForElement:(NSDictionary *) element
@@ -721,8 +747,10 @@ unichar const invalidCommand		= '*';
 		else if([key isEqualToString:@"stroke-dasharray"])
 		{
 			NSArray *pieces = [attributes[@"stroke-dasharray"] componentsSeparatedByString:@","];
+			
+			
 			int a = [pieces[0] intValue];
-			int b = [pieces[1] intValue];
+			int b = [pieces count] > 1 ? [pieces[1] intValue] : a;
 									
 			shapeLayer.lineDashPhase = 0.3;
 			shapeLayer.lineDashPattern = @[[NSNumber numberWithInt:a], [NSNumber numberWithInt:b]];
@@ -773,6 +801,8 @@ unichar const invalidCommand		= '*';
 				fill = YES;
 			}
 		}
+		
+		[self addAttribute:nil andObserveKey:key forObject:nil];
 	}];
 	
 	if([[attributes allKeys] containsObject:@"enable-background"] && !fill)
@@ -798,12 +828,14 @@ unichar const invalidCommand		= '*';
 #pragma KVO
 - (void) addAttribute:(NSDictionary *) attributes andObserveKey:(NSString *) key forObject:(id) object
 {
-	[_attributes addObserver:self forKeyPath:key options:NSKeyValueObservingOptionNew context:NULL];
+	if(!_drawn)
+		[_attributes addObserver:self forKeyPath:key options:NSKeyValueObservingOptionNew context:NULL];
 }
 
 - (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-	[self setNeedsDisplay];
+	if(![_attributes[keyPath] isEqual:change[keyPath]])
+		[self addElements];
 }
 
 
@@ -817,6 +849,31 @@ unichar const invalidCommand		= '*';
 	CGAffineTransform transform = CGAffineTransformMake([c[0] floatValue], [c[1] floatValue], [c[2] floatValue], [c[3] floatValue], [c[4] floatValue], [c[5] floatValue]);
 	
 	return transform;
+}
+
+- (void) encodeWithCoder:(NSCoder *)aCoder
+{
+	[aCoder encodeObject:_symbol forKey:@"symbol"];
+	[aCoder encodeObject:_attributes forKey:@"attributes"];
+	[aCoder encodeObject:_shapePath forKey:@"shapePath"];
+	[aCoder encodeCGRect:self.frame forKey:@"frame"];
+	[aCoder encodeCGAffineTransform:self.transform forKey:@"transform"];
+}
+
+- (id) initWithCoder:(NSCoder *)aDecoder
+{
+	self = [[QuickSVGInstance alloc] initWithFrame:CGRectZero];
+	
+	if(self)
+	{
+		self.attributes = [aDecoder decodeObjectForKey:@"attributes"];
+		self.shapePath = [aDecoder decodeObjectForKey:@"shapePath"];
+		self.frame = [aDecoder decodeCGRectForKey:@"frame"];
+		self.transform = [aDecoder decodeCGAffineTransformForKey:@"transform"];
+		self.symbol = [aDecoder decodeObjectForKey:@"symbol"];
+	}
+	
+	return self;
 }
 
 @end

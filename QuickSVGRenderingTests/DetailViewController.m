@@ -46,7 +46,6 @@
 		
 		for(QuickSVGInstance *instance in _quickSVG.instances)
 		{
-			[instance addElements];
 			[_scrollView addSubview:instance];
 		}
 		

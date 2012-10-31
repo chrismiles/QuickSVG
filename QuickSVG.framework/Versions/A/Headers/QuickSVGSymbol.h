@@ -9,7 +9,7 @@
 
 typedef enum QuickSVGElementType
 {
-	QuickSVGElementTypeBasicShape = 0,
+	QuickSVGElementTypeBasicShape,
 	QuickSVGElementTypePath,
 	QuickSVGElementTypeLink,
 	QuickSVGElementTypeText,

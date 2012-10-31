@@ -45,7 +45,7 @@
 + (QuickSVG *) svgFromURL:(NSURL *) url
 
 {
-	QuickSVG *svg = [[QuickSVG alloc] init];
+	QuickSVG *svg = [[QuickSVG alloc] initWithDelegate:nil];
 	[svg parseSVGFileWithURL:url];
 	
 	return svg;
@@ -161,7 +161,7 @@
 
 	QuickSVGInstance *instance = [[QuickSVGInstance alloc] initWithFrame:frame];
 	[instance.attributes addEntriesFromDictionary:attributes];
-	CGAffineTransform viewTransform = [self transformForSVGMatrix:attributes];
+	CGAffineTransform viewTransform = [instance transformForSVGMatrix:attributes];
 	instance.transform = viewTransform;
 	instance.quickSVG = self;
 	
