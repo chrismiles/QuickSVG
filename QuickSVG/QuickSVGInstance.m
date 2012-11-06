@@ -137,15 +137,17 @@ unichar const invalidCommand		= '*';
 	[self addElements];
 }
 
-- (void) layoutSubviews
-{
-	CGFloat scale = self.frame.size.width / [_shapePath bounds].size.width;
-	
-	for(CAShapeLayer *l in self.layer.sublayers){
-		
-		l.affineTransform = CGAffineTransformMakeScale(scale, scale);
-	}
-}
+//- (void) layoutSubviews
+//{
+//	CGFloat scale = self.frame.size.width / [_shapePath bounds].size.width;
+//	
+//	NSLog(@"%@", NSStringFromCGAffineTransform(self.transform));
+//	NSLog(@"%f - %f - %f", scale, NSStringFromCGRect(self.frame), [_shapePath bounds].size.width);
+//	for(CAShapeLayer *l in self.layer.sublayers){
+//		
+//		l.affineTransform = CGAffineTransformMakeScale(scale, scale);
+//	}
+//}
 
 - (void) addElements
 {
@@ -176,6 +178,9 @@ unichar const invalidCommand		= '*';
 		NSString *shapeKey = [[element allKeys] objectAtIndex:0];
 		QuickSVGElementType type = [self elementTypeForElement:element];
 		
+		if([[element[shapeKey] allKeys] containsObject:@"display"] && [element[shapeKey][@"display"] isEqualToString:@"none"])
+			continue;
+
 		CAShapeLayer *shapeLayer = [CAShapeLayer layer];
 		shapeLayer.needsDisplayOnBoundsChange = YES;
 		
