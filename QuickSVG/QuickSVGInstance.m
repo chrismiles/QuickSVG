@@ -137,18 +137,6 @@ unichar const invalidCommand		= '*';
 	[self addElements];
 }
 
-//- (void) layoutSubviews
-//{
-//	CGFloat scale = self.frame.size.width / [_shapePath bounds].size.width;
-//	
-//	NSLog(@"%@", NSStringFromCGAffineTransform(self.transform));
-//	NSLog(@"%f - %f - %f", scale, NSStringFromCGRect(self.frame), [_shapePath bounds].size.width);
-//	for(CAShapeLayer *l in self.layer.sublayers){
-//		
-//		l.affineTransform = CGAffineTransformMakeScale(scale, scale);
-//	}
-//}
-
 - (void) addElements
 {
 	NSArray *elements = [NSArray arrayWithArray:_symbol.elements];
@@ -343,9 +331,9 @@ unichar const invalidCommand		= '*';
 	}
 	else
 	{
-		if (DEBUG) {
+//		if (DEBUG) {
 			NSLog(@"**** Invalid basic shape: %@", shapeType);
-		}
+//		}
 	}
 	
 	return nil;
