@@ -279,6 +279,7 @@ unichar const invalidCommand		= '*';
 	
 	CGFontRef fontRef = CGFontCreateWithFontName((__bridge CFStringRef)[font fontName]);
 	[textLayer setFont:fontRef];
+	CFRelease(fontRef);
 	
 	if([[attributes allKeys] containsObject:@"fill"])
 	{
