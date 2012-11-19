@@ -11,8 +11,8 @@ The 0.1 release currently supports native support for Adobe Illustrator SVG form
 #### Usage
 
 ```
-NSURL = [NSURL fileURLWithPath:@"/path/to/file.svg"];
-QuickSVG *svg = [QuickSVG svgFromURL:file)];
+NSURL *url = [NSURL fileURLWithPath:@"/path/to/file.svg"];
+QuickSVG *svg = [QuickSVG svgFromURL:url)];
 
 [self.view addSubview:svg.view];
 ```
