@@ -26,10 +26,6 @@
 		C90061B61615C5BC000BD559 /* QuickSVGSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = C90061B41615C5BC000BD559 /* QuickSVGSymbol.m */; };
 		C90061B71615C5BC000BD559 /* QuickSVGSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = C90061B41615C5BC000BD559 /* QuickSVGSymbol.m */; };
 		C90061B81615C5BC000BD559 /* QuickSVGSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = C90061B41615C5BC000BD559 /* QuickSVGSymbol.m */; };
-		C90061BC1615C5CD000BD559 /* QuickSVGSymbolElement.h in Headers */ = {isa = PBXBuildFile; fileRef = C90061BA1615C5CD000BD559 /* QuickSVGSymbolElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C90061BD1615C5CD000BD559 /* QuickSVGSymbolElement.m in Sources */ = {isa = PBXBuildFile; fileRef = C90061BB1615C5CD000BD559 /* QuickSVGSymbolElement.m */; };
-		C90061BE1615C5CD000BD559 /* QuickSVGSymbolElement.m in Sources */ = {isa = PBXBuildFile; fileRef = C90061BB1615C5CD000BD559 /* QuickSVGSymbolElement.m */; };
-		C90061BF1615C5CD000BD559 /* QuickSVGSymbolElement.m in Sources */ = {isa = PBXBuildFile; fileRef = C90061BB1615C5CD000BD559 /* QuickSVGSymbolElement.m */; };
 		C90061C21615C5DE000BD559 /* QuickSVGInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = C90061C01615C5DE000BD559 /* QuickSVGInstance.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C90061C31615C5DE000BD559 /* QuickSVGInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = C90061C11615C5DE000BD559 /* QuickSVGInstance.m */; };
 		C90061C41615C5DE000BD559 /* QuickSVGInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = C90061C11615C5DE000BD559 /* QuickSVGInstance.m */; };
@@ -110,8 +106,6 @@
 /* Begin PBXFileReference section */
 		C90061B31615C5BC000BD559 /* QuickSVGSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuickSVGSymbol.h; sourceTree = "<group>"; };
 		C90061B41615C5BC000BD559 /* QuickSVGSymbol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuickSVGSymbol.m; sourceTree = "<group>"; };
-		C90061BA1615C5CD000BD559 /* QuickSVGSymbolElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuickSVGSymbolElement.h; sourceTree = "<group>"; };
-		C90061BB1615C5CD000BD559 /* QuickSVGSymbolElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuickSVGSymbolElement.m; sourceTree = "<group>"; };
 		C90061C01615C5DE000BD559 /* QuickSVGInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuickSVGInstance.h; sourceTree = "<group>"; };
 		C90061C11615C5DE000BD559 /* QuickSVGInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuickSVGInstance.m; sourceTree = "<group>"; };
 		C9090D27161316BC001145EC /* libQuickSVG.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libQuickSVG.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -228,8 +222,6 @@
 				C9090D31161316BC001145EC /* QuickSVG.m */,
 				C90061B31615C5BC000BD559 /* QuickSVGSymbol.h */,
 				C90061B41615C5BC000BD559 /* QuickSVGSymbol.m */,
-				C90061BA1615C5CD000BD559 /* QuickSVGSymbolElement.h */,
-				C90061BB1615C5CD000BD559 /* QuickSVGSymbolElement.m */,
 				C90061C01615C5DE000BD559 /* QuickSVGInstance.h */,
 				C90061C11615C5DE000BD559 /* QuickSVGInstance.m */,
 				C9090D2D161316BC001145EC /* Supporting Files */,
@@ -303,7 +295,6 @@
 			files = (
 				C9090DAC1613642E001145EC /* QuickSVG.h in Headers */,
 				C90061B51615C5BC000BD559 /* QuickSVGSymbol.h in Headers */,
-				C90061BC1615C5CD000BD559 /* QuickSVGSymbolElement.h in Headers */,
 				C90061C21615C5DE000BD559 /* QuickSVGInstance.h in Headers */,
 				C9090DC716137E1A001145EC /* UIColor+Additions.h in Headers */,
 			);
@@ -473,7 +464,6 @@
 				C9090D32161316BC001145EC /* QuickSVG.m in Sources */,
 				C9090DC816137E1A001145EC /* UIColor+Additions.m in Sources */,
 				C90061B61615C5BC000BD559 /* QuickSVGSymbol.m in Sources */,
-				C90061BD1615C5CD000BD559 /* QuickSVGSymbolElement.m in Sources */,
 				C90061C31615C5DE000BD559 /* QuickSVGInstance.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -485,7 +475,6 @@
 				C9090D49161316BC001145EC /* QuickSVGTests.m in Sources */,
 				C9090DC916137E1A001145EC /* UIColor+Additions.m in Sources */,
 				C90061B71615C5BC000BD559 /* QuickSVGSymbol.m in Sources */,
-				C90061BE1615C5CD000BD559 /* QuickSVGSymbolElement.m in Sources */,
 				C90061C41615C5DE000BD559 /* QuickSVGInstance.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -500,7 +489,6 @@
 				C9090D8416135E10001145EC /* DetailViewController.m in Sources */,
 				C9090DCA16137E1A001145EC /* UIColor+Additions.m in Sources */,
 				C90061B81615C5BC000BD559 /* QuickSVGSymbol.m in Sources */,
-				C90061BF1615C5CD000BD559 /* QuickSVGSymbolElement.m in Sources */,
 				C90061C51615C5DE000BD559 /* QuickSVGInstance.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

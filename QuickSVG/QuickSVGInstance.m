@@ -11,6 +11,8 @@
 #import "UIColor+Additions.h"
 
 #define kTransformKey @"matrix"
+#define kAcceptableBasicShapeTypes @[@"rect", @"circle", @"ellipse"]
+#define kAcceptablePathTypes @[@"path", @"polygon", @"line", @"polyline"]
 
 NSInteger const maxPathComplexity	= 1000;
 NSInteger const maxParameters		= 64;
@@ -227,11 +229,11 @@ unichar const invalidCommand		= '*';
 {
 	NSString *key = [[element allKeys] objectAtIndex:0];
 	
-	if([[self acceptableBasicShapeTypes] containsObject:key])
+	if([kAcceptableBasicShapeTypes containsObject:key])
 	{
 		return QuickSVGElementTypeBasicShape;
 	}
-	else if([[self acceptablePathTypes] containsObject:key])
+	else if([kAcceptablePathTypes containsObject:key])
 	{
 		return QuickSVGElementTypePath;
 	}
@@ -243,21 +245,6 @@ unichar const invalidCommand		= '*';
 	{
 		return QuickSVGElementTypeUnknown;
 	}
-}
-
-
-- (NSArray *) acceptableBasicShapeTypes
-{
-	NSArray *shapes = @[@"rect", @"circle", @"ellipse"];
-	
-	return shapes;
-}
-
-- (NSArray *) acceptablePathTypes
-{
-	NSArray *paths = @[@"path", @"polygon", @"line", @"polyline"];
-	
-	return paths;
 }
 
 - (CATextLayer *) addTextWithAttributes:(NSDictionary *) attributes
@@ -314,7 +301,6 @@ unichar const invalidCommand		= '*';
 	
 	return nil;
 }
-
 
 - (UIBezierPath *) addBasicShape:(NSString *) shapeType withAttributes:(NSDictionary *) attributes
 {
@@ -545,7 +531,7 @@ unichar const invalidCommand		= '*';
 		}
 		
 		// now we've reached a command or the end of the stringTokens array
-		[_tokens	 addObject:token];
+		[_tokens addObject:token];
 	}
 	//[stringTokens release];
 	return _tokens;
