@@ -222,6 +222,11 @@ unichar const invalidCommand		= '*';
 		}
 	}
 	
+	CGFloat xScale = self.frame.size.width / _shapePath.bounds.size.width;
+	CGFloat yScale = self.frame.size.height / _shapePath.bounds.size.height;
+	
+	[_shapePath applyTransform:CGAffineTransformMakeScale(xScale, yScale)];
+		
 	_drawn = YES;
 }
 
@@ -274,7 +279,7 @@ unichar const invalidCommand		= '*';
 		textLayer.foregroundColor = color.CGColor;
 	}
 	
-	CGAffineTransform transform = [self transformForSVGMatrix:attributes];
+	CGAffineTransform transform = [QuickSVGInstance transformForSVGMatrix:attributes];
 	textLayer.affineTransform = transform;
 	
 	return textLayer;
@@ -821,7 +826,7 @@ unichar const invalidCommand		= '*';
 
 #pragma Utilities
 
-- (CGAffineTransform ) transformForSVGMatrix:(NSDictionary *) attributes
++ (CGAffineTransform ) transformForSVGMatrix:(NSDictionary *) attributes
 {
 	NSString *transformString = [attributes[@"transform"] substringWithRange:NSMakeRange([kTransformKey length] + 1, [attributes[@"transform"] length] - [kTransformKey length] - 2)];
 	NSArray *c = [transformString componentsSeparatedByString:@" "];

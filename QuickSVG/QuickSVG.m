@@ -161,7 +161,7 @@
 
 	QuickSVGInstance *instance = [[QuickSVGInstance alloc] initWithFrame:frame];
 	[instance.attributes addEntriesFromDictionary:attributes];
-	CGAffineTransform viewTransform = [instance transformForSVGMatrix:attributes];
+	CGAffineTransform viewTransform = [QuickSVGInstance transformForSVGMatrix:attributes];
 	instance.transform = viewTransform;
 	instance.quickSVG = self;
 	

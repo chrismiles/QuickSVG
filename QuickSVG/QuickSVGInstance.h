@@ -19,6 +19,6 @@
 @property (nonatomic, strong) UIBezierPath *shapePath;
 
 - (void) addElements;
-- (CGAffineTransform ) transformForSVGMatrix:(NSDictionary *) attributes;
++ (CGAffineTransform ) transformForSVGMatrix:(NSDictionary *) attributes;
 
 @end
