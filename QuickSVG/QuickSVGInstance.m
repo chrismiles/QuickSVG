@@ -90,6 +90,7 @@ unichar const invalidCommand		= '*';
 @property (nonatomic, strong) NSMutableArray *tokens;
 @property (nonatomic, strong) UIBezierPath *bezierPathBeingDrawn;
 @property (nonatomic, assign) BOOL drawn;
+@property (nonatomic, strong) CAShapeLayer *drawingLayer;
 
 @end
 
@@ -101,11 +102,14 @@ unichar const invalidCommand		= '*';
 	
 	if(self)
 	{		
-		_pathScale = 0;
-		[self reset];
-		_separatorSet = [NSCharacterSet characterSetWithCharactersInString:separatorCharString];
-		_commandSet = [NSCharacterSet characterSetWithCharactersInString:commandCharString];
+		self.pathScale = 0;
+		self.separatorSet = [NSCharacterSet characterSetWithCharactersInString:separatorCharString];
+		self.commandSet = [NSCharacterSet characterSetWithCharactersInString:commandCharString];
 		self.attributes = [NSMutableDictionary dictionary];
+		self.drawingLayer = [CAShapeLayer layer];
+		[self.layer addSublayer:_drawingLayer];
+		
+		[self reset];
 	}
 	
 	return self;
@@ -139,15 +143,24 @@ unichar const invalidCommand		= '*';
 	[self addElements];
 }
 
+- (void) layoutSubviews
+{
+	if(!CGSizeEqualToSize(_shapePath.bounds.size, self.frame.size))
+	{
+		CGFloat xScale = self.frame.size.width / _shapePath.bounds.size.width;
+		CGFloat yScale = self.frame.size.height / _shapePath.bounds.size.height;
+		
+		_drawingLayer.affineTransform = CGAffineTransformMakeScale(xScale, yScale);
+	}
+}
+
 - (void) addElements
 {
 	NSArray *elements = [NSArray arrayWithArray:_symbol.elements];
 	
 	if([elements count] == 0)
 		return;
-	
-	[self.layer.sublayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
-	
+		
 	CGContextRef ctx = UIGraphicsGetCurrentContext();
 		
 	CGFloat transX = _symbol.frame.origin.x * -1;
@@ -155,9 +168,9 @@ unichar const invalidCommand		= '*';
 	
 	CGAffineTransform transform = CGAffineTransformMakeTranslation(transX, transY);
 	
-	[self.layer.sublayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
+	[self.drawingLayer.sublayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
 	self.shapePath = [UIBezierPath bezierPath];
-	
+		
 	for(NSDictionary *element in elements)
 	{
 		if(![element isKindOfClass:[NSDictionary class]])
@@ -216,17 +229,13 @@ unichar const invalidCommand		= '*';
 			shapeLayer.path = path.CGPath;
 			[self applyStyleAttributes:styles toShapeLayer:shapeLayer];
 			
-			[self.layer addSublayer:shapeLayer];
-			
+			[_drawingLayer addSublayer:shapeLayer];
 			[_shapePath appendPath:path];
 		}
 	}
 	
-	CGFloat xScale = self.frame.size.width / _shapePath.bounds.size.width;
-	CGFloat yScale = self.frame.size.height / _shapePath.bounds.size.height;
+	[_shapePath applyTransform:CGAffineTransformMakeScale(self.transform.a, self.transform.a)];
 	
-	[_shapePath applyTransform:CGAffineTransformMakeScale(xScale, yScale)];
-		
 	_drawn = YES;
 }
 
