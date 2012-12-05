@@ -20,6 +20,8 @@
 @property (nonatomic, strong) NSMutableArray *parsedSymbolInstances;
 @property (nonatomic, strong) NSMutableString *currentElementStringValue;
 
+@property (nonatomic, strong) NSDate *profileStartDate;
+
 @end
 
 @implementation QuickSVG
@@ -84,8 +86,15 @@
 	[_instances removeAllObjects];
 	[_groups removeAllObjects];
 	[_symbols removeAllObjects];
-    
-	[_symbols removeAllObjects];
+    [_currentSymbolElements removeAllObjects];
+	[_parsedSymbolInstances removeAllObjects];
+	_currentElementStringValue.string = @"";
+	
+	if(self.xmlParser != nil)
+	{
+		[self.xmlParser abortParsing];
+	}
+	
     self.xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:url];
     
     [_xmlParser setDelegate:self];
@@ -217,6 +226,9 @@
 
 - (void) parserDidStartDocument:(NSXMLParser *)parser
 {
+	if(DEBUG)
+		self.profileStartDate = [NSDate date];
+	
 	if(_delegate != nil && [_delegate respondsToSelector:@selector(quickSVGWillParse:)])
 	{
 		[_delegate quickSVGWillParse:self];
@@ -233,6 +245,13 @@
 	if(_delegate != nil && [_delegate respondsToSelector:@selector(quickSVGDidParse:)])
 	{
 		[_delegate quickSVGDidParse:self];
+	}
+	
+	if(DEBUG)
+	{
+		NSTimeInterval interval = [self.profileStartDate timeIntervalSinceNow];
+		
+		NSLog(@"----- QuickSVG parsed %i objects in %f seconds", [_parsedSymbolInstances count], fabs(interval));
 	}
 }
 
