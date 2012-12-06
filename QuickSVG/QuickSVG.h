@@ -34,4 +34,7 @@
 + (QuickSVG *) svgFromURL:(NSURL *) url;
 - (BOOL) parseSVGFileWithURL:(NSURL *) url;
 
+- (BOOL) isParsing;
+- (void) abort;
+
 @end

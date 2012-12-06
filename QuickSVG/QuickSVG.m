@@ -19,6 +19,7 @@
 @property (nonatomic, assign) BOOL currentlyParsingASymbol;
 @property (nonatomic, strong) NSMutableArray *parsedSymbolInstances;
 @property (nonatomic, strong) NSMutableString *currentElementStringValue;
+@property (nonatomic, assign) BOOL aborted;
 
 @property (nonatomic, strong) NSDate *profileStartDate;
 
@@ -39,6 +40,7 @@
 		self.instances = [[NSMutableArray alloc] init];
 		self.groups = [[NSMutableArray alloc] init];
 		self.currentElementStringValue = [[NSMutableString alloc] initWithCapacity:50];
+		self.aborted = NO;
 	}
 	
 	return self;
@@ -51,6 +53,17 @@
 	[svg parseSVGFileWithURL:url];
 	
 	return svg;
+}
+
+- (BOOL)isParsing
+{
+	return self.xmlParser != nil;
+}
+
+- (void) abort
+{	
+	self.aborted = YES;
+	[self.xmlParser abortParsing];
 }
 
 #pragma mark -
@@ -90,17 +103,17 @@
 	[_parsedSymbolInstances removeAllObjects];
 	_currentElementStringValue.string = @"";
 	
-	if(self.xmlParser != nil)
-	{
-		[self.xmlParser abortParsing];
-	}
-	
     self.xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:url];
     
     [_xmlParser setDelegate:self];
     [_xmlParser setShouldResolveExternalEntities:NO];
 	
     BOOL success = [_xmlParser parse];
+	success = success && !self.aborted;
+	
+	[_xmlParser setDelegate:nil];
+	self.xmlParser = nil;
+	self.aborted = NO;
 	
     if (success == NO)
         NSLog(@"*** XML Parsing Error");
@@ -239,10 +252,11 @@
 {
 	for(NSDictionary *data in _parsedSymbolInstances)
 	{
+		if (self.aborted) break;
 		[self addInstanceOfSymbol:data];
 	}
 	
-	if(_delegate != nil && [_delegate respondsToSelector:@selector(quickSVGDidParse:)])
+	if(!self.aborted && _delegate != nil && [_delegate respondsToSelector:@selector(quickSVGDidParse:)])
 	{
 		[_delegate quickSVGDidParse:self];
 	}
@@ -257,6 +271,8 @@
 
 - (void) parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError
 {
+	// Note: this method is called when `abortParsing` is called.
+	
 	if(DEBUG){
 		
 		NSLog(@"XMLParser ParseError: %@", [parseError localizedDescription]);
