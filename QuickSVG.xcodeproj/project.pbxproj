@@ -64,6 +64,10 @@
 		C9090DC816137E1A001145EC /* UIColor+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = C9090DC616137E1A001145EC /* UIColor+Additions.m */; };
 		C9090DC916137E1A001145EC /* UIColor+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = C9090DC616137E1A001145EC /* UIColor+Additions.m */; };
 		C9090DCA16137E1A001145EC /* UIColor+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = C9090DC616137E1A001145EC /* UIColor+Additions.m */; };
+		C9A040B816723C4E00BB82C1 /* QuickSVGInstance+Style.h in Headers */ = {isa = PBXBuildFile; fileRef = C9A040B616723C4E00BB82C1 /* QuickSVGInstance+Style.h */; };
+		C9A040B916723C4E00BB82C1 /* QuickSVGInstance+Style.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A040B716723C4E00BB82C1 /* QuickSVGInstance+Style.m */; };
+		C9A040BB1672455000BB82C1 /* QuickSVGInstance+Style.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A040B716723C4E00BB82C1 /* QuickSVGInstance+Style.m */; };
+		C9A040BC1672455100BB82C1 /* QuickSVGInstance+Style.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A040B716723C4E00BB82C1 /* QuickSVGInstance+Style.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -139,6 +143,8 @@
 		C9090DB4161368B6001145EC /* Sample SVGs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Sample SVGs"; sourceTree = SOURCE_ROOT; };
 		C9090DC516137E1A001145EC /* UIColor+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Additions.h"; sourceTree = "<group>"; };
 		C9090DC616137E1A001145EC /* UIColor+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Additions.m"; sourceTree = "<group>"; };
+		C9A040B616723C4E00BB82C1 /* QuickSVGInstance+Style.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "QuickSVGInstance+Style.h"; sourceTree = "<group>"; };
+		C9A040B716723C4E00BB82C1 /* QuickSVGInstance+Style.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "QuickSVGInstance+Style.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,6 +230,8 @@
 				C90061B41615C5BC000BD559 /* QuickSVGSymbol.m */,
 				C90061C01615C5DE000BD559 /* QuickSVGInstance.h */,
 				C90061C11615C5DE000BD559 /* QuickSVGInstance.m */,
+				C9A040B616723C4E00BB82C1 /* QuickSVGInstance+Style.h */,
+				C9A040B716723C4E00BB82C1 /* QuickSVGInstance+Style.m */,
 				C9090D2D161316BC001145EC /* Supporting Files */,
 			);
 			path = QuickSVG;
@@ -297,6 +305,7 @@
 				C90061B51615C5BC000BD559 /* QuickSVGSymbol.h in Headers */,
 				C90061C21615C5DE000BD559 /* QuickSVGInstance.h in Headers */,
 				C9090DC716137E1A001145EC /* UIColor+Additions.h in Headers */,
+				C9A040B816723C4E00BB82C1 /* QuickSVGInstance+Style.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -465,6 +474,7 @@
 				C9090DC816137E1A001145EC /* UIColor+Additions.m in Sources */,
 				C90061B61615C5BC000BD559 /* QuickSVGSymbol.m in Sources */,
 				C90061C31615C5DE000BD559 /* QuickSVGInstance.m in Sources */,
+				C9A040B916723C4E00BB82C1 /* QuickSVGInstance+Style.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -476,6 +486,7 @@
 				C9090DC916137E1A001145EC /* UIColor+Additions.m in Sources */,
 				C90061B71615C5BC000BD559 /* QuickSVGSymbol.m in Sources */,
 				C90061C41615C5DE000BD559 /* QuickSVGInstance.m in Sources */,
+				C9A040BC1672455100BB82C1 /* QuickSVGInstance+Style.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -490,6 +501,7 @@
 				C9090DCA16137E1A001145EC /* UIColor+Additions.m in Sources */,
 				C90061B81615C5BC000BD559 /* QuickSVGSymbol.m in Sources */,
 				C90061C51615C5DE000BD559 /* QuickSVGInstance.m in Sources */,
+				C9A040BB1672455000BB82C1 /* QuickSVGInstance+Style.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

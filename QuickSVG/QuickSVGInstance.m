@@ -8,6 +8,7 @@
 
 #import "QuickSVGInstance.h"
 #import "QuickSVG.h"
+#import "QuickSVGInstance+Style.h"
 #import "UIColor+Additions.h"
 
 #define kTransformKey @"matrix"
@@ -20,19 +21,6 @@ NSInteger const maxTokenLength		= 64;
 NSString* const separatorCharString = @"-,CcMmLlHhVvZzqQaAsS";
 NSString* const commandCharString	= @"CcMmLlHhVvZzqQaAsS";
 unichar const invalidCommand		= '*';
-
-@interface QuickSVGTiledLayer : CATiledLayer
-
-@end
-
-@implementation QuickSVGTiledLayer
-
-+ (CFTimeInterval) fadeDuration
-{
-	return 0.01;
-}
-
-@end
 
 @interface Token : NSObject {
 @private
@@ -89,8 +77,26 @@ unichar const invalidCommand		= '*';
 @property (nonatomic, assign) BOOL validLastControlPoint;
 @property (nonatomic, strong) NSMutableArray *tokens;
 @property (nonatomic, strong) UIBezierPath *bezierPathBeingDrawn;
-@property (nonatomic, assign) BOOL drawn;
 @property (nonatomic, strong) CAShapeLayer *drawingLayer;
+
+- (QuickSVGElementType) elementTypeForElement:(NSDictionary *) element;
+- (CATextLayer *) addTextWithAttributes:(NSDictionary *) attributes;
+- (UIBezierPath *) addPath:(NSString *) pathType withAttributes:(NSDictionary *) attributes;
+- (UIBezierPath *) addBasicShape:(NSString *) shapeType withAttributes:(NSDictionary *) attributes;
+- (UIBezierPath *) drawRectWithAttributes:(NSDictionary *) attributes;
+- (UIBezierPath *) drawCircleWithAttributes:(NSDictionary *) attributes;
+- (UIBezierPath *) drawEllipseWithAttributes:(NSDictionary *) attributes;
+- (UIBezierPath *) drawPathWithAttributes:(NSDictionary *) attributes;
+- (UIBezierPath *) drawLineWithAttributes:(NSDictionary *) attributes;
+- (UIBezierPath *) drawPolylineWithAttributes:(NSDictionary *) attributes;
+- (UIBezierPath *) drawPolygonWithAttributes:(NSDictionary *) attributes;
+- (NSMutableArray *)parsePath:(NSString *)attr;
+- (void)reset;
+- (void)appendSVGMCommand:(Token *)token;
+- (void)appendSVGLCommand:(Token *)token;
+- (void)appendSVGCCommand:(Token *)token;
+- (void)appendSVGSCommand:(Token *)token;
+- (NSArray *) arrayFromPointsAttribute:(NSString *) points;
 
 @end
 
@@ -235,8 +241,6 @@ unichar const invalidCommand		= '*';
 	}
 	
 	[_shapePath applyTransform:CGAffineTransformMakeScale(self.transform.a, self.transform.a)];
-	
-	_drawn = YES;
 }
 
 - (QuickSVGElementType) elementTypeForElement:(NSDictionary *) element
@@ -699,137 +703,6 @@ unichar const invalidCommand		= '*';
 		}
 	}	
 	return pointsArray;
-}
-
-#pragma mark -
-#pragma mark Shape Styling
-
-- (void) applyStyleAttributes:(NSDictionary *) attributes toShapeLayer:(CAShapeLayer *) shapeLayer
-{
-	// Defaults
-	__block BOOL stroke = NO;
-	__block BOOL fill = NO;
-	__block UIColor *fillColor = [UIColor blackColor];
-	__block UIColor *strokeColor = [UIColor blackColor];
-	__block CGFloat fillAlpha = 1.0;
-	__block CGFloat strokeAlpha = 1.0;
-	__block CGFloat lineWidth = 1.0;
-	shapeLayer.lineCap = kCALineCapSquare;
-	shapeLayer.lineJoin = kCALineJoinMiter;
-	
-	[attributes enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-		
-		if([key isEqualToString:@"stroke-width"])
-		{
-			lineWidth = [obj floatValue];
-		}
-		else if([key isEqualToString:@"stroke-linecap"])
-		{
-			if([obj isEqualToString:@"butt"])
-			{
-				shapeLayer.lineCap = kCALineCapButt;
-			}
-			else if([obj isEqualToString:@"round"])
-			{
-				shapeLayer.lineCap = kCALineCapRound;
-			}
-			else if([obj isEqualToString:@"square"])
-			{
-				shapeLayer.lineCap = kCALineCapSquare;
-			}
-		}
-		else if([key isEqualToString:@"stroke-dasharray"])
-		{
-			NSArray *pieces = [attributes[@"stroke-dasharray"] componentsSeparatedByString:@","];
-			
-			
-			int a = [pieces[0] intValue];
-			int b = [pieces count] > 1 ? [pieces[1] intValue] : a;
-									
-			shapeLayer.lineDashPhase = 0.3;
-			shapeLayer.lineDashPattern = @[[NSNumber numberWithInt:a], [NSNumber numberWithInt:b]];
-		}
-		else if([key isEqualToString:@"stroke-linejoin"])
-		{
-			if([obj isEqualToString:@"bevel"])
-			{
-				shapeLayer.lineJoin = kCALineJoinBevel;
-			}
-			else if([obj isEqualToString:@"round"])
-			{
-				shapeLayer.lineJoin = kCALineJoinRound;
-			}
-			else if([obj isEqualToString:@"miter"])
-			{
-				shapeLayer.lineJoin = kCALineJoinMiter;
-			}
-		}
-		else if([key isEqualToString:@"stroke"])
-		{
-			if([key isEqualToString:@"stroke-opacity"])
-			{
-				strokeAlpha = [obj floatValue];
-			}
-			
-			NSString *hexString = [obj substringFromIndex:1];
-			strokeColor = [UIColor colorWithHexString:hexString withAlpha:1];
-			
-			stroke = YES;
-		}
-		else if([key isEqualToString:@"fill"])
-		{			
-			if([[attributes allKeys] containsObject:@"fill-opacity"])
-			{
-				fillAlpha = [attributes[@"fill-opacity"] floatValue];
-			}
-			
-			if([attributes[@"fill"] isEqualToString:@"none"])
-			{
-				fill = NO;
-			}
-			else
-			{
-				NSString *hexString = [obj substringFromIndex:1];
-				fillColor = [UIColor colorWithHexString:hexString withAlpha:1];
-				
-				fill = YES;
-			}
-		}
-		
-		[self addAttribute:nil andObserveKey:key forObject:nil];
-	}];
-	
-	if([[attributes allKeys] containsObject:@"enable-background"] && !fill)
-	{		
-		if([[attributes allKeys] containsObject:@"opacity"])
-		{
-			fillAlpha = [attributes[@"opacity"] floatValue];
-		}
-				
-		[UIColor colorWithWhite:0 alpha:1];
-		fill = YES;
-	}
-	
-	shapeLayer.fillColor = fill ? fillColor.CGColor : nil;
-	
-	if(stroke)
-	{
-		shapeLayer.strokeColor = strokeColor.CGColor;
-		shapeLayer.lineWidth = lineWidth;
-	}	
-}
-
-#pragma KVO
-- (void) addAttribute:(NSDictionary *) attributes andObserveKey:(NSString *) key forObject:(id) object
-{
-	if(!_drawn)
-		[_attributes addObserver:self forKeyPath:key options:NSKeyValueObservingOptionNew context:NULL];
-}
-
-- (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-	if(![_attributes[keyPath] isEqual:change[keyPath]])
-		[self addElements];
 }
 
 

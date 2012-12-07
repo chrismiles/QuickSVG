@@ -16,6 +16,7 @@
 @property (strong, nonatomic) UIPopoverController *masterPopoverController;
 @property (strong, nonatomic) QuickSVG *quickSVG;
 @property (strong, nonatomic) UIScrollView *scrollView;
+@property (nonatomic, strong) UIView *holderView;
 
 - (void)configureView;
 
@@ -42,15 +43,15 @@
 		
 	if(success)
 	{
-		[_scrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+		[_holderView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
 		
 		for(QuickSVGInstance *instance in _quickSVG.instances)
 		{
-			[_scrollView addSubview:instance];
+			[_holderView addSubview:instance];
 		}
 		
-		_scrollView.backgroundColor = [UIColor blackColor];
-		_scrollView.contentSize = _quickSVG.canvasFrame.size;
+        _holderView.frame = _quickSVG.canvasFrame;
+		_scrollView.contentSize = CGSizeMake(1500, 1500);
 	}
 }
 
@@ -60,6 +61,10 @@
 
 	self.view.backgroundColor = [UIColor whiteColor];
 	self.scrollView = [[UIScrollView alloc] initWithFrame:self.view.frame];
+    _scrollView.backgroundColor = [UIColor blackColor];
+
+    self.holderView = [[UIView alloc] initWithFrame:self.scrollView.frame];
+    [_scrollView addSubview:_holderView];
 	
 	_scrollView.minimumZoomScale = 1.0;
 	_scrollView.maximumZoomScale = 3.0;
@@ -75,7 +80,7 @@
 
 - (UIView *) viewForZoomingInScrollView:(UIScrollView *)scrollView
 {
-	return _quickSVG.view;
+	return _holderView;
 }
 
 - (void) scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(float)scale{
@@ -118,8 +123,8 @@
 
 - (void) quickSVG:(QuickSVG *)quickSVG didSelectInstance:(QuickSVGInstance *)instance
 {
-	instance.attributes[@"fill"] = @"#4F99D3";
-	[instance setNeedsDisplay];
+	//instance.attributes[@"fill"] = @"#4F99D3";
+	//[instance setNeedsDisplay];
 }
 							
 #pragma mark - Split view
