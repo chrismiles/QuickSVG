@@ -39,20 +39,20 @@
 
 - (void)configureView
 {
-	BOOL success = [_quickSVG parseSVGFileWithURL:_detailItem];
-		
-	if(success)
-	{
-		[_holderView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-		
-		for(QuickSVGInstance *instance in _quickSVG.instances)
-		{
-			[_holderView addSubview:instance];
-		}
-		
-        _holderView.frame = _quickSVG.canvasFrame;
-		_scrollView.contentSize = CGSizeMake(1500, 1500);
-	}
+    [_quickSVG parseSVGFileWithURL:_detailItem];
+}
+
+- (void) quickSVGDidParse:(QuickSVG *)quickSVG
+{
+    [_holderView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    
+    for(QuickSVGInstance *instance in _quickSVG.instances)
+    {
+        [_holderView addSubview:instance];
+    }
+
+    _holderView.frame = _quickSVG.canvasFrame;
+    _scrollView.contentSize = _holderView.frame.size;
 }
 
 - (void)viewDidLoad
@@ -61,7 +61,7 @@
 
 	self.view.backgroundColor = [UIColor whiteColor];
 	self.scrollView = [[UIScrollView alloc] initWithFrame:self.view.frame];
-    _scrollView.backgroundColor = [UIColor blackColor];
+    _scrollView.backgroundColor = [UIColor whiteColor];
 
     self.holderView = [[UIView alloc] initWithFrame:self.scrollView.frame];
     [_scrollView addSubview:_holderView];

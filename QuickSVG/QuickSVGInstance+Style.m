@@ -90,7 +90,6 @@
 		{
 			NSArray *pieces = [attributes[@"stroke-dasharray"] componentsSeparatedByString:@","];
 			
-			
 			int a = [pieces[0] intValue];
 			int b = [pieces count] > 1 ? [pieces[1] intValue] : a;
             
@@ -145,7 +144,8 @@
 		}
 	}];
 	
-	if([[attributes allKeys] containsObject:@"enable-background"] && !fill)
+    NSString *enableBackground = [attributes[@"enable-background"] stringByReplacingOccurrencesOfString:@" " withString:@""];
+	if(enableBackground && ![enableBackground isEqualToString:@"new"] && !fill)
 	{
 		if([[attributes allKeys] containsObject:@"opacity"])
 		{

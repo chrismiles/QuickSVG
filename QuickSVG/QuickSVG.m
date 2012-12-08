@@ -20,6 +20,8 @@
 @property (nonatomic, strong) NSMutableArray *parsedSymbolInstances;
 @property (nonatomic, strong) NSMutableString *currentElementStringValue;
 @property (nonatomic, assign) BOOL aborted;
+@property (nonatomic, strong) NSDictionary *currentElement;
+@property (nonatomic, strong) NSMutableArray *anonymousElements;
 
 @property (nonatomic, strong) NSDate *profileStartDate;
 
@@ -34,12 +36,13 @@
 	if(self)
 	{
 		self.delegate = delegate;
-		self.symbols = [[NSMutableDictionary alloc] init];
-		self.currentSymbolElements = [[NSMutableArray alloc] init];
-		self.parsedSymbolInstances = [[NSMutableArray alloc] init];
-		self.instances = [[NSMutableArray alloc] init];
-		self.groups = [[NSMutableArray alloc] init];
-		self.currentElementStringValue = [[NSMutableString alloc] initWithCapacity:50];
+		self.symbols = [NSMutableDictionary dictionary];
+		self.currentSymbolElements = [NSMutableArray array];
+		self.parsedSymbolInstances = [NSMutableArray array];
+        self.anonymousElements = [NSMutableArray array];
+		self.instances = [NSMutableArray array];
+		self.groups = [NSMutableArray array];
+		self.currentElementStringValue = [[NSMutableString alloc] init];
 		self.aborted = NO;
 	}
 	
@@ -101,6 +104,7 @@
 	[_symbols removeAllObjects];
     [_currentSymbolElements removeAllObjects];
 	[_parsedSymbolInstances removeAllObjects];
+    [_anonymousElements removeAllObjects];
 	_currentElementStringValue.string = @"";
 	
     self.xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:url];
@@ -183,18 +187,29 @@
 
 	QuickSVGInstance *instance = [[QuickSVGInstance alloc] initWithFrame:frame];
 	[instance.attributes addEntriesFromDictionary:attributes];
-	CGAffineTransform viewTransform = [QuickSVGInstance transformForSVGMatrix:attributes];
-	instance.transform = viewTransform;
 	instance.quickSVG = self;
+    
+    if([[attributes allKeys] containsObject:@"transform"])
+    {
+        CGAffineTransform viewTransform = [QuickSVGInstance transformForSVGMatrix:attributes];
+        instance.transform = viewTransform;
+    }
 	
 	return instance;
+}
+
+- (void) addCurrentAnonymousElement
+{
+    [self.anonymousElements addObject:_currentElement];
 }
 
 #pragma mark -
 #pragma mark NSXMLParser Delegate
 
 - (void) parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
-{	
+{
+    NSDictionary *elementData = @{[elementName lowercaseString] : attributeDict};
+    
 	if([elementName isEqualToString:@"symbol"])
 	{
 		_currentlyParsingASymbol = YES;
@@ -207,11 +222,15 @@
 	{
 		[_parsedSymbolInstances addObject:attributeDict];
 	}
-		
-	if(_currentlyParsingASymbol)
+	
+    if(_currentlyParsingASymbol)
 	{
-		[_currentSymbolElements addObject:@{[elementName lowercaseString] : attributeDict}];
+		[_currentSymbolElements addObject:elementData];
 	}
+    else
+    {
+       _currentElement = elementData;
+    }
 }
 
 - (void) parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
@@ -223,13 +242,17 @@
 		[_currentSymbolElements replaceObjectAtIndex:[_currentSymbolElements count] - 1 withObject:@{[elementName lowercaseString] : data}];
 		[_currentElementStringValue setString:@""];
 	}
-	
-	if(_currentlyParsingASymbol && [elementName isEqualToString:@"symbol"])
+    
+    if(_currentlyParsingASymbol && [elementName isEqualToString:@"symbol"])
 	{
 		[self addCurrentElementsToCurrentSymbol];
 		[_currentSymbolElements removeAllObjects];
 		_currentlyParsingASymbol = NO;
 	}
+    else if(_currentElement != nil)
+    {
+        [self addCurrentAnonymousElement];
+    }
 }
 
 - (void) parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
@@ -255,6 +278,15 @@
 		if (self.aborted) break;
 		[self addInstanceOfSymbol:data];
 	}
+    
+    if([_anonymousElements count] > 0)
+    {
+        QuickSVGSymbol *symbol = [self symbolWithAttributes:nil andElements:_anonymousElements];
+        QuickSVGInstance *instance = [self instanceWithAttributes:nil];
+        instance.symbol = symbol;
+        instance.frame = instance.shapePath.bounds;
+        [self.instances addObject:instance];
+    }
 	
 	if(!self.aborted && _delegate != nil && [_delegate respondsToSelector:@selector(quickSVGDidParse:)])
 	{
@@ -265,7 +297,7 @@
 	{
 		NSTimeInterval interval = [self.profileStartDate timeIntervalSinceNow];
 		
-		NSLog(@"----- QuickSVG parsed %i objects in %f seconds", [_parsedSymbolInstances count], fabs(interval));
+		NSLog(@"----- QuickSVG parsed %i objects in %f seconds", [_instances count], fabs(interval));
 	}
 }
 

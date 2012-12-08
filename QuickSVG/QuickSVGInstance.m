@@ -239,8 +239,8 @@ unichar const invalidCommand		= '*';
 			[_shapePath appendPath:path];
 		}
 	}
-	
-	[_shapePath applyTransform:CGAffineTransformMakeScale(self.transform.a, self.transform.a)];
+    
+    [_shapePath applyTransform:CGAffineTransformMakeScale(self.transform.a, self.transform.a)];
 }
 
 - (QuickSVGElementType) elementTypeForElement:(NSDictionary *) element
@@ -384,7 +384,8 @@ unichar const invalidCommand		= '*';
 {
 	self.bezierPathBeingDrawn = [UIBezierPath bezierPath];
 	
-	NSString *pathData = [attributes[@"d"] stringByReplacingOccurrencesOfString:@" " withString:@""];
+	NSString *pathData = [attributes[@"d"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    pathData = [pathData stringByReplacingOccurrencesOfString:@" " withString:@","];
 	
 	[self parsePath:pathData];
 	
@@ -508,7 +509,6 @@ unichar const invalidCommand		= '*';
 		}
 		
 		if ([stringToken length]) {
-			
 			[stringTokens addObject:stringToken];
 		}
 	}
