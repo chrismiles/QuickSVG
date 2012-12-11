@@ -133,7 +133,7 @@ unichar const invalidCommand		= '*';
 		shouldSelect = [_quickSVG.delegate quickSVG:_quickSVG shouldSelectInstance:self];
 	}
 	
-	if(shouldSelect)
+	if(shouldSelect && [_quickSVG.delegate respondsToSelector:@selector(quickSVG:didSelectInstance:)])
 	{
 		[_quickSVG.delegate quickSVG:_quickSVG didSelectInstance:self];
 	}

@@ -15,8 +15,6 @@
 - (void) quickSVG:(QuickSVG *) quickSVG didParseInstance:(QuickSVGInstance *)instance;
 - (void) quickSVGWillParse:(QuickSVG *) quickSVG;
 - (void) quickSVGDidParse:(QuickSVG *) quickSVG;
-
-@required
 - (void) quickSVG:(QuickSVG *) quickSVG didSelectInstance:(QuickSVGInstance *) instance;
 
 @end
