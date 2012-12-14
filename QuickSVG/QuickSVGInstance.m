@@ -151,13 +151,14 @@ unichar const invalidCommand		= '*';
 
 - (void) layoutSubviews
 {
-	if(!CGSizeEqualToSize(_shapePath.bounds.size, self.frame.size))
-	{
-		CGFloat xScale = self.frame.size.width / _shapePath.bounds.size.width;
-		CGFloat yScale = self.frame.size.height / _shapePath.bounds.size.height;
-		
-		_drawingLayer.affineTransform = CGAffineTransformMakeScale(xScale, yScale);
-	}
+//	if(!CGSizeEqualToSize(_shapePath.bounds.size, self.frame.size))
+//	{
+//        NSLog(@"%@ - %@", NSStringFromCGRect(_shapePath.bounds), NSStringFromCGRect(self.frame));
+//		CGFloat xScale = self.frame.size.width / _shapePath.bounds.size.width;
+//		CGFloat yScale = self.frame.size.height / _shapePath.bounds.size.height;
+//		
+//		_drawingLayer.affineTransform = CGAffineTransformMakeScale(xScale, yScale);
+//	}
 }
 
 - (void) addElements
@@ -215,7 +216,7 @@ unichar const invalidCommand		= '*';
 				break;
 			case QuickSVGElementTypeUnknown:
 			default:
-				// NSLog(@"**** Invalid element type: %@", element);
+				NSLog(@"**** Invalid element type: %@", element);
 				break;
 		}
 		

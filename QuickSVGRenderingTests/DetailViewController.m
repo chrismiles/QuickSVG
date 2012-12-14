@@ -83,14 +83,6 @@
 	return _holderView;
 }
 
-- (void) scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(float)scale{
-	
-	for (QuickSVGInstance *view in _quickSVG.instances){
-		
-		view.contentScaleFactor = scale;
-	}
-}
-
 - (void) doubleTapGesture:(UITapGestureRecognizer *) gesture{
 	
 	CGPoint location = [gesture locationInView:self.view];
@@ -100,7 +92,6 @@
 		[_scrollView setZoomScale:1 animated:YES];
 	}
 	else{
-		
 		[_scrollView zoomToRect:CGRectMake(location.x, location.y, 0, 0) animated:YES];
 	}
 }
@@ -123,8 +114,9 @@
 
 - (void) quickSVG:(QuickSVG *)quickSVG didSelectInstance:(QuickSVGInstance *)instance
 {
-	//instance.attributes[@"fill"] = @"#4F99D3";
-	//[instance setNeedsDisplay];
+    NSString *stroke = @"#4F99D3";
+	instance.attributes[@"stroke"] = [instance.attributes[@"stroke"] isEqualToString:stroke] ? @"" : stroke;
+	[instance setNeedsDisplay];
 }
 							
 #pragma mark - Split view

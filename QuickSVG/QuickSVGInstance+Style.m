@@ -56,7 +56,7 @@
     
     // Defaults
 	__block BOOL stroke = NO;
-	__block BOOL fill = NO;
+	__block BOOL fill = YES;
 	__block UIColor *fillColor = [UIColor blackColor];
 	__block UIColor *strokeColor = [UIColor blackColor];
 	__block CGFloat fillAlpha = 1.0;
@@ -118,10 +118,12 @@
 				strokeAlpha = [obj floatValue];
 			}
 			
-			NSString *hexString = [obj substringFromIndex:1];
-			strokeColor = [UIColor colorWithHexString:hexString withAlpha:1];
-			
-			stroke = YES;
+            if([obj length] > 0) {
+                NSString *hexString = [obj substringFromIndex:1];
+                strokeColor = [UIColor colorWithHexString:hexString withAlpha:1];
+                
+                stroke = YES;
+            }
 		}
 		else if([key isEqualToString:@"fill"])
 		{

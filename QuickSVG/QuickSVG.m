@@ -218,7 +218,7 @@
 	{
 		self.canvasFrame = [self rectFromViewBoxString:attributeDict[@"viewBox"]];
 	}
-	else if([elementName isEqualToString:@"use"] && !_currentlyParsingASymbol)
+	else if([elementName isEqualToString:@"use"])
 	{
 		[_parsedSymbolInstances addObject:attributeDict];
 	}
@@ -273,12 +273,6 @@
 
 - (void) parserDidEndDocument:(NSXMLParser *)parser
 {
-	for(NSDictionary *data in _parsedSymbolInstances)
-	{
-		if (self.aborted) break;
-		[self addInstanceOfSymbol:data];
-	}
-    
     if([_anonymousElements count] > 0)
     {
         QuickSVGSymbol *symbol = [self symbolWithAttributes:nil andElements:_anonymousElements];
@@ -287,6 +281,12 @@
         instance.frame = instance.shapePath.bounds;
         [self.instances addObject:instance];
     }
+    
+    for(NSDictionary *data in _parsedSymbolInstances)
+	{
+		if (self.aborted) break;
+		[self addInstanceOfSymbol:data];
+	}
 	
 	if(!self.aborted && _delegate != nil && [_delegate respondsToSelector:@selector(quickSVGDidParse:)])
 	{
@@ -297,7 +297,7 @@
 	{
 		NSTimeInterval interval = [self.profileStartDate timeIntervalSinceNow];
 		
-		NSLog(@"----- QuickSVG parsed %i objects in %f seconds", [_instances count], fabs(interval));
+		NSLog(@"----- QuickSVG parsed %i symbols, %i instances, %i objects in %f seconds", [_symbols count], [_instances count], [_anonymousElements count], fabs(interval));
 	}
 }
 
