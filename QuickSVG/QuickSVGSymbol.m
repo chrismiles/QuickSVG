@@ -33,8 +33,7 @@
 {
 	self = [QuickSVGSymbol symbol];
 	
-	if(self)
-	{
+	if(self) {
 		self.elements = [aDecoder decodeObjectForKey:@"elements"];
 		self.title = [aDecoder decodeObjectForKey:@"title"];
 		self.bezierPath = [aDecoder decodeObjectForKey:@"bezierPath"];

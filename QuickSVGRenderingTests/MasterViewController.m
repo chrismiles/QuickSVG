@@ -39,8 +39,7 @@
 	
 	_objects = [[NSMutableArray alloc] init];
 	
-	for(NSString *path in [[NSBundle mainBundle] pathsForResourcesOfType:@"svg" inDirectory:@"Sample SVGs"])
-	{
+	for(NSString *path in [[NSBundle mainBundle] pathsForResourcesOfType:@"svg" inDirectory:@"Sample SVGs"]) {
 		NSURL *url = [NSURL fileURLWithPath:path];
 		[_objects addObject:url];
 	}

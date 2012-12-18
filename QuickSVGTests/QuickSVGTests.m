@@ -35,8 +35,7 @@
 {
 	NSArray *svgFiles = [[NSBundle bundleForClass:[self class]] pathsForResourcesOfType:@"svg" inDirectory:@"Sample SVGs"];
 	
-	for(NSString *filePath in svgFiles)
-	{
+	for(NSString *filePath in svgFiles) {
 		NSURL *fileURL = [NSURL fileURLWithPath:svgFiles[0]];
 		STAssertTrue([_quickSVG parseSVGFileWithURL:fileURL], @"Failed To Parse SVG File: %@", @"");
 	}

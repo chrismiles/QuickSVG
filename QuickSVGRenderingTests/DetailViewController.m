@@ -114,9 +114,9 @@
 
 - (void) quickSVG:(QuickSVG *)quickSVG didSelectInstance:(QuickSVGInstance *)instance
 {
-    NSString *stroke = @"#4F99D3";
-	instance.attributes[@"stroke"] = [instance.attributes[@"stroke"] isEqualToString:stroke] ? @"" : stroke;
-	[instance setNeedsDisplay];
+//    NSString *stroke = @"#4F99D3";
+//	instance.attributes[@"stroke"] = [instance.attributes[@"stroke"] isEqualToString:stroke] ? @"" : stroke;
+//	[instance setNeedsDisplay];
 }
 							
 #pragma mark - Split view

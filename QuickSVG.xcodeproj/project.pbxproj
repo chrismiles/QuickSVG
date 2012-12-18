@@ -64,6 +64,10 @@
 		C9090DC816137E1A001145EC /* UIColor+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = C9090DC616137E1A001145EC /* UIColor+Additions.m */; };
 		C9090DC916137E1A001145EC /* UIColor+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = C9090DC616137E1A001145EC /* UIColor+Additions.m */; };
 		C9090DCA16137E1A001145EC /* UIColor+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = C9090DC616137E1A001145EC /* UIColor+Additions.m */; };
+		C97F3C6B1680CB93006A70C3 /* QuickSVGUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = C97F3C691680CB93006A70C3 /* QuickSVGUtils.h */; };
+		C97F3C6C1680CB93006A70C3 /* QuickSVGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C97F3C6A1680CB93006A70C3 /* QuickSVGUtils.m */; };
+		C97F3C6D1680CB93006A70C3 /* QuickSVGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C97F3C6A1680CB93006A70C3 /* QuickSVGUtils.m */; };
+		C97F3C6E1680CB93006A70C3 /* QuickSVGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C97F3C6A1680CB93006A70C3 /* QuickSVGUtils.m */; };
 		C9A040B816723C4E00BB82C1 /* QuickSVGInstance+Style.h in Headers */ = {isa = PBXBuildFile; fileRef = C9A040B616723C4E00BB82C1 /* QuickSVGInstance+Style.h */; };
 		C9A040B916723C4E00BB82C1 /* QuickSVGInstance+Style.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A040B716723C4E00BB82C1 /* QuickSVGInstance+Style.m */; };
 		C9A040BB1672455000BB82C1 /* QuickSVGInstance+Style.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A040B716723C4E00BB82C1 /* QuickSVGInstance+Style.m */; };
@@ -116,7 +120,7 @@
 		C9090D2A161316BC001145EC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C9090D2E161316BC001145EC /* QuickSVG-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "QuickSVG-Prefix.pch"; sourceTree = "<group>"; };
 		C9090D2F161316BC001145EC /* QuickSVG.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuickSVG.h; sourceTree = "<group>"; };
-		C9090D31161316BC001145EC /* QuickSVG.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuickSVG.m; sourceTree = "<group>"; };
+		C9090D31161316BC001145EC /* QuickSVG.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = QuickSVG.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C9090D38161316BC001145EC /* QuickSVGTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = QuickSVGTests.octest; path = UnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9090D39161316BC001145EC /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		C9090D43161316BC001145EC /* QuickSVGTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "QuickSVGTests-Info.plist"; sourceTree = "<group>"; };
@@ -136,13 +140,15 @@
 		C9090D7916135E10001145EC /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		C9090D7B16135E10001145EC /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		C9090D7D16135E10001145EC /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		C9090D8016135E10001145EC /* MasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
+		C9090D8016135E10001145EC /* MasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MasterViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C9090D8216135E10001145EC /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		C9090D8316135E10001145EC /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		C9090D9F1613622C001145EC /* en */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = en; path = en.lproj/MasterViewController.h; sourceTree = "<group>"; };
 		C9090DB4161368B6001145EC /* Sample SVGs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Sample SVGs"; sourceTree = SOURCE_ROOT; };
 		C9090DC516137E1A001145EC /* UIColor+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Additions.h"; sourceTree = "<group>"; };
 		C9090DC616137E1A001145EC /* UIColor+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Additions.m"; sourceTree = "<group>"; };
+		C97F3C691680CB93006A70C3 /* QuickSVGUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuickSVGUtils.h; sourceTree = "<group>"; };
+		C97F3C6A1680CB93006A70C3 /* QuickSVGUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuickSVGUtils.m; sourceTree = "<group>"; };
 		C9A040B616723C4E00BB82C1 /* QuickSVGInstance+Style.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "QuickSVGInstance+Style.h"; sourceTree = "<group>"; };
 		C9A040B716723C4E00BB82C1 /* QuickSVGInstance+Style.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "QuickSVGInstance+Style.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -243,6 +249,8 @@
 				C9090DC516137E1A001145EC /* UIColor+Additions.h */,
 				C9090DC616137E1A001145EC /* UIColor+Additions.m */,
 				C9090D2E161316BC001145EC /* QuickSVG-Prefix.pch */,
+				C97F3C691680CB93006A70C3 /* QuickSVGUtils.h */,
+				C97F3C6A1680CB93006A70C3 /* QuickSVGUtils.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -306,6 +314,7 @@
 				C90061C21615C5DE000BD559 /* QuickSVGInstance.h in Headers */,
 				C9090DC716137E1A001145EC /* UIColor+Additions.h in Headers */,
 				C9A040B816723C4E00BB82C1 /* QuickSVGInstance+Style.h in Headers */,
+				C97F3C6B1680CB93006A70C3 /* QuickSVGUtils.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -475,6 +484,7 @@
 				C90061B61615C5BC000BD559 /* QuickSVGSymbol.m in Sources */,
 				C90061C31615C5DE000BD559 /* QuickSVGInstance.m in Sources */,
 				C9A040B916723C4E00BB82C1 /* QuickSVGInstance+Style.m in Sources */,
+				C97F3C6C1680CB93006A70C3 /* QuickSVGUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -487,6 +497,7 @@
 				C90061B71615C5BC000BD559 /* QuickSVGSymbol.m in Sources */,
 				C90061C41615C5DE000BD559 /* QuickSVGInstance.m in Sources */,
 				C9A040BC1672455100BB82C1 /* QuickSVGInstance+Style.m in Sources */,
+				C97F3C6D1680CB93006A70C3 /* QuickSVGUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -502,6 +513,7 @@
 				C90061B81615C5BC000BD559 /* QuickSVGSymbol.m in Sources */,
 				C90061C51615C5DE000BD559 /* QuickSVGInstance.m in Sources */,
 				C9A040BB1672455000BB82C1 /* QuickSVGInstance+Style.m in Sources */,
+				C97F3C6E1680CB93006A70C3 /* QuickSVGUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

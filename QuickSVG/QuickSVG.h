@@ -16,7 +16,6 @@
 - (void) quickSVGWillParse:(QuickSVG *) quickSVG;
 - (void) quickSVGDidParse:(QuickSVG *) quickSVG;
 - (void) quickSVG:(QuickSVG *) quickSVG didSelectInstance:(QuickSVGInstance *) instance;
-
 @end
 
 @interface QuickSVG : NSObject <NSXMLParserDelegate>

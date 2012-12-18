@@ -19,6 +19,7 @@
                                 @"stroke-linecap"       : @[@"butt", @"round", @"square"],
                                 @"stroke-dasharray"     : @[],
                                 @"stroke-linejoin"      : @[@"bevel", @"round", @"miter"],
+                                @"stroke-miterlimit"    : @[],
                                 @"stroke-opacity"       : @[],
                                 @"fill"                 : @[],
                                 @"fill-opacity"         : @[],
@@ -67,54 +68,42 @@
 	
 	[attributes enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
 		
-		if([key isEqualToString:@"stroke-width"])
-		{
+		if([key isEqualToString:@"stroke-width"]) {
 			lineWidth = [obj floatValue];
 		}
-		else if([key isEqualToString:@"stroke-linecap"])
-		{
-			if([obj isEqualToString:@"butt"])
-			{
+		else if([key isEqualToString:@"stroke-linecap"]) {
+			if([obj isEqualToString:@"butt"]) {
 				shapeLayer.lineCap = kCALineCapButt;
-			}
-			else if([obj isEqualToString:@"round"])
-			{
+			} else if([obj isEqualToString:@"round"]) {
 				shapeLayer.lineCap = kCALineCapRound;
-			}
-			else if([obj isEqualToString:@"square"])
-			{
+			} else if([obj isEqualToString:@"square"]) {
 				shapeLayer.lineCap = kCALineCapSquare;
 			}
 		}
-		else if([key isEqualToString:@"stroke-dasharray"])
-		{
+		else if([key isEqualToString:@"stroke-dasharray"]) {
 			NSArray *pieces = [attributes[@"stroke-dasharray"] componentsSeparatedByString:@","];
 			
-			int a = [pieces[0] intValue];
-			int b = [pieces count] > 1 ? [pieces[1] intValue] : a;
+			float a = [pieces[0] floatValue];
+			float b = [pieces count] > 1 ? [pieces[1] floatValue] : a;
             
 			shapeLayer.lineDashPhase = 0.3;
-			shapeLayer.lineDashPattern = @[[NSNumber numberWithInt:a], [NSNumber numberWithInt:b]];
+			shapeLayer.lineDashPattern = @[@(a), @(b)];
 		}
-		else if([key isEqualToString:@"stroke-linejoin"])
-		{
-			if([obj isEqualToString:@"bevel"])
-			{
+        else if([key isEqualToString:@"stroke-miterlimit"])
+        {
+            shapeLayer.miterLimit = [obj floatValue];
+        }
+		else if([key isEqualToString:@"stroke-linejoin"]) {
+			if([obj isEqualToString:@"bevel"]) {
 				shapeLayer.lineJoin = kCALineJoinBevel;
-			}
-			else if([obj isEqualToString:@"round"])
-			{
+			} else if([obj isEqualToString:@"round"]) {
 				shapeLayer.lineJoin = kCALineJoinRound;
-			}
-			else if([obj isEqualToString:@"miter"])
-			{
+			} else if([obj isEqualToString:@"miter"]) {
 				shapeLayer.lineJoin = kCALineJoinMiter;
 			}
 		}
-		else if([key isEqualToString:@"stroke"])
-		{
-			if([key isEqualToString:@"stroke-opacity"])
-			{
+		else if([key isEqualToString:@"stroke"]) {
+			if([key isEqualToString:@"stroke-opacity"]) {
 				strokeAlpha = [obj floatValue];
 			}
 			
@@ -125,21 +114,16 @@
                 stroke = YES;
             }
 		}
-		else if([key isEqualToString:@"fill"])
-		{
-			if([[attributes allKeys] containsObject:@"fill-opacity"])
-			{
+		else if([key isEqualToString:@"fill"]) {
+			if([[attributes allKeys] containsObject:@"fill-opacity"]) {
 				fillAlpha = [attributes[@"fill-opacity"] floatValue];
 			}
 			
-			if([attributes[@"fill"] isEqualToString:@"none"])
-			{
+			if([attributes[@"fill"] isEqualToString:@"none"]) {
 				fill = NO;
-			}
-			else
-			{
+			} else {
 				NSString *hexString = [obj substringFromIndex:1];
-				fillColor = [UIColor colorWithHexString:hexString withAlpha:1];
+				fillColor = [UIColor colorWithHexString:hexString withAlpha:fillAlpha];
 				
 				fill = YES;
 			}
@@ -147,21 +131,18 @@
 	}];
 	
     NSString *enableBackground = [attributes[@"enable-background"] stringByReplacingOccurrencesOfString:@" " withString:@""];
-	if(enableBackground && ![enableBackground isEqualToString:@"new"] && !fill)
-	{
-		if([[attributes allKeys] containsObject:@"opacity"])
-		{
+	if(enableBackground && ![enableBackground isEqualToString:@"new"] && !fill) {
+		if([[attributes allKeys] containsObject:@"opacity"]) {
 			fillAlpha = [attributes[@"opacity"] floatValue];
 		}
         
-		[UIColor colorWithWhite:0 alpha:1];
+		[UIColor colorWithWhite:0 alpha:fillAlpha];
 		fill = YES;
 	}
 	
 	shapeLayer.fillColor = fill ? fillColor.CGColor : nil;
 	
-	if(stroke)
-	{
+	if(stroke) {
 		shapeLayer.strokeColor = strokeColor.CGColor;
 		shapeLayer.lineWidth = lineWidth;
 	}
