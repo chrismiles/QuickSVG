@@ -146,6 +146,19 @@ unichar const invalidCommand		= '*';
 	[self addElements];
 }
 
+- (void) layoutSubviews
+{
+    CGSize shapePathSize = _shapePath.bounds.size;
+	if(shapePathSize.width != 0 && shapePathSize.height != 0 && !CGSizeEqualToSize(shapePathSize, self.frame.size)) {
+		CGFloat xScale = self.frame.size.width / shapePathSize.width;
+		CGFloat yScale = self.frame.size.height / shapePathSize.height;
+
+        NSLog(@"%f / %f - %f / %f - %f - %f", shapePathSize.height, self.frame.size.height, shapePathSize.width, self.frame.size.width, xScale, yScale);
+        _drawingLayer.frame = self.bounds;
+        _drawingLayer.affineTransform = CGAffineTransformMakeScale(xScale, yScale);
+	}
+}
+
 - (void) addElements
 {
 	NSArray *elements = [NSArray arrayWithArray:_symbol.elements];
@@ -219,6 +232,8 @@ unichar const invalidCommand		= '*';
 			[_shapePath appendPath:path];
 		}
 	}
+    
+    [_shapePath applyTransform:CGAffineTransformMakeScale(getXScale(self.transform), getYScale(self.transform))];
 }
 
 - (QuickSVGElementType) elementTypeForElement:(NSDictionary *) element
