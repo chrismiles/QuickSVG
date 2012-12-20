@@ -152,11 +152,7 @@ unichar const invalidCommand		= '*';
 {
     CGSize shapeSize = _shapePath.bounds.size;
     CGSize viewSize = self.frame.size;
-    
-    self.layer.shadowOffset = CGSizeMake(0, 0);
-    
-    NSLog(@"%@", NSStringFromCGRect(_shapePath.bounds));
-    
+            
     if(!CGSizeEqualToSize(CGSizeZero, viewSize) && !CGSizeEqualToSize(shapeSize, viewSize)) {
                 
         CGFloat scale = aspectScale(shapeSize, viewSize);
@@ -164,8 +160,6 @@ unichar const invalidCommand		= '*';
         CGAffineTransform transform = CGAffineTransformScale(CGAffineTransformIdentity, scale, scale);
         _drawingLayer.affineTransform = transform;
     }
-    
-    self.layer.shadowPath = _shapePath.CGPath;
 }
 
 - (CGAffineTransform) svgTransform
