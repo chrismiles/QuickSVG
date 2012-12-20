@@ -159,6 +159,7 @@ unichar const invalidCommand		= '*';
         
         CGAffineTransform transform = CGAffineTransformScale(CGAffineTransformIdentity, scale, scale);
         _drawingLayer.affineTransform = transform;
+        [_shapePath applyTransform:transform];
     }
 }
 
