@@ -155,6 +155,8 @@ unichar const invalidCommand		= '*';
     
     self.layer.shadowOffset = CGSizeMake(0, 0);
     
+    NSLog(@"%@", NSStringFromCGRect(_shapePath.bounds));
+    
     if(!CGSizeEqualToSize(CGSizeZero, viewSize) && !CGSizeEqualToSize(shapeSize, viewSize)) {
                 
         CGFloat scale = aspectScale(shapeSize, viewSize);
@@ -244,7 +246,7 @@ unichar const invalidCommand		= '*';
 		}
 	}
     
-    [_shapePath applyTransform:self.transform];
+    [_shapePath applyTransform:makeTransform(getXScale(self.transform), getYScale(self.transform), getRotation(self.transform), 0, 0)];
 }
 
 - (QuickSVGElementType) elementTypeForElement:(NSDictionary *) element
