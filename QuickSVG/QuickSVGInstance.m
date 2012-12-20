@@ -169,9 +169,7 @@ unichar const invalidCommand		= '*';
     
     if(self.attributes[@"transform"]) {
         transform = makeTransformFromSVGMatrix(self.attributes[@"transform"]);
-    
-        CGFloat scaleY = transform.a == fabs(transform.a) ? -1 : 1;
-        transform = CGAffineTransformScale(transform, 1, scaleY);
+        transform = CGAffineTransformScale(transform, 1, -1);
     }
     
     return transform;
