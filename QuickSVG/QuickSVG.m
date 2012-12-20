@@ -164,18 +164,18 @@
 			instance.symbol = symbol;
 			
 			[_instances addObject:instance];
+            
+            if(_delegate != nil && [_delegate respondsToSelector:@selector(quickSVG:didParseInstance:)]) {
+                [_delegate quickSVG:self didParseInstance:instance];
+            }
 		}
 	}];
-	
-	if(_delegate != nil && [_delegate respondsToSelector:@selector(quickSVG:didParseInstance:)]) {
-		[_delegate quickSVG:self didParseInstance:instance];
-	}
 }
 
 - (QuickSVGInstance *) instanceWithAttributes:(NSDictionary *) attributes
 {
 	CGRect frame = CGRectMake([attributes[@"x"] floatValue], [attributes[@"y"] floatValue], [attributes[@"width"] floatValue], [attributes[@"height"] floatValue]);
- 
+
 	QuickSVGInstance *instance = [[QuickSVGInstance alloc] initWithFrame:frame];
 	[instance.attributes addEntriesFromDictionary:attributes];
 	instance.quickSVG = self;
@@ -189,6 +189,10 @@
     QuickSVGInstance *instance = [self instanceWithAttributes:_currentElement[[_currentElement allKeys][0]]];
     instance.symbol = symbol;
     [self.instances addObject:instance];
+    
+    if(_delegate != nil && [_delegate respondsToSelector:@selector(quickSVG:didParseInstance:)]) {
+		[_delegate quickSVG:self didParseInstance:instance];
+	}
 }
 
 #pragma mark -
@@ -231,7 +235,7 @@
 		[_currentSymbolElements removeAllObjects];
 		_currentlyParsingASymbol = NO;
 	}
-    else if(_currentElement != nil) {
+    else if(_currentElement != nil && ![elementName isEqualToString:@"use"]) {
         [self addCurrentAnonymousElement];
     }
 }

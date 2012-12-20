@@ -46,8 +46,12 @@
 
 - (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-	if(![self.attributes[keyPath] isEqual:change[keyPath]])
-		[self addElements];
+	if(![self.attributes[keyPath] isEqual:change[keyPath]]) {
+        
+        for(CAShapeLayer *layer in self.drawingLayer.sublayers) {
+            [self applyStyleAttributes:self.attributes toShapeLayer:layer];
+        }
+    }
 }
 
 - (void) applyStyleAttributes:(NSDictionary *) attributes toShapeLayer:(CAShapeLayer *) shapeLayer

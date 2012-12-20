@@ -8,8 +8,7 @@
 
 #import "QuickSVGUtils.h"
 
-CGAffineTransform makeTransform(CGFloat xScale, CGFloat yScale, CGFloat theta, CGFloat tx, CGFloat ty)
-{
+CGAffineTransform makeTransform(CGFloat xScale, CGFloat yScale, CGFloat theta, CGFloat tx, CGFloat ty) {
     CGAffineTransform t = CGAffineTransformIdentity;
     t.a = xScale * cos(theta);
     t.b = yScale * sin(theta);
@@ -21,8 +20,7 @@ CGAffineTransform makeTransform(CGFloat xScale, CGFloat yScale, CGFloat theta, C
     return t;
 }
 
-CGAffineTransform makeTransformFromSVGMatrix(NSString *matrix)
-{
+CGAffineTransform makeTransformFromSVGMatrix(NSString *matrix) {
     matrix = [matrix stringByReplacingOccurrencesOfString:@"matrix(" withString:@"{"];
     matrix = [matrix stringByReplacingOccurrencesOfString:@")" withString:@"}"];
     matrix = [matrix stringByReplacingOccurrencesOfString:@" " withString:@","];
@@ -36,17 +34,20 @@ CGAffineTransform makeTransformFromSVGMatrix(NSString *matrix)
     return makeTransform(xScale, yScale, rotation, t.tx, t.ty);
 }
 
-CGFloat getXScale(CGAffineTransform t)
-{
+CGFloat getXScale(CGAffineTransform t) {
     return sqrtf(t.a * t.a + t.c * t.c);
 }
 
-CGFloat getYScale(CGAffineTransform t)
-{
+CGFloat getYScale(CGAffineTransform t) {
     return sqrtf(t.b * t.b + t.d * t.d);
 }
 
-CGFloat getRotation(CGAffineTransform t)
-{
+CGFloat getRotation(CGAffineTransform t) {
     return atan2f(t.b, t.a);
+}
+
+CGFloat aspectScale(CGSize sourceSize, CGSize destSize) {
+	CGFloat scaleW = destSize.width / sourceSize.width;
+	CGFloat scaleH = destSize.height / sourceSize.height;
+	return MIN(scaleW, scaleH);
 }

@@ -14,3 +14,5 @@ CGAffineTransform makeTransformFromSVGMatrix(NSString *matrix);
 CGFloat getXScale(CGAffineTransform t);
 CGFloat getYScale(CGAffineTransform t);
 CGFloat getRotation(CGAffineTransform t);
+
+CGFloat aspectScale(CGSize sourceSize, CGSize destSize);

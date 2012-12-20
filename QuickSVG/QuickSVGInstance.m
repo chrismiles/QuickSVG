@@ -78,7 +78,7 @@ unichar const invalidCommand		= '*';
 @property (nonatomic, assign) BOOL validLastControlPoint;
 @property (nonatomic, strong) NSMutableArray *tokens;
 @property (nonatomic, strong) UIBezierPath *bezierPathBeingDrawn;
-@property (nonatomic, strong) CAShapeLayer *drawingLayer;
+@property (nonatomic, strong) NSMutableArray *shapeLayers;
 
 - (QuickSVGElementType) elementTypeForElement:(NSDictionary *) element;
 - (CATextLayer *) addTextWithAttributes:(NSDictionary *) attributes;
@@ -92,6 +92,7 @@ unichar const invalidCommand		= '*';
 - (UIBezierPath *) drawPolylineWithAttributes:(NSDictionary *) attributes;
 - (UIBezierPath *) drawPolygonWithAttributes:(NSDictionary *) attributes;
 - (NSMutableArray *)parsePath:(NSString *)attr;
+- (CGAffineTransform) svgTransform;
 - (void)reset;
 - (void)appendSVGMCommand:(Token *)token;
 - (void)appendSVGLCommand:(Token *)token;
@@ -113,8 +114,9 @@ unichar const invalidCommand		= '*';
 		self.commandSet = [NSCharacterSet characterSetWithCharactersInString:commandCharString];
 		self.attributes = [NSMutableDictionary dictionary];
 		self.drawingLayer = [CAShapeLayer layer];
+        self.shapeLayers = [NSMutableArray array];
 		[self.layer addSublayer:_drawingLayer];
-		
+        
 		[self reset];
 	}
 	
@@ -148,15 +150,34 @@ unichar const invalidCommand		= '*';
 
 - (void) layoutSubviews
 {
-    CGSize shapePathSize = _shapePath.bounds.size;
-	if(shapePathSize.width != 0 && shapePathSize.height != 0 && !CGSizeEqualToSize(shapePathSize, self.frame.size)) {
-		CGFloat xScale = self.frame.size.width / shapePathSize.width;
-		CGFloat yScale = self.frame.size.height / shapePathSize.height;
+    CGSize shapeSize = _shapePath.bounds.size;
+    CGSize viewSize = self.frame.size;
+    
+    self.layer.shadowOffset = CGSizeMake(0, 0);
+    
+    if(!CGSizeEqualToSize(CGSizeZero, viewSize) && !CGSizeEqualToSize(shapeSize, viewSize)) {
+                
+        CGFloat scale = aspectScale(shapeSize, viewSize);
+        
+        CGAffineTransform transform = CGAffineTransformScale(CGAffineTransformIdentity, scale, scale);
+        _drawingLayer.affineTransform = transform;
+    }
+    
+    self.layer.shadowPath = _shapePath.CGPath;
+}
 
-        NSLog(@"%f / %f - %f / %f - %f - %f", shapePathSize.height, self.frame.size.height, shapePathSize.width, self.frame.size.width, xScale, yScale);
-        _drawingLayer.frame = self.bounds;
-        _drawingLayer.affineTransform = CGAffineTransformMakeScale(xScale, yScale);
-	}
+- (CGAffineTransform) svgTransform
+{
+    CGAffineTransform transform = CGAffineTransformIdentity;
+    
+    if(self.attributes[@"transform"]) {
+        transform = makeTransformFromSVGMatrix(self.attributes[@"transform"]);
+    
+        CGFloat scaleY = transform.a == fabs(transform.a) ? -1 : 1;
+        transform = CGAffineTransformScale(transform, 1, scaleY);
+    }
+    
+    return transform;
 }
 
 - (void) addElements
@@ -170,15 +191,7 @@ unichar const invalidCommand		= '*';
 	CGFloat transY = _symbol.frame.origin.y;
     CGAffineTransform pathTransform = CGAffineTransformMakeTranslation(fabs(transX), fabs(transY));
         
-    if(self.attributes[@"transform"]) {
-     
-        CGAffineTransform transform = makeTransformFromSVGMatrix(self.attributes[@"transform"]);
-        
-        CGFloat scaleY = transform.a == fabs(transform.a) ? -1 : 1;
-        transform = CGAffineTransformScale(transform, 1, scaleY);
-        
-        self.transform = transform;
-    }
+    self.transform = [self svgTransform];
     
 	[self.drawingLayer.sublayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
 	self.shapePath = [UIBezierPath bezierPath];
@@ -199,16 +212,14 @@ unichar const invalidCommand		= '*';
 		CAShapeLayer *shapeLayer = [CAShapeLayer layer];
 		
 		switch (type) {
-			case QuickSVGElementTypeBasicShape: {
+			case QuickSVGElementTypeBasicShape:
 				path = [self addBasicShape:shapeKey withAttributes:element[shapeKey]];
-				
-			}
 				break;
-			case QuickSVGElementTypePath: {
+			case QuickSVGElementTypePath:
 				path = [self addPath:shapeKey withAttributes:element[shapeKey]];
-			}
 				break;
-			case QuickSVGElementTypeText: {
+			case QuickSVGElementTypeText:
+            {
 				CATextLayer *textLayer = [self addTextWithAttributes:element[shapeKey]];
 				[_drawingLayer addSublayer:textLayer];
 			}
@@ -220,8 +231,7 @@ unichar const invalidCommand		= '*';
 		
 		if(path) {
             
-			[path applyTransform:pathTransform];
-			
+            [path applyTransform:pathTransform];
 			NSMutableDictionary *styles = [NSMutableDictionary dictionaryWithDictionary:element[shapeKey]];
 			[styles addEntriesFromDictionary:_attributes];
 			
@@ -230,10 +240,11 @@ unichar const invalidCommand		= '*';
 			
 			[_drawingLayer addSublayer:shapeLayer];
 			[_shapePath appendPath:path];
+            [_shapeLayers addObject:shapeLayer];
 		}
 	}
     
-    [_shapePath applyTransform:CGAffineTransformMakeScale(getXScale(self.transform), getYScale(self.transform))];
+    [_shapePath applyTransform:self.transform];
 }
 
 - (QuickSVGElementType) elementTypeForElement:(NSDictionary *) element

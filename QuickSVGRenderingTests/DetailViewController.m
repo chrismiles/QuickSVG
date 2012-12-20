@@ -17,6 +17,7 @@
 @property (strong, nonatomic) QuickSVG *quickSVG;
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (nonatomic, strong) UIView *holderView;
+@property (nonatomic, strong) NSMutableArray *instanceFrames;
 
 - (void)configureView;
 
@@ -40,6 +41,7 @@
 - (void)configureView
 {
     [_quickSVG parseSVGFileWithURL:_detailItem];
+    [_instanceFrames removeAllObjects];
 }
 
 - (void) quickSVGDidParse:(QuickSVG *)quickSVG
@@ -49,6 +51,7 @@
     for(QuickSVGInstance *instance in _quickSVG.instances)
     {
         [_holderView addSubview:instance];
+        [_instanceFrames addObject:instance];
     }
 
     _holderView.frame = _quickSVG.canvasFrame;
@@ -59,6 +62,7 @@
 {
     [super viewDidLoad];
 
+    self.instanceFrames = [NSMutableArray array];
 	self.view.backgroundColor = [UIColor whiteColor];
 	self.scrollView = [[UIScrollView alloc] initWithFrame:self.view.frame];
     _scrollView.backgroundColor = [UIColor whiteColor];
@@ -76,6 +80,22 @@
 	[_scrollView addGestureRecognizer:doubleTapGesture];
 	
 	[self.view addSubview:_scrollView];
+    
+    UISlider *slider = [[UISlider alloc] initWithFrame:CGRectMake(10, 0, 200, 25)];
+    slider.value = 1;
+    [slider addTarget:self action:@selector(scaleSliderChanged:) forControlEvents:UIControlEventValueChanged];
+    [self.view addSubview:slider];
+}
+
+- (void) scaleSliderChanged:(UISlider *) slider
+{
+    float scale = slider.value;
+    
+    for(QuickSVGInstance *instance in _quickSVG.instances) {
+        
+        CGAffineTransform transform = CGAffineTransformScale(CGAffineTransformIdentity, scale, scale);
+        instance.transform = transform;
+    }
 }
 
 - (UIView *) viewForZoomingInScrollView:(UIScrollView *)scrollView

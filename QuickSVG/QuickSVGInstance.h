@@ -17,6 +17,8 @@
 @property (nonatomic, strong) id object;
 @property (nonatomic, strong) NSMutableDictionary *attributes;
 @property (nonatomic, strong) UIBezierPath *shapePath;
+@property (nonatomic, strong) CAShapeLayer *drawingLayer;
+
 
 - (void) addElements;
 
