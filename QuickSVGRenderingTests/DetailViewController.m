@@ -18,6 +18,7 @@
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (nonatomic, strong) UIView *holderView;
 @property (nonatomic, strong) NSMutableArray *instanceFrames;
+@property (nonatomic, strong) UIBezierPath *path;
 
 - (void)configureView;
 
@@ -30,6 +31,7 @@
 - (void)setDetailItem:(NSURL *)newDetailItem
 {
 	_detailItem = newDetailItem;
+    self.path = [UIBezierPath bezierPath];
 	
     [self configureView];
 	
@@ -40,22 +42,28 @@
 
 - (void)configureView
 {
-    [_quickSVG parseSVGFileWithURL:_detailItem];
+    _holderView.layer.sublayers = nil;
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+         [_quickSVG parseSVGFileWithURL:_detailItem];
+    });
     [_instanceFrames removeAllObjects];
+}
+
+- (void) quickSVG:(QuickSVG *)quickSVG didParseInstance:(QuickSVGInstance *)instance
+{
+    assert([instance.layer isKindOfClass:[CALayer class]]);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [_holderView.layer addSublayer:instance.layer];
+    });
 }
 
 - (void) quickSVGDidParse:(QuickSVG *)quickSVG
 {
-    [_holderView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    
-    for(QuickSVGInstance *instance in _quickSVG.instances)
-    {
-        [_holderView addSubview:instance];
-        [_instanceFrames addObject:instance];
-    }
-
-    _holderView.frame = _quickSVG.canvasFrame;
-    _scrollView.contentSize = _holderView.frame.size;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        _holderView.frame = _quickSVG.canvasFrame;
+        _scrollView.contentSize = _holderView.frame.size;
+    });
 }
 
 - (void)viewDidLoad
@@ -74,6 +82,9 @@
 	_scrollView.maximumZoomScale = 3.0;
 	_scrollView.bouncesZoom = YES;
 	_scrollView.delegate = self;
+    _holderView.layer.rasterizationScale = [UIScreen mainScreen].scale;
+    _holderView.layer.delegate = self;
+    //_holderView.layer.shouldRasterize = YES;
 	
 	UITapGestureRecognizer *doubleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapGesture:)];
 	doubleTapGesture.numberOfTapsRequired = 2;
@@ -87,11 +98,17 @@
     [self.view addSubview:slider];
 }
 
+- (id<CAAction>)actionForLayer:(CALayer *)layer forKey:(NSString *)event
+{
+    return NULL;
+}
+
+
 - (void) scaleSliderChanged:(UISlider *) slider
 {
     float scale = slider.value;
-    
-    for(QuickSVGInstance *instance in _quickSVG.instances) {
+    NSArray *array = [NSArray arrayWithArray:_quickSVG.instances];
+    for(QuickSVGInstance *instance in array) {
         
         CGAffineTransform transform = CGAffineTransformScale(CGAffineTransformIdentity, scale, scale);
         instance.transform = transform;
@@ -105,7 +122,7 @@
 
 - (void) doubleTapGesture:(UITapGestureRecognizer *) gesture{
 	
-	CGPoint location = [gesture locationInView:self.view];
+	CGPoint location = [gesture locationInView:_scrollView];
 	
 	if(_scrollView.zoomScale == _scrollView.maximumZoomScale){
 		
@@ -114,6 +131,17 @@
 	else{
 		[_scrollView zoomToRect:CGRectMake(location.x, location.y, 0, 0) animated:YES];
 	}
+}
+
+- (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(UIView *)view
+{
+ //   _holderView.layer.shouldRasterize = NO;
+}
+
+- (void) scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(float)scale
+{
+    _holderView.layer.rasterizationScale = [UIScreen mainScreen].scale * scale;
+   // _holderView.layer.shouldRasterize = YES;
 }
 
 - (void)didReceiveMemoryWarning

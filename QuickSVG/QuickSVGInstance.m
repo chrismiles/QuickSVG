@@ -115,6 +115,7 @@ unichar const invalidCommand		= '*';
 		self.attributes = [NSMutableDictionary dictionary];
 		self.drawingLayer = [CAShapeLayer layer];
         self.shapeLayers = [NSMutableArray array];
+        self.opaque = YES;
 		[self.layer addSublayer:_drawingLayer];
         
 		[self reset];
@@ -182,11 +183,20 @@ unichar const invalidCommand		= '*';
 	if([elements count] == 0)
 		return;
 				
-	CGFloat transX = _symbol.frame.origin.x;
-	CGFloat transY = _symbol.frame.origin.y;
-    CGAffineTransform pathTransform = CGAffineTransformMakeTranslation(fabs(transX), fabs(transY));
-        
-    self.transform = [self svgTransform];
+    CGAffineTransform pathTransform = CGAffineTransformIdentity;
+    
+    if(self.attributes[@"transform"]) {
+        CGFloat transX = _symbol.frame.origin.x;
+        CGFloat transY = _symbol.frame.origin.y;
+        pathTransform = CGAffineTransformMakeTranslation(fabs(transX), fabs(transY));
+            
+        self.transform = [self svgTransform];
+    }
+    else if(self.attributes[@"x"]) {
+        CGFloat transX = -[self.attributes[@"x"] floatValue];
+        CGFloat transY = -[self.attributes[@"y"] floatValue];
+        pathTransform = CGAffineTransformMakeTranslation(transX, transY);
+    }
     
 	[self.drawingLayer.sublayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
 	self.shapePath = [UIBezierPath bezierPath];

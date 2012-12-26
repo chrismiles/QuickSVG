@@ -24,6 +24,8 @@
 @property (nonatomic, strong) NSDictionary *currentElement;
 @property (nonatomic, strong) NSMutableArray *anonymousElements;
 @property (nonatomic, strong) NSDate *profileStartDate;
+@property (nonatomic, strong) NSDictionary *currentGroupAttributes;
+@property (nonatomic, assign) BOOL currentlyParsingAGroup;
 
 @end
 
@@ -175,9 +177,16 @@
 - (QuickSVGInstance *) instanceWithAttributes:(NSDictionary *) attributes
 {
 	CGRect frame = CGRectMake([attributes[@"x"] floatValue], [attributes[@"y"] floatValue], [attributes[@"width"] floatValue], [attributes[@"height"] floatValue]);
+    
+    NSMutableDictionary *allAttributes = [NSMutableDictionary dictionary];
+    [allAttributes addEntriesFromDictionary:attributes];
+    
+    if(_currentlyParsingAGroup) {
+        [allAttributes addEntriesFromDictionary:_currentGroupAttributes];
+    }
 
 	QuickSVGInstance *instance = [[QuickSVGInstance alloc] initWithFrame:frame];
-	[instance.attributes addEntriesFromDictionary:attributes];
+	[instance.attributes addEntriesFromDictionary:allAttributes];
 	instance.quickSVG = self;
 	
 	return instance;
@@ -213,6 +222,10 @@
         [self addInstanceOfSymbol:attributeDict];
 		[_parsedSymbolInstances addObject:attributeDict];
 	}
+    else if([elementName isEqualToString:@"g"]) {
+        _currentlyParsingAGroup = YES;
+        self.currentGroupAttributes = attributeDict;
+    }
 	
     if(_currentlyParsingASymbol) {
 		[_currentSymbolElements addObject:elementData];
@@ -229,6 +242,9 @@
 		_currentElement = data;
 		[_currentElementStringValue setString:@""];
 	}
+    else if(_currentlyParsingAGroup && [elementName isEqualToString:@"g"]) {
+        _currentlyParsingAGroup = NO;
+    }
     
     if(_currentlyParsingASymbol && [elementName isEqualToString:@"symbol"]) {
 		[self addCurrentElementsToCurrentSymbol];

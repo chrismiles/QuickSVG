@@ -34,7 +34,6 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-	self.navigationItem.leftBarButtonItem = self.editButtonItem;
 	self.tableView.delegate = self;
 	
 	_objects = [[NSMutableArray alloc] init];
