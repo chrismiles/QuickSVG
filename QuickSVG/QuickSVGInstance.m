@@ -79,6 +79,8 @@ unichar const invalidCommand		= '*';
 @property (nonatomic, strong) NSMutableArray *tokens;
 @property (nonatomic, strong) UIBezierPath *bezierPathBeingDrawn;
 @property (nonatomic, strong) NSMutableArray *shapeLayers;
+@property (nonatomic, assign) CGAffineTransform shapePathTransform;
+@property (nonatomic, assign) CGAffineTransform drawingLayerTransform;
 
 - (QuickSVGElementType) elementTypeForElement:(NSDictionary *) element;
 - (CATextLayer *) addTextWithAttributes:(NSDictionary *) attributes;
@@ -149,18 +151,32 @@ unichar const invalidCommand		= '*';
 	[self addElements];
 }
 
-- (void) layoutSubviews
+- (void) setFrame:(CGRect)frame
 {
+    if(CGRectEqualToRect(frame, self.frame))
+        return;
+    
+    [super setFrame:frame];
+
     CGSize shapeSize = _shapePath.bounds.size;
-    CGSize viewSize = self.frame.size;
-            
-    if(!CGSizeEqualToSize(CGSizeZero, viewSize) && !CGSizeEqualToSize(shapeSize, viewSize)) {
-                
-        CGFloat scale = aspectScale(shapeSize, viewSize);
+    CGSize viewSize = frame.size;
+    
+    CGFloat scale = aspectScale(shapeSize, viewSize);
+    
+    if(scale != 1.0f) {
         
-        CGAffineTransform transform = CGAffineTransformScale(CGAffineTransformIdentity, scale, scale);
-        _drawingLayer.affineTransform = transform;
-        [_shapePath applyTransform:transform];
+        CGAffineTransform transform = CGAffineTransformMakeScale(scale, scale);
+        self.transform = CGAffineTransformScale([self svgTransform], scale, scale);
+        
+        CGPathRef intermediatePath = CGPathCreateCopyByTransformingPath(_shapePath.CGPath,
+                                                                        &transform);
+        
+        if(intermediatePath) {
+            _shapePath = [UIBezierPath bezierPathWithCGPath:intermediatePath];
+            
+            CGRect boundingBox = CGPathGetBoundingBox(intermediatePath);
+            self.frame = CGRectMake(frame.origin.x, frame.origin.y, boundingBox.size.width, boundingBox.size.height);
+        }
     }
 }
 
@@ -249,7 +265,8 @@ unichar const invalidCommand		= '*';
 		}
 	}
     
-    [_shapePath applyTransform:makeTransform(getXScale(self.transform), getYScale(self.transform), getRotation(self.transform), 0, 0)];
+    self.shapePathTransform = makeTransform(getXScale(self.transform), getYScale(self.transform), getRotation(self.transform), 0, 0);
+    [_shapePath applyTransform:_shapePathTransform];
 }
 
 - (QuickSVGElementType) elementTypeForElement:(NSDictionary *) element
@@ -697,9 +714,7 @@ unichar const invalidCommand		= '*';
 {
 	[aCoder encodeObject:_symbol forKey:@"symbol"];
 	[aCoder encodeObject:_attributes forKey:@"attributes"];
-	[aCoder encodeObject:_shapePath forKey:@"shapePath"];
 	[aCoder encodeCGRect:self.frame forKey:@"frame"];
-	[aCoder encodeCGAffineTransform:self.transform forKey:@"transform"];
 }
 
 - (id) initWithCoder:(NSCoder *)aDecoder
@@ -708,10 +723,8 @@ unichar const invalidCommand		= '*';
 	
 	if(self) {
 		self.attributes = [aDecoder decodeObjectForKey:@"attributes"];
-		self.shapePath = [aDecoder decodeObjectForKey:@"shapePath"];
-		self.frame = [aDecoder decodeCGRectForKey:@"frame"];
-		self.transform = [aDecoder decodeCGAffineTransformForKey:@"transform"];
 		self.symbol = [aDecoder decodeObjectForKey:@"symbol"];
+        self.frame = [aDecoder decodeCGRectForKey:@"frame"];
 	}
 	
 	return self;
