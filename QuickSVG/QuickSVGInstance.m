@@ -150,23 +150,36 @@ unichar const invalidCommand		= '*';
     CGSize viewSize = self.bounds.size;
         
     CGFloat scale = aspectScale(shapeSize, viewSize);
-
+    
     if(scale != 1.0f && !CGSizeEqualToSize(shapeSize, CGSizeZero)) {
         
         [_shapePath removeAllPoints];
         
         CGAffineTransform scaleTransform = CGAffineTransformMakeScale(scale, scale);
         for(CAShapeLayer *layer in _drawingLayer.sublayers) {
-            
+                        
             UIBezierPath *path = [UIBezierPath bezierPathWithCGPath:layer.path];
+            CGRect originalRect = path.bounds;
+            
             [path applyTransform:scaleTransform];
+            
+            if(self.attributes[@"transform"]) {
+                
+                CGRect newRect = path.bounds;
+                CGAffineTransform translate = CGAffineTransformMakeTranslation(-(originalRect.origin.x - newRect.origin.x), -(originalRect.origin.y - newRect.origin.y));
+                [path applyTransform:translate];
+            }
+            
             layer.path = path.CGPath;
             
             [_shapePath appendPath:path];
         }
     }
     
-    _drawingLayer.frame = CGRectMake(self.bounds.size.width / 2 - _shapePath.bounds.size.width / 2, self.bounds.size.height / 2 - _shapePath.bounds.size.height / 2, _shapePath.bounds.size.width, _shapePath.bounds.size.height);
+    _drawingLayer.frame = CGRectMake(self.bounds.size.width / 2 - _shapePath.bounds.size.width / 2,
+                                     self.bounds.size.height / 2 - _shapePath.bounds.size.height / 2,
+                                     _shapePath.bounds.size.width,
+                                     _shapePath.bounds.size.height);
     self.layer.shadowPath = _shapePath.CGPath;
 }
 
@@ -192,6 +205,7 @@ unichar const invalidCommand		= '*';
     
     CGFloat transX = self.frame.origin.x;
     CGFloat transY = self.frame.origin.y;
+
     pathTransform = CGAffineTransformTranslate(pathTransform, -transX, -transY);
     
     // Custom transform previously applied, need to flip the y axis to correspond for CG drawing
