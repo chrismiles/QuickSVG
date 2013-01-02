@@ -64,6 +64,8 @@
 		C9090DC816137E1A001145EC /* UIColor+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = C9090DC616137E1A001145EC /* UIColor+Additions.m */; };
 		C9090DC916137E1A001145EC /* UIColor+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = C9090DC616137E1A001145EC /* UIColor+Additions.m */; };
 		C9090DCA16137E1A001145EC /* UIColor+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = C9090DC616137E1A001145EC /* UIColor+Additions.m */; };
+		C971CAB7168CE9B00040A7FF /* UIBezierPath+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = C971CAB5168CE9B00040A7FF /* UIBezierPath+Additions.h */; };
+		C971CAB8168CE9B00040A7FF /* UIBezierPath+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = C971CAB6168CE9B00040A7FF /* UIBezierPath+Additions.m */; };
 		C97F3C6B1680CB93006A70C3 /* QuickSVGUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = C97F3C691680CB93006A70C3 /* QuickSVGUtils.h */; };
 		C97F3C6C1680CB93006A70C3 /* QuickSVGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C97F3C6A1680CB93006A70C3 /* QuickSVGUtils.m */; };
 		C97F3C6D1680CB93006A70C3 /* QuickSVGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C97F3C6A1680CB93006A70C3 /* QuickSVGUtils.m */; };
@@ -147,6 +149,8 @@
 		C9090DB4161368B6001145EC /* Sample SVGs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Sample SVGs"; sourceTree = SOURCE_ROOT; };
 		C9090DC516137E1A001145EC /* UIColor+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Additions.h"; sourceTree = "<group>"; };
 		C9090DC616137E1A001145EC /* UIColor+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Additions.m"; sourceTree = "<group>"; };
+		C971CAB5168CE9B00040A7FF /* UIBezierPath+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+Additions.h"; sourceTree = "<group>"; };
+		C971CAB6168CE9B00040A7FF /* UIBezierPath+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBezierPath+Additions.m"; sourceTree = "<group>"; };
 		C97F3C691680CB93006A70C3 /* QuickSVGUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuickSVGUtils.h; sourceTree = "<group>"; };
 		C97F3C6A1680CB93006A70C3 /* QuickSVGUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuickSVGUtils.m; sourceTree = "<group>"; };
 		C9A040B616723C4E00BB82C1 /* QuickSVGInstance+Style.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "QuickSVGInstance+Style.h"; sourceTree = "<group>"; };
@@ -251,6 +255,8 @@
 				C9090D2E161316BC001145EC /* QuickSVG-Prefix.pch */,
 				C97F3C691680CB93006A70C3 /* QuickSVGUtils.h */,
 				C97F3C6A1680CB93006A70C3 /* QuickSVGUtils.m */,
+				C971CAB5168CE9B00040A7FF /* UIBezierPath+Additions.h */,
+				C971CAB6168CE9B00040A7FF /* UIBezierPath+Additions.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -315,6 +321,7 @@
 				C9090DC716137E1A001145EC /* UIColor+Additions.h in Headers */,
 				C9A040B816723C4E00BB82C1 /* QuickSVGInstance+Style.h in Headers */,
 				C97F3C6B1680CB93006A70C3 /* QuickSVGUtils.h in Headers */,
+				C971CAB7168CE9B00040A7FF /* UIBezierPath+Additions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -485,6 +492,7 @@
 				C90061C31615C5DE000BD559 /* QuickSVGInstance.m in Sources */,
 				C9A040B916723C4E00BB82C1 /* QuickSVGInstance+Style.m in Sources */,
 				C97F3C6C1680CB93006A70C3 /* QuickSVGUtils.m in Sources */,
+				C971CAB8168CE9B00040A7FF /* UIBezierPath+Additions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

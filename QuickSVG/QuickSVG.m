@@ -24,7 +24,7 @@
 @property (nonatomic, strong) NSDictionary *currentElement;
 @property (nonatomic, strong) NSMutableArray *anonymousElements;
 @property (nonatomic, strong) NSDate *profileStartDate;
-@property (nonatomic, strong) NSDictionary *currentGroupAttributes;
+@property (nonatomic, strong) NSDictionary *currentMasterAttributes;
 @property (nonatomic, assign) BOOL currentlyParsingAGroup;
 
 @end
@@ -152,56 +152,62 @@
 	return symbol;
 }
 
-- (void) addInstanceOfSymbol:(NSDictionary *) attributes
+- (void) findAndAddInstanceOfSymbol:(NSDictionary *) attributes
 {
 	__block NSString *symbolRef = [attributes[@"xlink:href"] substringFromIndex:1];
-	QuickSVGInstance *instance = [self instanceWithAttributes:attributes];
 	
 	[_symbols enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
 		NSComparisonResult result = [symbolRef caseInsensitiveCompare:key];
 		
 		if(result == NSOrderedSame) {
-			QuickSVGSymbol *symbol = (QuickSVGSymbol *) obj;
-			[symbol.instances addObject:instance];
-			instance.symbol = symbol;
-			
-			[_instances addObject:instance];
-            
-            if(_delegate != nil && [_delegate respondsToSelector:@selector(quickSVG:didParseInstance:)]) {
-                [_delegate quickSVG:self didParseInstance:instance];
-            }
+            [self addInstanceOfSymbol:obj attributes:attributes];
+            *stop = YES;
 		}
 	}];
 }
 
-- (QuickSVGInstance *) instanceWithAttributes:(NSDictionary *) attributes
+- (void) addInstanceOfSymbol:(QuickSVGSymbol *)symbol attributes:(NSDictionary *) attributes
 {
-	CGRect frame = CGRectMake([attributes[@"x"] floatValue], [attributes[@"y"] floatValue], [attributes[@"width"] floatValue], [attributes[@"height"] floatValue]);
+    QuickSVGInstance *instance = [self instanceWithAttributes:attributes];
+    [symbol.instances addObject:instance];
+    instance.frame = symbol.frame;
+    instance.elements = symbol.elements;
+        
+    if(attributes[@"transform"]) {
+        instance.transform = makeTransformFromSVGMatrix(attributes[@"transform"]);
+    }
     
+    [_instances addObject:instance];
+    
+    if(_delegate != nil && [_delegate respondsToSelector:@selector(quickSVG:didParseInstance:)]) {
+        [_delegate quickSVG:self didParseInstance:instance];
+    }
+}
+
+- (QuickSVGInstance *) instanceWithAttributes:(NSDictionary *) attributes
+{    
     NSMutableDictionary *allAttributes = [NSMutableDictionary dictionary];
     [allAttributes addEntriesFromDictionary:attributes];
     
     if(_currentlyParsingAGroup) {
-        [allAttributes addEntriesFromDictionary:_currentGroupAttributes];
+        [allAttributes addEntriesFromDictionary:_currentMasterAttributes];
     }
+
+    CGRect frame = CGRectMake([attributes[@"x"] floatValue], [attributes[@"y"] floatValue], [attributes[@"width"] floatValue], [attributes[@"height"] floatValue]);
 
 	QuickSVGInstance *instance = [[QuickSVGInstance alloc] initWithFrame:frame];
 	[instance.attributes addEntriesFromDictionary:allAttributes];
 	instance.quickSVG = self;
-	
+   	
 	return instance;
 }
 
 - (void) addCurrentAnonymousElement
 {
-    QuickSVGSymbol *symbol = [self symbolWithAttributes:nil andElements:@[_currentElement]];
-    QuickSVGInstance *instance = [self instanceWithAttributes:_currentElement[[_currentElement allKeys][0]]];
-    instance.symbol = symbol;
-    [self.instances addObject:instance];
+    NSDictionary *attributes = _currentElement[[_currentElement allKeys][0]];
     
-    if(_delegate != nil && [_delegate respondsToSelector:@selector(quickSVG:didParseInstance:)]) {
-		[_delegate quickSVG:self didParseInstance:instance];
-	}
+    QuickSVGSymbol *symbol = [self symbolWithAttributes:attributes andElements:@[_currentElement]];
+    [self addInstanceOfSymbol:symbol attributes:nil];
 }
 
 #pragma mark -
@@ -213,18 +219,19 @@
     
 	if([elementName isEqualToString:@"symbol"]) {
 		_currentlyParsingASymbol = YES;
+        self.currentMasterAttributes = attributeDict;
 	}
 	else if([elementName isEqualToString:@"svg"]) {
 		self.canvasFrame = [self rectFromViewBoxString:attributeDict[@"viewBox"]];
         return;
 	}
 	else if([elementName isEqualToString:@"use"]) {
-        [self addInstanceOfSymbol:attributeDict];
+        [self findAndAddInstanceOfSymbol:attributeDict];
 		[_parsedSymbolInstances addObject:attributeDict];
 	}
     else if([elementName isEqualToString:@"g"]) {
         _currentlyParsingAGroup = YES;
-        self.currentGroupAttributes = attributeDict;
+        self.currentMasterAttributes = attributeDict;
     }
 	
     if(_currentlyParsingASymbol) {

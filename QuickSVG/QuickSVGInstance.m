@@ -11,6 +11,7 @@
 #import "QuickSVGInstance+Style.h"
 #import "UIColor+Additions.h"
 #import "QuickSVGUtils.h"
+#import "UIBezierPath+Additions.h"
 
 #define kTransformKey @"matrix"
 #define kAcceptableBasicShapeTypes @[@"rect", @"circle", @"ellipse"]
@@ -79,8 +80,6 @@ unichar const invalidCommand		= '*';
 @property (nonatomic, strong) NSMutableArray *tokens;
 @property (nonatomic, strong) UIBezierPath *bezierPathBeingDrawn;
 @property (nonatomic, strong) NSMutableArray *shapeLayers;
-@property (nonatomic, assign) CGAffineTransform shapePathTransform;
-@property (nonatomic, assign) CGAffineTransform drawingLayerTransform;
 
 - (QuickSVGElementType) elementTypeForElement:(NSDictionary *) element;
 - (CATextLayer *) addTextWithAttributes:(NSDictionary *) attributes;
@@ -145,39 +144,30 @@ unichar const invalidCommand		= '*';
 	}
 }
 
-- (void) setSymbol:(QuickSVGSymbol *)symbol
+- (void) layoutSubviews
 {
-	_symbol = symbol;
-	[self addElements];
-}
-
-- (void) setFrame:(CGRect)frame
-{
-    if(CGRectEqualToRect(frame, self.frame))
-        return;
-    
-    [super setFrame:frame];
-
     CGSize shapeSize = _shapePath.bounds.size;
-    CGSize viewSize = frame.size;
-    
+    CGSize viewSize = self.bounds.size;
+        
     CGFloat scale = aspectScale(shapeSize, viewSize);
-    
-    if(scale != 1.0f) {
+
+    if(scale != 1.0f && !CGSizeEqualToSize(shapeSize, CGSizeZero)) {
         
-        CGAffineTransform transform = CGAffineTransformMakeScale(scale, scale);
-        self.transform = CGAffineTransformScale([self svgTransform], scale, scale);
+        [_shapePath removeAllPoints];
         
-        CGPathRef intermediatePath = CGPathCreateCopyByTransformingPath(_shapePath.CGPath,
-                                                                        &transform);
-        
-        if(intermediatePath) {
-            _shapePath = [UIBezierPath bezierPathWithCGPath:intermediatePath];
+        CGAffineTransform scaleTransform = CGAffineTransformMakeScale(scale, scale);
+        for(CAShapeLayer *layer in _drawingLayer.sublayers) {
             
-            CGRect boundingBox = CGPathGetBoundingBox(intermediatePath);
-            self.frame = CGRectMake(frame.origin.x, frame.origin.y, boundingBox.size.width, boundingBox.size.height);
+            UIBezierPath *path = [UIBezierPath bezierPathWithCGPath:layer.path];
+            [path applyTransform:scaleTransform];
+            layer.path = path.CGPath;
+            
+            [_shapePath appendPath:path];
         }
     }
+    
+    _drawingLayer.frame = CGRectMake(self.bounds.size.width / 2 - _shapePath.bounds.size.width / 2, self.bounds.size.height / 2 - _shapePath.bounds.size.height / 2, _shapePath.bounds.size.width, _shapePath.bounds.size.height);
+    self.layer.shadowPath = _shapePath.CGPath;
 }
 
 - (CGAffineTransform) svgTransform
@@ -186,38 +176,33 @@ unichar const invalidCommand		= '*';
     
     if(self.attributes[@"transform"]) {
         transform = makeTransformFromSVGMatrix(self.attributes[@"transform"]);
-        transform = CGAffineTransformScale(transform, 1, -1);
     }
     
     return transform;
 }
 
-- (void) addElements
-{
-	NSArray *elements = [NSArray arrayWithArray:_symbol.elements];
-	
+- (void) setElements:(NSArray *)elements
+{	
 	if([elements count] == 0)
 		return;
+    
+    _elements = elements;
 				
     CGAffineTransform pathTransform = CGAffineTransformIdentity;
     
+    CGFloat transX = self.frame.origin.x;
+    CGFloat transY = self.frame.origin.y;
+    pathTransform = CGAffineTransformTranslate(pathTransform, -transX, -transY);
+    
+    // Custom transform previously applied, need to flip the y axis to correspond for CG drawing
     if(self.attributes[@"transform"]) {
-        CGFloat transX = _symbol.frame.origin.x;
-        CGFloat transY = _symbol.frame.origin.y;
-        pathTransform = CGAffineTransformMakeTranslation(fabs(transX), fabs(transY));
-            
-        self.transform = [self svgTransform];
-    }
-    else if(self.attributes[@"x"]) {
-        CGFloat transX = -[self.attributes[@"x"] floatValue];
-        CGFloat transY = -[self.attributes[@"y"] floatValue];
-        pathTransform = CGAffineTransformMakeTranslation(transX, transY);
+        pathTransform = CGAffineTransformScale(pathTransform, 1, -1);
     }
     
 	[self.drawingLayer.sublayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
 	self.shapePath = [UIBezierPath bezierPath];
 		
-	for(NSDictionary *element in elements) {
+	for(NSDictionary *element in self.elements) {
         
 		if(![element isKindOfClass:[NSDictionary class]])
 			continue;
@@ -264,9 +249,6 @@ unichar const invalidCommand		= '*';
             [_shapeLayers addObject:shapeLayer];
 		}
 	}
-    
-    self.shapePathTransform = makeTransform(getXScale(self.transform), getYScale(self.transform), getRotation(self.transform), 0, 0);
-    [_shapePath applyTransform:_shapePathTransform];
 }
 
 - (QuickSVGElementType) elementTypeForElement:(NSDictionary *) element
@@ -712,19 +694,22 @@ unichar const invalidCommand		= '*';
 
 - (void) encodeWithCoder:(NSCoder *)aCoder
 {
-	[aCoder encodeObject:_symbol forKey:@"symbol"];
-	[aCoder encodeObject:_attributes forKey:@"attributes"];
+	[aCoder encodeObject:self.elements forKey:@"elements"];
+	[aCoder encodeObject:self.attributes forKey:@"attributes"];
 	[aCoder encodeCGRect:self.frame forKey:@"frame"];
+    [aCoder encodeCGAffineTransform:self.transform forKey:@"transform"];
 }
 
 - (id) initWithCoder:(NSCoder *)aDecoder
 {
-	self = [[QuickSVGInstance alloc] initWithFrame:CGRectZero];
+    CGRect frame = [aDecoder decodeCGRectForKey:@"frame"];
+    
+	self = [[QuickSVGInstance alloc] initWithFrame:frame];
 	
 	if(self) {
-		self.attributes = [aDecoder decodeObjectForKey:@"attributes"];
-		self.symbol = [aDecoder decodeObjectForKey:@"symbol"];
-        self.frame = [aDecoder decodeCGRectForKey:@"frame"];
+        self.attributes = [aDecoder decodeObjectForKey:@"attributes"];
+        self.elements = [aDecoder decodeObjectForKey:@"elements"];
+        self.transform = [aDecoder decodeCGAffineTransformForKey:@"transform"];
 	}
 	
 	return self;

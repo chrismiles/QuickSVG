@@ -13,13 +13,10 @@
 @interface QuickSVGInstance : UIView
 
 @property (nonatomic, weak) QuickSVG *quickSVG;
-@property (nonatomic, strong) QuickSVGSymbol *symbol;
 @property (nonatomic, strong) id object;
 @property (nonatomic, strong) NSMutableDictionary *attributes;
 @property (nonatomic, strong) UIBezierPath *shapePath;
 @property (nonatomic, strong) CAShapeLayer *drawingLayer;
-
-
-- (void) addElements;
+@property (nonatomic, strong) NSArray *elements;
 
 @end
