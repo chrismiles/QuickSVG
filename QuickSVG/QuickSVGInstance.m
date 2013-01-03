@@ -162,14 +162,11 @@ unichar const invalidCommand		= '*';
             CGAffineTransform svgTransform = [self svgTransform];
             scale = CGAffineTransformScale(scale, getXScale(svgTransform), getYScale(svgTransform));
         }
-        
-        self.transform = scale;
-        [_shapePath applyTransform:scale];
-        
-        CGSize shapeSize = _shapePath.bounds.size;
+        CGSize shapeSize = CGSizeApplyAffineTransform(_shapePath.bounds.size, scale);
         CGSize frameSize = frame.size;
-        _drawingLayer.frame = CGRectMake(0,0, shapeSize.width, shapeSize.height);
-        _drawingLayer.affineTransform = CGAffineTransformMakeTranslation(frameSize.width / 2 - shapeSize.width / 2, frameSize.height / 2 - shapeSize.height / 2);
+                
+        self.transform = scale;                
+        _drawingLayer.frame = CGRectMake((frameSize.width / 2 - shapeSize.width / 2) / _scale / getXScale([self svgTransform]),(frameSize.height / 2 - shapeSize.height / 2) / _scale / getYScale([self svgTransform]), _shapePath.bounds.size.width, _shapePath.bounds.size.height);
     }
     
     [super setFrame:frame];
