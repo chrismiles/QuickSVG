@@ -18,5 +18,6 @@
 @property (nonatomic, strong) UIBezierPath *shapePath;
 @property (nonatomic, strong) CAShapeLayer *drawingLayer;
 @property (nonatomic, strong) NSArray *elements;
+@property (nonatomic, readonly) CGAffineTransform svgTransform;
 
 @end

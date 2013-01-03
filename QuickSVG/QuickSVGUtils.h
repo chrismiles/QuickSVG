@@ -16,3 +16,6 @@ CGFloat getYScale(CGAffineTransform t);
 CGFloat getRotation(CGAffineTransform t);
 
 CGFloat aspectScale(CGSize sourceSize, CGSize destSize);
+
+CGAffineTransform CGAffineTransformFromRectToRect(CGRect fromRect, CGRect toRect);
+CGAffineTransform CGAffineTransformFromRectToRectKeepAspectRatio(CGRect fromRect, CGRect toRect);

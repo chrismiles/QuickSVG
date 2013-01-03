@@ -10,6 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import <QuickSVG/QuickSVG.h>
 #import <QuickSVG/QuickSVGInstance.h>
+#import <QuickSVG/QuickSVGUtils.h>
 
 @interface DetailViewController ()
 
@@ -54,7 +55,7 @@
 {
     assert([instance.layer isKindOfClass:[CALayer class]]);
     dispatch_async(dispatch_get_main_queue(), ^{
-        [_holderView.layer addSublayer:instance.layer];
+        [_holderView addSubview:instance];
     });
 }
 
@@ -64,6 +65,14 @@
         _holderView.frame = _quickSVG.canvasFrame;
         _scrollView.contentSize = _holderView.frame.size;
     });
+}
+
+- (void) resize
+{
+    for(QuickSVGInstance *instance in _quickSVG.instances) {
+        
+        instance.frame = CGRectMake(instance.frame.origin.x, instance.frame.origin.y, instance.frame.size.width + 20, instance.frame.size.height + 20);
+    }
 }
 
 - (void)viewDidLoad
@@ -96,6 +105,9 @@
     slider.value = 1;
     [slider addTarget:self action:@selector(scaleSliderChanged:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:slider];
+    
+    UIBarButtonItem *resize = [[UIBarButtonItem alloc] initWithTitle:@"Resize" style:UIBarButtonItemStyleBordered target:self action:@selector(resize)];
+    self.navigationItem.rightBarButtonItem = resize;
 }
 
 - (id<CAAction>)actionForLayer:(CALayer *)layer forKey:(NSString *)event
@@ -110,7 +122,11 @@
     NSArray *array = [NSArray arrayWithArray:_quickSVG.instances];
     for(QuickSVGInstance *instance in array) {
         
-        CGAffineTransform transform = CGAffineTransformScale(CGAffineTransformIdentity, scale, scale);
+        CGAffineTransform transform = CGAffineTransformIdentity;
+        if(instance.attributes[@"transform"]) {
+            transform = instance.svgTransform;
+        }
+        transform = CGAffineTransformScale(transform, scale, scale);
         instance.transform = transform;
     }
 }

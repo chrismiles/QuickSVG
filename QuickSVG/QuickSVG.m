@@ -26,6 +26,7 @@
 @property (nonatomic, strong) NSDate *profileStartDate;
 @property (nonatomic, strong) NSDictionary *currentMasterAttributes;
 @property (nonatomic, assign) BOOL currentlyParsingAGroup;
+@property (nonatomic, assign) BOOL skipCurrentElement;
 
 @end
 
@@ -192,7 +193,7 @@
     if(_currentlyParsingAGroup) {
         [allAttributes addEntriesFromDictionary:_currentMasterAttributes];
     }
-
+    
     CGRect frame = CGRectMake([attributes[@"x"] floatValue], [attributes[@"y"] floatValue], [attributes[@"width"] floatValue], [attributes[@"height"] floatValue]);
 
 	QuickSVGInstance *instance = [[QuickSVGInstance alloc] initWithFrame:frame];
@@ -207,7 +208,7 @@
     NSDictionary *attributes = _currentElement[[_currentElement allKeys][0]];
     
     QuickSVGSymbol *symbol = [self symbolWithAttributes:attributes andElements:@[_currentElement]];
-    [self addInstanceOfSymbol:symbol attributes:nil];
+    [self addInstanceOfSymbol:symbol attributes:attributes];
 }
 
 #pragma mark -
@@ -216,6 +217,8 @@
 - (void) parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
 {
     NSDictionary *elementData = @{[elementName lowercaseString] : attributeDict};
+    
+    self.skipCurrentElement = [attributeDict[@"display"] isEqualToString:@"none"];
     
 	if([elementName isEqualToString:@"symbol"]) {
 		_currentlyParsingASymbol = YES;
@@ -243,6 +246,9 @@
 
 - (void) parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
+    if(_skipCurrentElement)
+        return;
+    
 	if([elementName isEqualToString:@"text"]) {
 		NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:_currentElement];
 		data[elementName][@"text"] = [NSString stringWithString:_currentElementStringValue];

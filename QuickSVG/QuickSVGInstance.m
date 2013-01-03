@@ -80,6 +80,7 @@ unichar const invalidCommand		= '*';
 @property (nonatomic, strong) NSMutableArray *tokens;
 @property (nonatomic, strong) UIBezierPath *bezierPathBeingDrawn;
 @property (nonatomic, strong) NSMutableArray *shapeLayers;
+@property (nonatomic, assign) CGFloat scale;
 
 - (QuickSVGElementType) elementTypeForElement:(NSDictionary *) element;
 - (CATextLayer *) addTextWithAttributes:(NSDictionary *) attributes;
@@ -110,19 +111,24 @@ unichar const invalidCommand		= '*';
 	self = [super initWithFrame:frame];
 	
 	if(self) {		
-		self.pathScale = 0;
-		self.separatorSet = [NSCharacterSet characterSetWithCharactersInString:separatorCharString];
-		self.commandSet = [NSCharacterSet characterSetWithCharactersInString:commandCharString];
-		self.attributes = [NSMutableDictionary dictionary];
-		self.drawingLayer = [CAShapeLayer layer];
-        self.shapeLayers = [NSMutableArray array];
-        self.opaque = YES;
-		[self.layer addSublayer:_drawingLayer];
-        
-		[self reset];
+		[self setup];
 	}
 	
 	return self;
+}
+
+- (void) setup
+{
+    self.pathScale = 0;
+    self.separatorSet = [NSCharacterSet characterSetWithCharactersInString:separatorCharString];
+    self.commandSet = [NSCharacterSet characterSetWithCharactersInString:commandCharString];
+    self.attributes = [NSMutableDictionary dictionary];
+    self.drawingLayer = [CAShapeLayer layer];
+    self.shapeLayers = [NSMutableArray array];
+    self.opaque = YES;
+    [self.layer addSublayer:_drawingLayer];
+    
+    [self reset];
 }
 
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -144,43 +150,29 @@ unichar const invalidCommand		= '*';
 	}
 }
 
-- (void) layoutSubviews
+- (void) setFrame:(CGRect)frame
 {
-    CGSize shapeSize = _shapePath.bounds.size;
-    CGSize viewSize = self.bounds.size;
-        
-    CGFloat scale = aspectScale(shapeSize, viewSize);
+    self.scale = aspectScale(self.frame.size, frame.size);
     
-    if(scale != 1.0f && !CGSizeEqualToSize(shapeSize, CGSizeZero)) {
-        
-        [_shapePath removeAllPoints];
-        
-        CGAffineTransform scaleTransform = CGAffineTransformMakeScale(scale, scale);
-        for(CAShapeLayer *layer in _drawingLayer.sublayers) {
-                        
-            UIBezierPath *path = [UIBezierPath bezierPathWithCGPath:layer.path];
-            CGRect originalRect = path.bounds;
-            
-            [path applyTransform:scaleTransform];
-            
-            if(self.attributes[@"transform"]) {
+    if(!isnan(_scale) && _scale != INFINITY && _scale != 1 && !CGRectEqualToRect(frame, CGRectZero) && !CGRectEqualToRect(self.frame, CGRectZero)) {
                 
-                CGRect newRect = path.bounds;
-                CGAffineTransform translate = CGAffineTransformMakeTranslation(-(originalRect.origin.x - newRect.origin.x), -(originalRect.origin.y - newRect.origin.y));
-                [path applyTransform:translate];
-            }
-            
-            layer.path = path.CGPath;
-            
-            [_shapePath appendPath:path];
+        CGAffineTransform scale = CGAffineTransformMakeScale(_scale, _scale);
+        
+        if(self.attributes[@"transform"]) {
+            CGAffineTransform svgTransform = [self svgTransform];
+            scale = CGAffineTransformScale(scale, getXScale(svgTransform), getYScale(svgTransform));
         }
+        
+        self.transform = scale;
+        [_shapePath applyTransform:scale];
+        
+        CGSize shapeSize = _shapePath.bounds.size;
+        CGSize frameSize = frame.size;
+        _drawingLayer.frame = CGRectMake(0,0, shapeSize.width, shapeSize.height);
+        _drawingLayer.affineTransform = CGAffineTransformMakeTranslation(frameSize.width / 2 - shapeSize.width / 2, frameSize.height / 2 - shapeSize.height / 2);
     }
     
-    _drawingLayer.frame = CGRectMake(self.bounds.size.width / 2 - _shapePath.bounds.size.width / 2,
-                                     self.bounds.size.height / 2 - _shapePath.bounds.size.height / 2,
-                                     _shapePath.bounds.size.width,
-                                     _shapePath.bounds.size.height);
-    self.layer.shadowPath = _shapePath.CGPath;
+    [super setFrame:frame];
 }
 
 - (CGAffineTransform) svgTransform
@@ -200,7 +192,7 @@ unichar const invalidCommand		= '*';
 		return;
     
     _elements = elements;
-				
+				    
     CGAffineTransform pathTransform = CGAffineTransformIdentity;
     
     CGFloat transX = self.frame.origin.x;
@@ -246,23 +238,32 @@ unichar const invalidCommand		= '*';
 				break;
 			case QuickSVGElementTypeUnknown:
 			default:
+                continue;
 				break;
 		}
 		
 		if(path) {
-            
             [path applyTransform:pathTransform];
 			NSMutableDictionary *styles = [NSMutableDictionary dictionaryWithDictionary:element[shapeKey]];
 			[styles addEntriesFromDictionary:_attributes];
-			
+            
 			shapeLayer.path = path.CGPath;
 			[self applyStyleAttributes:styles toShapeLayer:shapeLayer];
-			
+        
 			[_drawingLayer addSublayer:shapeLayer];
 			[_shapePath appendPath:path];
             [_shapeLayers addObject:shapeLayer];
 		}
 	}
+}
+
+- (void) setShapeLayers:(NSMutableArray *)shapeLayers
+{
+    _shapeLayers = shapeLayers;
+    
+    for(CAShapeLayer *layer in shapeLayers) {
+        [_drawingLayer addSublayer:layer];
+    }
 }
 
 - (QuickSVGElementType) elementTypeForElement:(NSDictionary *) element
@@ -708,22 +709,23 @@ unichar const invalidCommand		= '*';
 
 - (void) encodeWithCoder:(NSCoder *)aCoder
 {
-	[aCoder encodeObject:self.elements forKey:@"elements"];
+    [super encodeWithCoder:aCoder];
+    
+	[aCoder encodeObject:_shapeLayers forKey:@"shapeLayers"];
+    [aCoder encodeObject:_shapePath forKey:@"shapePath"];
 	[aCoder encodeObject:self.attributes forKey:@"attributes"];
-	[aCoder encodeCGRect:self.frame forKey:@"frame"];
-    [aCoder encodeCGAffineTransform:self.transform forKey:@"transform"];
 }
 
 - (id) initWithCoder:(NSCoder *)aDecoder
-{
-    CGRect frame = [aDecoder decodeCGRectForKey:@"frame"];
-    
-	self = [[QuickSVGInstance alloc] initWithFrame:frame];
+{    
+	self = [super initWithCoder:aDecoder];
 	
 	if(self) {
+        [self setup];
+        
         self.attributes = [aDecoder decodeObjectForKey:@"attributes"];
-        self.elements = [aDecoder decodeObjectForKey:@"elements"];
-        self.transform = [aDecoder decodeCGAffineTransformForKey:@"transform"];
+        self.shapeLayers = [aDecoder decodeObjectForKey:@"shapeLayers"];
+        self.shapePath = [aDecoder decodeObjectForKey:@"shapePath"];
 	}
 	
 	return self;
