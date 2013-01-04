@@ -166,7 +166,10 @@ unichar const invalidCommand		= '*';
         CGSize frameSize = frame.size;
                 
         self.transform = scale;                
-        _drawingLayer.frame = CGRectMake((frameSize.width / 2 - shapeSize.width / 2) / _scale / getXScale([self svgTransform]),(frameSize.height / 2 - shapeSize.height / 2) / _scale / getYScale([self svgTransform]), _shapePath.bounds.size.width, _shapePath.bounds.size.height);
+        _drawingLayer.frame = CGRectIntegral( CGRectMake((frameSize.width / 2 - shapeSize.width / 2) / _scale / getXScale([self svgTransform]),
+                                                         (frameSize.height / 2 - shapeSize.height / 2) / _scale / getYScale([self svgTransform]),
+                                                         _shapePath.bounds.size.width,
+                                                         _shapePath.bounds.size.height) );
     }
     
     [super setFrame:frame];
