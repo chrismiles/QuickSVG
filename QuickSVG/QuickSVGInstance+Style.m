@@ -38,8 +38,7 @@
 #pragma KVO
 - (void) addAttributeObservers
 {
-    for(NSString *key in [[QuickSVGInstance supportedStyleAttributes] allKeys])
-    {
+    for(NSString *key in [[QuickSVGInstance supportedStyleAttributes] allKeys]) {
         [self.attributes addObserver:self forKeyPath:key options:NSKeyValueObservingOptionNew context:NULL];
     }
 }

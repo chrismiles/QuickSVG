@@ -726,6 +726,10 @@ unichar const invalidCommand		= '*';
         self.attributes = [aDecoder decodeObjectForKey:@"attributes"];
         self.shapeLayers = [aDecoder decodeObjectForKey:@"shapeLayers"];
         self.shapePath = [aDecoder decodeObjectForKey:@"shapePath"];
+        
+        for(CAShapeLayer *layer in _shapeLayers) {
+            [self applyStyleAttributes:_attributes toShapeLayer:layer];
+        }
 	}
 	
 	return self;

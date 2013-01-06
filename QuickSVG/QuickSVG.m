@@ -105,7 +105,7 @@
 	[_parsedSymbolInstances removeAllObjects];
     [_anonymousElements removeAllObjects];
 	_currentElementStringValue.string = @"";
-	
+    	
     self.xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:url];
     
     [_xmlParser setDelegate:self];
@@ -257,6 +257,11 @@
 	}
     else if(_currentlyParsingAGroup && [elementName isEqualToString:@"g"]) {
         _currentlyParsingAGroup = NO;
+    }
+    
+    if([_currentMasterAttributes[@"display"] isEqualToString:@"none"]) {
+        _currentlyParsingASymbol = NO;
+        return;
     }
     
     if(_currentlyParsingASymbol && [elementName isEqualToString:@"symbol"]) {
