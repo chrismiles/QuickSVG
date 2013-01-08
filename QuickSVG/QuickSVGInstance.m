@@ -165,7 +165,8 @@ unichar const invalidCommand		= '*';
         CGSize shapeSize = CGSizeApplyAffineTransform(_shapePath.bounds.size, scale);
         CGSize frameSize = frame.size;
                 
-        self.transform = scale;                
+        self.transform = scale;
+        
         _drawingLayer.frame = CGRectIntegral( CGRectMake((frameSize.width / 2 - shapeSize.width / 2) / _scale / getXScale([self svgTransform]),
                                                          (frameSize.height / 2 - shapeSize.height / 2) / _scale / getYScale([self svgTransform]),
                                                          _shapePath.bounds.size.width,
@@ -255,6 +256,8 @@ unichar const invalidCommand		= '*';
             [_shapeLayers addObject:shapeLayer];
 		}
 	}
+    
+    self.layer.shadowPath = _shapePath.CGPath;
 }
 
 - (void) setShapeLayers:(NSMutableArray *)shapeLayers
