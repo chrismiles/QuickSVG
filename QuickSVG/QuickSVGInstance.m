@@ -157,20 +157,25 @@ unichar const invalidCommand		= '*';
     if(!isnan(_scale) && _scale != INFINITY && _scale != 1 && !CGRectEqualToRect(frame, CGRectZero) && !CGRectEqualToRect(self.frame, CGRectZero)) {
                 
         CGAffineTransform scale = CGAffineTransformMakeScale(_scale, _scale);
+        [_shapePath applyTransform:scale];
+        
+        CGAffineTransform svgTransform = [self svgTransform];
         
         if(self.attributes[@"transform"]) {
-            CGAffineTransform svgTransform = [self svgTransform];
             scale = CGAffineTransformScale(scale, getXScale(svgTransform), getYScale(svgTransform));
         }
-        CGSize shapeSize = CGSizeApplyAffineTransform(_shapePath.bounds.size, scale);
-        CGSize frameSize = frame.size;
-                
+        
         self.transform = scale;
         
-        _drawingLayer.frame = CGRectIntegral( CGRectMake((frameSize.width / 2 - shapeSize.width / 2) / _scale / getXScale([self svgTransform]),
-                                                         (frameSize.height / 2 - shapeSize.height / 2) / _scale / getYScale([self svgTransform]),
-                                                         _shapePath.bounds.size.width,
-                                                         _shapePath.bounds.size.height) );
+        CGSize shapeSize = _shapePath.bounds.size;
+        CGSize frameSize = frame.size;
+        
+        CGFloat xOffset = (frameSize.width / 2 - shapeSize.width / 2) / _scale / getXScale(svgTransform);
+        CGFloat yOffset = (frameSize.height / 2 - shapeSize.height / 2) / _scale / getYScale(svgTransform);
+        
+        CGAffineTransform translate = CGAffineTransformMakeTranslation(xOffset, yOffset);
+        [_shapePath applyTransform:translate];
+        _drawingLayer.affineTransform = translate;
     }
     
     [super setFrame:frame];
@@ -203,7 +208,7 @@ unichar const invalidCommand		= '*';
     
     // Custom transform previously applied, need to flip the y axis to correspond for CG drawing
     if(self.attributes[@"transform"]) {
-        pathTransform = CGAffineTransformScale(pathTransform, 1, -1);
+        pathTransform = CGAffineTransformScale(pathTransform, 1, -1);        
     }
     
 	[self.drawingLayer.sublayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
@@ -256,6 +261,10 @@ unichar const invalidCommand		= '*';
             [_shapeLayers addObject:shapeLayer];
 		}
 	}
+    
+    CGAffineTransform svgTransform = [self svgTransform];
+    CGAffineTransform shapePathTransform = makeTransform(getXScale(svgTransform), getYScale(svgTransform), getRotation(svgTransform), 0, 0);
+    [_shapePath applyTransform:shapePathTransform];
     
     self.layer.shadowPath = _shapePath.CGPath;
 }

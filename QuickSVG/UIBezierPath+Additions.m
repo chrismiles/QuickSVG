@@ -10,11 +10,6 @@
 
 @implementation UIBezierPath (Additions)
 
-#define POINT(_INDEX_) \
-[(NSValue *)[points objectAtIndex:_INDEX_] CGPointValue]
-#define VALUE(_INDEX_) \
-[NSValue valueWithCGPoint:points[_INDEX_]]
-
 void getPointsFromBezier(void *info, const CGPathElement *element) {
     
     NSMutableArray *bezierPoints = (__bridge NSMutableArray *)info;
