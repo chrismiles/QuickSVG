@@ -224,7 +224,7 @@ unichar const invalidCommand		= '*';
 		NSString *shapeKey = [[element allKeys] objectAtIndex:0];
 		QuickSVGElementType type = [self elementTypeForElement:element];
 		
-		if([[element[shapeKey] allKeys] containsObject:@"display"] && [element[shapeKey][@"display"] isEqualToString:@"none"])
+		if([element[shapeKey][@"display"] isEqualToString:@"none"])
 			continue;
 
 		CAShapeLayer *shapeLayer = [CAShapeLayer layer];
@@ -244,6 +244,7 @@ unichar const invalidCommand		= '*';
 				break;
 			case QuickSVGElementTypeUnknown:
 			default:
+//                NSLog(@"<< Invalid Element >> %@", shapeKey);
                 continue;
 				break;
 		}

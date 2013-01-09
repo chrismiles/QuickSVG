@@ -86,6 +86,8 @@
 
     self.holderView = [[UIView alloc] initWithFrame:self.scrollView.frame];
     [_scrollView addSubview:_holderView];
+    
+    self.scrollView.backgroundColor = [UIColor greenColor];
 	
 	_scrollView.minimumZoomScale = 1.0;
 	_scrollView.maximumZoomScale = 3.0;

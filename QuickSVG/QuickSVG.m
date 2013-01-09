@@ -26,7 +26,6 @@
 @property (nonatomic, strong) NSDate *profileStartDate;
 @property (nonatomic, strong) NSDictionary *currentMasterAttributes;
 @property (nonatomic, assign) BOOL currentlyParsingAGroup;
-@property (nonatomic, assign) BOOL skipCurrentElement;
 
 @end
 
@@ -205,6 +204,9 @@
 
 - (void) addCurrentAnonymousElement
 {
+    if([_currentElement count] == 0)
+        return;
+    
     NSDictionary *attributes = _currentElement[[_currentElement allKeys][0]];
     
     QuickSVGSymbol *symbol = [self symbolWithAttributes:attributes andElements:@[_currentElement]];
@@ -217,8 +219,6 @@
 - (void) parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
 {
     NSDictionary *elementData = @{[elementName lowercaseString] : attributeDict};
-    
-    self.skipCurrentElement = [attributeDict[@"display"] isEqualToString:@"none"];
     
 	if([elementName isEqualToString:@"symbol"]) {
 		_currentlyParsingASymbol = YES;
@@ -246,22 +246,15 @@
 
 - (void) parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
-    if(_skipCurrentElement)
-        return;
-    
 	if([elementName isEqualToString:@"text"]) {
 		NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:_currentElement];
 		data[elementName][@"text"] = [NSString stringWithString:_currentElementStringValue];
 		_currentElement = data;
 		[_currentElementStringValue setString:@""];
 	}
-    else if(_currentlyParsingAGroup && [elementName isEqualToString:@"g"]) {
-        _currentlyParsingAGroup = NO;
-    }
     
-    if([_currentMasterAttributes[@"display"] isEqualToString:@"none"]) {
-        _currentlyParsingASymbol = NO;
-        return;
+    if(_currentlyParsingAGroup && [elementName isEqualToString:@"g"]) {
+        _currentlyParsingAGroup = NO;
     }
     
     if(_currentlyParsingASymbol && [elementName isEqualToString:@"symbol"]) {
@@ -269,7 +262,8 @@
 		[_currentSymbolElements removeAllObjects];
 		_currentlyParsingASymbol = NO;
 	}
-    else if(_currentElement != nil && ![elementName isEqualToString:@"use"]) {
+    
+    if(_currentElement != nil && ![elementName isEqualToString:@"use"]) {
         [self addCurrentAnonymousElement];
     }
 }
