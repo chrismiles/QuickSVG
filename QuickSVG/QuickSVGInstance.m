@@ -157,7 +157,7 @@ unichar const invalidCommand		= '*';
     if(!isnan(_scale) && _scale != INFINITY && _scale != 1 && !CGRectEqualToRect(frame, CGRectZero) && !CGRectEqualToRect(self.frame, CGRectZero)) {
                 
         CGAffineTransform scale = CGAffineTransformMakeScale(_scale, _scale);
-        
+        [_shapePath applyTransform:scale];
         CGAffineTransform svgTransform = [self svgTransform];
         
         if(self.attributes[@"transform"]) {
@@ -166,16 +166,16 @@ unichar const invalidCommand		= '*';
         
         self.transform = scale;
         
-        CGSize shapeSize = CGSizeApplyAffineTransform(_shapePath.bounds.size, scale);
+        CGSize shapeSize = _shapePath.bounds.size;
         CGSize frameSize = frame.size;
         
         CGFloat xOffset = (frameSize.width / 2 - shapeSize.width / 2) / _scale / getXScale(svgTransform);
         CGFloat yOffset = (frameSize.height / 2 - shapeSize.height / 2) / _scale / getYScale(svgTransform);
         
         CGAffineTransform translate = CGAffineTransformMakeTranslation(xOffset, yOffset);
+        
         [_shapePath applyTransform:translate];
         _drawingLayer.affineTransform = translate;
-        [_shapePath applyTransform:scale];
     }
     
     [super setFrame:frame];
@@ -263,7 +263,9 @@ unichar const invalidCommand		= '*';
 		}
 	}
     
-    self.layer.shadowPath = _shapePath.CGPath;
+    CGAffineTransform svgTransform = [self svgTransform];
+    CGAffineTransform shapePathTransform = makeTransform(getXScale(svgTransform), getYScale(svgTransform), getRotation(svgTransform), 0, 0);
+    [_shapePath applyTransform:shapePathTransform];
 }
 
 - (void) setShapeLayers:(NSMutableArray *)shapeLayers
