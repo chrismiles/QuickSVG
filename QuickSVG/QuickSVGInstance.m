@@ -123,10 +123,8 @@ unichar const invalidCommand		= '*';
     self.separatorSet = [NSCharacterSet characterSetWithCharactersInString:separatorCharString];
     self.commandSet = [NSCharacterSet characterSetWithCharactersInString:commandCharString];
     self.attributes = [NSMutableDictionary dictionary];
-    self.drawingLayer = [CAShapeLayer layer];
     self.shapeLayers = [NSMutableArray array];
     self.opaque = YES;
-    [self.layer addSublayer:_drawingLayer];
     
     [self reset];
 }
@@ -158,24 +156,9 @@ unichar const invalidCommand		= '*';
                 
         CGAffineTransform scale = CGAffineTransformMakeScale(_scale, _scale);
         [_shapePath applyTransform:scale];
-        CGAffineTransform svgTransform = [self svgTransform];
         
-        if(self.attributes[@"transform"]) {
-            scale = CGAffineTransformScale(scale, getXScale(svgTransform), getYScale(svgTransform));
-        }
-        
-        self.transform = scale;
-        
-        CGSize shapeSize = _shapePath.bounds.size;
-        CGSize frameSize = frame.size;
-        
-        CGFloat xOffset = (frameSize.width / 2 - shapeSize.width / 2) / _scale / getXScale(svgTransform);
-        CGFloat yOffset = (frameSize.height / 2 - shapeSize.height / 2) / _scale / getYScale(svgTransform);
-        
-        CGAffineTransform translate = CGAffineTransformMakeTranslation(xOffset, yOffset);
-        
-        [_shapePath applyTransform:translate];
-        _drawingLayer.affineTransform = translate;
+        self.transform = CGAffineTransformScale(self.transform, _scale, _scale);
+        frame = self.frame;
     }
     
     [super setFrame:frame];
@@ -211,7 +194,7 @@ unichar const invalidCommand		= '*';
         pathTransform = CGAffineTransformScale(pathTransform, 1, -1);        
     }
     
-	[self.drawingLayer.sublayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
+	[self.layer.sublayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
 	self.shapePath = [UIBezierPath bezierPath];
 		
 	for(NSDictionary *element in self.elements) {
@@ -219,7 +202,7 @@ unichar const invalidCommand		= '*';
 		if(![element isKindOfClass:[NSDictionary class]])
 			continue;
 		
-		UIBezierPath *path;
+		UIBezierPath *path = [UIBezierPath bezierPath];
 		
 		NSString *shapeKey = [[element allKeys] objectAtIndex:0];
 		QuickSVGElementType type = [self elementTypeForElement:element];
@@ -239,7 +222,7 @@ unichar const invalidCommand		= '*';
 			case QuickSVGElementTypeText:
             {
 				CATextLayer *textLayer = [self addTextWithAttributes:element[shapeKey]];
-				[_drawingLayer addSublayer:textLayer];
+				[self.layer addSublayer:textLayer];
 			}
 				break;
 			case QuickSVGElementTypeUnknown:
@@ -257,14 +240,18 @@ unichar const invalidCommand		= '*';
 			shapeLayer.path = path.CGPath;
 			[self applyStyleAttributes:styles toShapeLayer:shapeLayer];
         
-			[_drawingLayer addSublayer:shapeLayer];
+			[self.layer addSublayer:shapeLayer];
 			[_shapePath appendPath:path];
             [_shapeLayers addObject:shapeLayer];
 		}
 	}
     
     CGAffineTransform svgTransform = [self svgTransform];
-    CGAffineTransform shapePathTransform = makeTransform(getXScale(svgTransform), getYScale(svgTransform), getRotation(svgTransform), 0, 0);
+    
+    // MN - Hack, need to better understand coordinate system transform adjustments
+    CGFloat rotation = getRotation(svgTransform);
+    CGFloat yFlip = rotation < 0 ? -getYScale(svgTransform) : getYScale(svgTransform);
+    CGAffineTransform shapePathTransform = makeTransform(getXScale(svgTransform), yFlip, rotation, 0, 0);
     [_shapePath applyTransform:shapePathTransform];
 }
 
@@ -273,7 +260,7 @@ unichar const invalidCommand		= '*';
     _shapeLayers = shapeLayers;
     
     for(CAShapeLayer *layer in shapeLayers) {
-        [_drawingLayer addSublayer:layer];
+        [self.layer addSublayer:layer];
     }
 }
 

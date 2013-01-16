@@ -47,7 +47,7 @@
 {
 	if(![self.attributes[keyPath] isEqual:change[keyPath]]) {
         
-        for(CAShapeLayer *layer in self.drawingLayer.sublayers) {
+        for(CAShapeLayer *layer in self.layer.sublayers) {
             [self applyStyleAttributes:self.attributes toShapeLayer:layer];
         }
     }
