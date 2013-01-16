@@ -158,7 +158,6 @@ unichar const invalidCommand		= '*';
         [_shapePath applyTransform:scale];
         
         self.transform = CGAffineTransformScale(self.transform, _scale, _scale);
-        frame = self.frame;
     }
     
     [super setFrame:frame];
