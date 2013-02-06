@@ -27,6 +27,13 @@
 @property (nonatomic, strong) UIView *view;
 @property (nonatomic, assign) CGRect canvasFrame;
 
+// This allows you to have visible layers within the SVG that are ignored by the renderer
+// Useful for creating templates with elements that you do not want to be displayed in the final
+// product
+//
+// Default - XXX
+@property (nonatomic, strong) NSString *ignorePattern;
+
 - (id) initWithDelegate:(id <QuickSVGDelegate>) delegate;
 + (QuickSVG *) svgFromURL:(NSURL *) url;
 - (BOOL) parseSVGFileWithURL:(NSURL *) url;

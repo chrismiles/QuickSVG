@@ -101,6 +101,7 @@ unichar const invalidCommand		= '*';
 - (void)appendSVGCCommand:(Token *)token;
 - (void)appendSVGSCommand:(Token *)token;
 - (NSArray *) arrayFromPointsAttribute:(NSString *) points;
+- (BOOL)shouldIgnoreElement:(NSDictionary *)element;
 
 @end
 
@@ -206,8 +207,9 @@ unichar const invalidCommand		= '*';
 		NSString *shapeKey = [[element allKeys] objectAtIndex:0];
 		QuickSVGElementType type = [self elementTypeForElement:element];
 		
-		if([element[shapeKey][@"display"] isEqualToString:@"none"])
-			continue;
+        if([self shouldIgnoreElement:element[shapeKey]]) {
+            continue;
+        }
 
 		CAShapeLayer *shapeLayer = [CAShapeLayer layer];
 		
@@ -252,6 +254,23 @@ unichar const invalidCommand		= '*';
     CGFloat yFlip = rotation < 0 ? -getYScale(svgTransform) : getYScale(svgTransform);
     CGAffineTransform shapePathTransform = makeTransform(getXScale(svgTransform), yFlip, rotation, 0, 0);
     [_shapePath applyTransform:shapePathTransform];
+}
+
+- (BOOL)shouldIgnoreElement:(NSDictionary *)element
+{
+    BOOL ignoreElement = NO;
+    
+    NSString *identity = element[@"id"];
+    if(identity) {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF BEGINSWITH %@", self.quickSVG.ignorePattern];
+        ignoreElement = [predicate evaluateWithObject:identity];
+    }
+    
+    if([element[@"display"] isEqualToString:@"none"]) {
+        ignoreElement = YES;
+    }
+    
+    return ignoreElement;
 }
 
 - (void) setShapeLayers:(NSMutableArray *)shapeLayers

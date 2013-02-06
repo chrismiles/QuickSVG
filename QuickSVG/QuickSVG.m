@@ -36,6 +36,7 @@
 	self = [super init];
 	
 	if(self) {
+        self.ignorePattern = @"XXX";
 		self.delegate = delegate;
 		self.symbols = [NSMutableDictionary dictionary];
 		self.currentSymbolElements = [NSMutableArray array];
