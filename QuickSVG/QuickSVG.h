@@ -34,6 +34,12 @@
 // Default - XXX
 @property (nonatomic, strong) NSString *ignorePattern;
 
+// Instead of rendering text as a CATextLayer, optionally render text as a path
+// inside a CAShapeLayer for better scaling
+//
+// Default - YES
+@property (nonatomic, assign) BOOL shouldTreatTextAsPaths;
+
 - (id) initWithDelegate:(id <QuickSVGDelegate>) delegate;
 + (QuickSVG *) svgFromURL:(NSURL *) url;
 - (BOOL) parseSVGFileWithURL:(NSURL *) url;

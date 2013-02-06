@@ -37,6 +37,7 @@
 	
 	if(self) {
         self.ignorePattern = @"XXX";
+        self.shouldTreatTextAsPaths = NO;
 		self.delegate = delegate;
 		self.symbols = [NSMutableDictionary dictionary];
 		self.currentSymbolElements = [NSMutableArray array];
@@ -247,7 +248,7 @@
 
 - (void) parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
-	if([elementName isEqualToString:@"text"]) {
+	if([elementName isEqualToString:@"text"] && [_currentElementStringValue length] > 0) {
 		NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:_currentElement];
 		data[elementName][@"text"] = [NSString stringWithString:_currentElementStringValue];
 		_currentElement = data;

@@ -7,6 +7,7 @@
 //
 
 #import "QuickSVGUtils.h"
+#import <CoreText/CoreText.h>
 
 CGAffineTransform makeTransform(CGFloat xScale, CGFloat yScale, CGFloat theta, CGFloat tx, CGFloat ty) {
     CGAffineTransform t = CGAffineTransformIdentity;
@@ -72,4 +73,45 @@ CGAffineTransform CGAffineTransformFromRectToRectKeepAspectRatio(CGRect fromRect
     }
     
     return CGAffineTransformFromRectToRect(fromRect, toRect);
+}
+
+void CGPathForTextWithFont(CGMutablePathRef *path, NSString *text, UIFont *font)
+{
+	if(text == nil)
+		return;
+	
+	CTFontRef fontRef = CTFontCreateWithName((__bridge CFStringRef)font.fontName, font.pointSize, NULL);
+	NSDictionary *attrs = [NSDictionary dictionaryWithObjectsAndKeys:
+						   (__bridge id)fontRef, kCTFontAttributeName,
+						   nil];
+	NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:text
+																	 attributes:attrs];
+	CTLineRef line = CTLineCreateWithAttributedString((__bridge CFAttributedStringRef)attrString);
+	CFArrayRef runArray = CTLineGetGlyphRuns(line);
+	
+	// for each RUN
+	for (CFIndex runIndex = 0; runIndex < CFArrayGetCount(runArray); runIndex++)
+	{
+		// Get FONT for this run
+		CTRunRef run = (CTRunRef)CFArrayGetValueAtIndex(runArray, runIndex);
+		CTFontRef runFont = CFDictionaryGetValue(CTRunGetAttributes(run), kCTFontAttributeName);
+		
+		// for each GLYPH in run
+		for (CFIndex runGlyphIndex = 0; runGlyphIndex < CTRunGetGlyphCount(run); runGlyphIndex++)
+		{
+			// get Glyph & Glyph-data
+			CFRange thisGlyphRange = CFRangeMake(runGlyphIndex, 1);
+			CGGlyph glyph;
+			CGPoint position;
+			CTRunGetGlyphs(run, thisGlyphRange, &glyph);
+			CTRunGetPositions(run, thisGlyphRange, &position);
+			
+			CGPathRef letter = CTFontCreatePathForGlyph(runFont, glyph, NULL);
+			CGAffineTransform t = CGAffineTransformMakeTranslation(position.x, position.y);
+			CGPathAddPath(*path, &t, letter);
+			CGPathRelease(letter);
+		}
+	}
+	CFRelease(fontRef);
+	CFRelease(line);
 }

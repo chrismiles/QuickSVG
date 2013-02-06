@@ -19,3 +19,5 @@ CGFloat aspectScale(CGSize sourceSize, CGSize destSize);
 
 CGAffineTransform CGAffineTransformFromRectToRect(CGRect fromRect, CGRect toRect);
 CGAffineTransform CGAffineTransformFromRectToRectKeepAspectRatio(CGRect fromRect, CGRect toRect);
+
+void CGPathForTextWithFont(CGMutablePathRef *path, NSString *text, UIFont *font);

@@ -83,7 +83,7 @@ unichar const invalidCommand		= '*';
 @property (nonatomic, assign) CGFloat scale;
 
 - (QuickSVGElementType) elementTypeForElement:(NSDictionary *) element;
-- (CATextLayer *) addTextWithAttributes:(NSDictionary *) attributes;
+- (CALayer *) addTextWithAttributes:(NSDictionary *) attributes;
 - (UIBezierPath *) addPath:(NSString *) pathType withAttributes:(NSDictionary *) attributes;
 - (UIBezierPath *) addBasicShape:(NSString *) shapeType withAttributes:(NSDictionary *) attributes;
 - (UIBezierPath *) drawRectWithAttributes:(NSDictionary *) attributes;
@@ -222,8 +222,14 @@ unichar const invalidCommand		= '*';
 				break;
 			case QuickSVGElementTypeText:
             {
-				CATextLayer *textLayer = [self addTextWithAttributes:element[shapeKey]];
-				[self.layer addSublayer:textLayer];
+                if(element[shapeKey][@"text"]) {
+                    CALayer *textLayer = [self addTextWithAttributes:element[shapeKey]];
+                    
+                    if(self.quickSVG.shouldTreatTextAsPaths) {
+                        textLayer.affineTransform = pathTransform;
+                    }
+                    [self.layer addSublayer:textLayer];
+                }
 			}
 				break;
 			case QuickSVGElementTypeUnknown:
@@ -300,36 +306,55 @@ unichar const invalidCommand		= '*';
 	}
 }
 
-- (CATextLayer *) addTextWithAttributes:(NSDictionary *) attributes
+- (CALayer *) addTextWithAttributes:(NSDictionary *) attributes
 {
-	CATextLayer *textLayer = [CATextLayer layer];
-	textLayer.string = attributes[@"text"];
-	textLayer.fontSize = [attributes[@"font-size"] floatValue];
-	textLayer.contentsScale = [[UIScreen mainScreen] scale];
-	
-	UIFont *font = [UIFont fontWithName:attributes[@"font-family"] size:[attributes[@"font-size"] floatValue]];
-	
-	if(font == nil) {
-		font = [UIFont systemFontOfSize:[attributes[@"font-size"] floatValue]];
-	}
-		
-	CGSize size = [attributes[@"text"] sizeWithFont:font];
-	textLayer.bounds = CGRectMake(0,0, size.width, size.height);
-	
-	CGFontRef fontRef = CGFontCreateWithFontName((__bridge CFStringRef)[font fontName]);
-	[textLayer setFont:fontRef];
-	CFRelease(fontRef);
-	
-	if([[attributes allKeys] containsObject:@"fill"]) {
-		UIColor *color = [UIColor colorWithHexString:[attributes[@"fill"] substringFromIndex:1] withAlpha:1];
-		textLayer.foregroundColor = color.CGColor;
-	} else {
-        textLayer.foregroundColor = [UIColor blackColor].CGColor;
+    CALayer *layer;
+    
+    NSString *text          = attributes[@"text"];
+    CGFloat fontSize        = [attributes[@"font-size"] floatValue];
+    NSString *fontFamily    = [attributes[@"font-family"] stringByReplacingOccurrencesOfString:@"'" withString:@""];
+    UIFont *font            = [UIFont fontWithName:fontFamily size:fontSize];
+    
+    if(font == nil) {
+        font = [UIFont systemFontOfSize:[attributes[@"font-size"] floatValue]];
     }
     
-    textLayer.affineTransform = makeTransformFromSVGMatrix(attributes[@"transform"]);
+    CGColorRef fontColor = [UIColor blackColor].CGColor;
+    if([[attributes allKeys] containsObject:@"fill"]) {
+        fontColor = [UIColor colorWithHexString:[attributes[@"fill"] substringFromIndex:1] withAlpha:1].CGColor;
+    }
+    
+    CGSize textSize         = [text sizeWithFont:font];
 
-	return textLayer;
+    if(self.quickSVG.shouldTreatTextAsPaths) {
+        CAShapeLayer *shapeLayer = [CAShapeLayer layer];
+        shapeLayer.anchorPoint = CGPointMake(0,0);
+        shapeLayer.fillColor = fontColor;
+
+        CGMutablePathRef textPath = CGPathCreateMutable();
+        CGPathForTextWithFont(&textPath, text, font);
+        shapeLayer.path = textPath;
+        CGPathRelease(textPath);
+        
+        layer = shapeLayer;        
+    } else {
+        CATextLayer *textLayer = [CATextLayer layer];
+        textLayer = [CATextLayer layer];
+        textLayer.anchorPoint = CGPointMake(0,0);
+        textLayer.string = text;
+        textLayer.fontSize = fontSize;
+        textLayer.rasterizationScale = textLayer.contentsScale;
+        textLayer.foregroundColor = fontColor;
+        textLayer.bounds = CGRectMake(0, 0, textSize.width, textSize.height);
+        
+        CGFontRef fontRef = CGFontCreateWithFontName((__bridge CFStringRef)[font fontName]);
+        [textLayer setFont:fontRef];
+        CFRelease(fontRef);
+        
+        layer = textLayer;
+    }
+    
+    return layer;
 }
 
 - (UIBezierPath *) addPath:(NSString *) pathType withAttributes:(NSDictionary *) attributes
