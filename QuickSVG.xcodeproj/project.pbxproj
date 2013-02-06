@@ -64,7 +64,7 @@
 		C9090DC816137E1A001145EC /* UIColor+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = C9090DC616137E1A001145EC /* UIColor+Additions.m */; };
 		C9090DC916137E1A001145EC /* UIColor+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = C9090DC616137E1A001145EC /* UIColor+Additions.m */; };
 		C9090DCA16137E1A001145EC /* UIColor+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = C9090DC616137E1A001145EC /* UIColor+Additions.m */; };
-		C971CAB7168CE9B00040A7FF /* UIBezierPath+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = C971CAB5168CE9B00040A7FF /* UIBezierPath+Additions.h */; };
+		C971CAB7168CE9B00040A7FF /* UIBezierPath+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = C971CAB5168CE9B00040A7FF /* UIBezierPath+Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C971CAB8168CE9B00040A7FF /* UIBezierPath+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = C971CAB6168CE9B00040A7FF /* UIBezierPath+Additions.m */; };
 		C97F3C6B1680CB93006A70C3 /* QuickSVGUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = C97F3C691680CB93006A70C3 /* QuickSVGUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C97F3C6C1680CB93006A70C3 /* QuickSVGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C97F3C6A1680CB93006A70C3 /* QuickSVGUtils.m */; };

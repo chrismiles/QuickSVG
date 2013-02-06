@@ -16,6 +16,7 @@
 @interface UIBezierPath (Additions)
 
 - (UIBezierPath *) fitInRect: (CGRect) destRect;
+- (NSArray *) points;
 + (UIBezierPath *) pathWithPoints: (NSArray *) points;
 
 @end
