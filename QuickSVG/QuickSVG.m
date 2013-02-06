@@ -37,7 +37,7 @@
 	
 	if(self) {
         self.ignorePattern = @"XXX";
-        self.shouldTreatTextAsPaths = NO;
+        self.shouldTreatTextAsPaths = YES;
 		self.delegate = delegate;
 		self.symbols = [NSMutableDictionary dictionary];
 		self.currentSymbolElements = [NSMutableArray array];
