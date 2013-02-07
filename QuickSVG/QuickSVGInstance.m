@@ -339,7 +339,6 @@ unichar const invalidCommand		= '*';
         layer = shapeLayer;        
     } else {
         CATextLayer *textLayer = [CATextLayer layer];
-        textLayer = [CATextLayer layer];
         textLayer.anchorPoint = CGPointMake(0,0);
         textLayer.string = text;
         textLayer.fontSize = fontSize;
