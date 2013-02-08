@@ -38,8 +38,10 @@
 #pragma KVO
 - (void) dealloc
 {
-    for(NSString *key in [[QuickSVGInstance supportedStyleAttributes] allKeys]) {
-        [self.attributes removeObserver:self forKeyPath:key];
+    if([self.attributes observationInfo]) {
+        for(NSString *key in [[QuickSVGInstance supportedStyleAttributes] allKeys]) {
+            [self.attributes removeObserver:self forKeyPath:key];
+        }
     }
 }
 
