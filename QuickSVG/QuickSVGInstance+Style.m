@@ -36,6 +36,11 @@
 }
 
 #pragma KVO
+- (void) dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void) addAttributeObservers
 {
     for(NSString *key in [[QuickSVGInstance supportedStyleAttributes] allKeys]) {
