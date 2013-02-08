@@ -286,9 +286,7 @@
 }
 
 - (void) parserDidEndDocument:(NSXMLParser *)parser
-{    
-    self.canvasFrame = CGRectMake(fabs(_canvasFrame.origin.x), fabs(_canvasFrame.origin.y), _canvasFrame.size.width, _canvasFrame.size.height);
-	
+{    	
 	if(!self.aborted && _delegate != nil && [_delegate respondsToSelector:@selector(quickSVGDidParse:)]) {
 		[_delegate quickSVGDidParse:self];
 	}
