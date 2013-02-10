@@ -22,11 +22,13 @@ CGAffineTransform makeTransform(CGFloat xScale, CGFloat yScale, CGFloat theta, C
 }
 
 CGAffineTransform makeTransformFromSVGMatrix(NSString *matrix) {
-    matrix = [matrix stringByReplacingOccurrencesOfString:@"matrix(" withString:@"{"];
-    matrix = [matrix stringByReplacingOccurrencesOfString:@")" withString:@"}"];
-    matrix = [matrix stringByReplacingOccurrencesOfString:@" " withString:@","];
+    
+    NSMutableString *m = [NSMutableString stringWithString:matrix];
+    [m replaceOccurrencesOfString:@"matrix(" withString:@"{" options:0 range:NSMakeRange(0, [m length])];
+    [m replaceOccurrencesOfString:@")" withString:@"}" options:0 range:NSMakeRange(0, [m length])];
+    [m replaceOccurrencesOfString:@" " withString:@"," options:0 range:NSMakeRange(0, [m length])];
 	
-	CGAffineTransform t = CGAffineTransformFromString(matrix);
+	CGAffineTransform t = CGAffineTransformFromString(m);
     
     CGFloat xScale = getXScale(t);
     CGFloat yScale = getYScale(t);
