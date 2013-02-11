@@ -157,15 +157,19 @@
 - (void) findAndAddInstanceOfSymbol:(NSDictionary *) attributes
 {
 	__block NSString *symbolRef = [attributes[@"xlink:href"] substringFromIndex:1];
-	
+	__block QuickSVGSymbol *symbol;
 	[_symbols enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
 		NSComparisonResult result = [symbolRef caseInsensitiveCompare:key];
 		
 		if(result == NSOrderedSame) {
-            [self addInstanceOfSymbol:obj attributes:attributes];
+            symbol = obj;
             *stop = YES;
 		}
 	}];
+    
+    if(symbol) {
+        [self addInstanceOfSymbol:symbol attributes:attributes];
+    }
 }
 
 - (void) addInstanceOfSymbol:(QuickSVGSymbol *)symbol attributes:(NSDictionary *) attributes
