@@ -191,7 +191,12 @@
         [allAttributes addEntriesFromDictionary:_currentMasterAttributes];
     }
     
-    CGRect frame = CGRectMake([attributes[@"x"] floatValue], [attributes[@"y"] floatValue], [attributes[@"width"] floatValue], [attributes[@"height"] floatValue]);
+    CGRect frame = CGRectZero;
+    if(attributes[@"x"]) {
+        frame = CGRectMake([attributes[@"x"] floatValue], [attributes[@"y"] floatValue], [attributes[@"width"] floatValue], [attributes[@"height"] floatValue]);
+    } else if(attributes[@"width"]){
+        frame = CGRectMake(0,0, [attributes[@"width"] floatValue], [attributes[@"height"] floatValue]);
+    }
 
 	QuickSVGInstance *instance = [[QuickSVGInstance alloc] initWithFrame:frame];
 	[instance.attributes addEntriesFromDictionary:allAttributes];
