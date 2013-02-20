@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "QuickSVGInstance.h"
+#import "QuickSVGElement.h"
 
-@interface QuickSVGInstance (Style)
+@interface QuickSVGElement (Style)
 
 + (NSDictionary *) supportedStyleAttributes;
 + (BOOL) supportsAttribute:(NSString *) attribute;

@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <QuickSVG/QuickSVG.h>
+#import "QuickSVGParser.h"
 
-@interface DetailViewController : UIViewController <UISplitViewControllerDelegate, UIScrollViewDelegate, QuickSVGDelegate, UIGestureRecognizerDelegate>
+@interface DetailViewController : UIViewController <UISplitViewControllerDelegate, UIScrollViewDelegate, QuickSVGDelegate, QuickSVGParserDelegate, UIGestureRecognizerDelegate>
 
 @property (strong, nonatomic) NSURL *detailItem;
 

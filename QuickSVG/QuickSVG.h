@@ -6,26 +6,21 @@
 //  Copyright (c) 2012 Matthew Newberry. All rights reserved.
 //
 
-@class QuickSVGInstance, QuickSVG;
+@class QuickSVGElement, QuickSVG, QuickSVGParser;
+@protocol QuickSVGParserDelegate;
 
 @protocol QuickSVGDelegate <NSObject>
 
 @optional
-- (BOOL) quickSVG:(QuickSVG *) quickSVG shouldSelectInstance:(QuickSVGInstance *) instance;
-- (void) quickSVG:(QuickSVG *) quickSVG didParseInstance:(QuickSVGInstance *)instance;
-- (void) quickSVGWillParse:(QuickSVG *) quickSVG;
-- (void) quickSVGDidParse:(QuickSVG *) quickSVG;
-- (void) quickSVG:(QuickSVG *) quickSVG didSelectInstance:(QuickSVGInstance *) instance;
+- (BOOL) quickSVG:(QuickSVG *)quickSVG shouldSelectInstance:(QuickSVGElement *)instance;
+- (void) quickSVG:(QuickSVG *)quickSVG didSelectInstance:(QuickSVGElement *)instance;
 @end
 
 @interface QuickSVG : NSObject <NSXMLParserDelegate>
 
-@property (nonatomic, strong) id <QuickSVGDelegate> delegate;
-@property (nonatomic, strong) NSMutableDictionary *symbols;
-@property (nonatomic, strong) NSMutableArray *instances;
-@property (nonatomic, strong) NSMutableArray *groups;
-@property (nonatomic, strong) UIView *view;
-@property (nonatomic, assign) CGRect canvasFrame;
+@property (nonatomic, weak) id <QuickSVGDelegate> delegate;
+@property (nonatomic) id <QuickSVGParserDelegate> parserDelegate;
+@property (nonatomic, strong) QuickSVGParser *parser;
 
 // This allows you to have visible layers within the SVG that are ignored by the renderer
 // Useful for creating templates with elements that you do not want to be displayed in the final
@@ -40,11 +35,16 @@
 // Default - YES
 @property (nonatomic, assign) BOOL shouldTreatTextAsPaths;
 
-- (id) initWithDelegate:(id <QuickSVGDelegate>) delegate;
-+ (QuickSVG *) svgFromURL:(NSURL *) url;
-- (BOOL) parseSVGFileWithURL:(NSURL *) url;
+// The parsed frame that encapsulates the entire SVG document
+@property (nonatomic, assign) CGRect canvasFrame;
 
-- (BOOL) isParsing;
-- (void) abort;
 
+// Syncronous shortcut
++ (QuickSVG *)svgFromURL:(NSURL *) url;
+
+// A shortcut to the parser
+- (BOOL)parseSVGFileWithURL:(NSURL *) url;
+
+
+- (id)initWithDelegate:(id<QuickSVGDelegate>)delegate;
 @end

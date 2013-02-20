@@ -6,10 +6,10 @@
 //  Copyright (c) 2012 Matthew Newberry. All rights reserved.
 //
 
-#import "QuickSVGInstance+Style.h"
+#import "QuickSVGElement+Style.h"
 #import "UIColor+Additions.h"
 
-@implementation QuickSVGInstance (Style)
+@implementation QuickSVGElement (Style)
 
 + (NSDictionary *) supportedStyleAttributes
 {
@@ -39,7 +39,7 @@
 - (void) dealloc
 {
     if([self.attributes observationInfo]) {
-        for(NSString *key in [[QuickSVGInstance supportedStyleAttributes] allKeys]) {
+        for(NSString *key in [[QuickSVGElement supportedStyleAttributes] allKeys]) {
             [self.attributes removeObserver:self forKeyPath:key];
         }
     }
@@ -47,7 +47,7 @@
 
 - (void) addAttributeObservers
 {
-    for(NSString *key in [[QuickSVGInstance supportedStyleAttributes] allKeys]) {
+    for(NSString *key in [[QuickSVGElement supportedStyleAttributes] allKeys]) {
         [self.attributes addObserver:self forKeyPath:key options:NSKeyValueObservingOptionNew context:NULL];
     }
 }

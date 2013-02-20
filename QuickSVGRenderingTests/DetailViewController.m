@@ -9,8 +9,9 @@
 #import "DetailViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import <QuickSVG/QuickSVG.h>
-#import <QuickSVG/QuickSVGInstance.h>
+#import <QuickSVG/QuickSVGElement.h>
 #import <QuickSVG/QuickSVGUtils.h>
+#import <QuickSVG/QuickSVGParser.h>
 
 @interface DetailViewController ()
 
@@ -51,11 +52,11 @@
     [_instanceFrames removeAllObjects];
 }
 
-- (void) quickSVG:(QuickSVG *)quickSVG didParseInstance:(QuickSVGInstance *)instance
+- (void) quickSVG:(QuickSVG *)quickSVG didParseElement:(QuickSVGElement *)element
 {
-    assert([instance.layer isKindOfClass:[CALayer class]]);
+    assert([element.layer isKindOfClass:[CALayer class]]);
     dispatch_async(dispatch_get_main_queue(), ^{
-        [_holderView addSubview:instance];
+        [_holderView addSubview:element];
     });
 }
 
@@ -64,12 +65,14 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         _holderView.frame = _quickSVG.canvasFrame;
         _scrollView.contentSize = _holderView.frame.size;
+        NSLog(@"%@", NSStringFromCGRect(_holderView.frame));
+        _scrollView.backgroundColor = [UIColor colorWithWhite:0.95 alpha:1];
     });
 }
 
 - (void) resize
 {
-    for(QuickSVGInstance *instance in _quickSVG.instances) {
+    for(QuickSVGElement *instance in _quickSVG.parser.instances) {
         
         instance.frame = CGRectMake(instance.frame.origin.x, instance.frame.origin.y, instance.frame.size.width + 20, instance.frame.size.height + 20);
     }
@@ -86,10 +89,8 @@
 
     self.holderView = [[UIView alloc] initWithFrame:self.scrollView.frame];
     [_scrollView addSubview:_holderView];
-    
-    self.scrollView.backgroundColor = [UIColor greenColor];
-	
-	_scrollView.minimumZoomScale = 1.0;
+    	
+	_scrollView.minimumZoomScale = 0.5;
 	_scrollView.maximumZoomScale = 3.0;
 	_scrollView.bouncesZoom = YES;
 	_scrollView.delegate = self;
@@ -119,10 +120,10 @@
 
 
 - (void) scaleSliderChanged:(UISlider *) slider
-{
+{    
     float scale = slider.value;
-    NSArray *array = [NSArray arrayWithArray:_quickSVG.instances];
-    for(QuickSVGInstance *instance in array) {
+    NSArray *array = [NSArray arrayWithArray:[_quickSVG.parser.instances allValues]];
+    for(QuickSVGElement *instance in array) {
         
         CGAffineTransform transform = CGAffineTransformIdentity;
         if(instance.attributes[@"transform"]) {
@@ -174,11 +175,12 @@
     if (self) {
 		self.title = NSLocalizedString(@"Detail", @"Detail");
 		self.quickSVG = [[QuickSVG alloc] initWithDelegate:self];
+        self.quickSVG.parserDelegate = self;
     }
     return self;
 }
 
-- (void) quickSVG:(QuickSVG *)quickSVG didSelectInstance:(QuickSVGInstance *)instance
+- (void) quickSVG:(QuickSVG *)quickSVG didSelectInstance:(QuickSVGElement *)instance
 {
 //    NSString *stroke = @"#4F99D3";
 //	instance.attributes[@"stroke"] = [instance.attributes[@"stroke"] isEqualToString:stroke] ? @"" : stroke;

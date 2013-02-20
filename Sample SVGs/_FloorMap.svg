@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.2.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1 Basic//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11-basic.dtd">
+<svg version="1.1" baseProfile="basic" id="Template"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="920px" height="610px"
+	 viewBox="0 0 920 610" xml:space="preserve">
+<symbol  id="Bar" viewBox="-54.999 -30 110 60">
+	<g id="Host_2_">
+		<g>
+			<path fill="none" stroke="#626E75" stroke-width="3" stroke-miterlimit="10" d="M-41.999-22.5c-1.65,0-3,1.351-3,3v39
+				c0,1.649,1.35,3,3,3h84c1.65,0,3-1.351,3-3v-39c0-1.649-1.35-3-3-3H-41.999z"/>
+		</g>
+		<g id="XXX_2_">
+			<path fill="#FFFFFF" d="M31.001,30h-12v-1h12V30L31.001,30z M7.001,30h-12v-1h12V30L7.001,30z M-16.999,30h-12v-1h12V30
+				L-16.999,30z M-40.999,30h-12v-1h12V30L-40.999,30z M-53.999,20h-1V8h1V20L-53.999,20z M-53.999-4h-1v-12h1V-4L-53.999-4z
+				 M-53.999-28h-1v-2h1l0,0l0,0l0,0l0,0c2.532,0,9,0,9,0v1h-9V-28L-53.999-28z M-20.999-29h-12v-1h12V-29L-20.999-29z M3.001-29
+				h-12v-1h12V-29L3.001-29z M27.001-29h-12v-1h12V-29L27.001-29z M51.001-29h-12v-1h12V-29L51.001-29z M55.001-10h-1v-12h1V-10
+				L55.001-10z M55.001,14h-1V2h1V14L55.001,14z M55.001,30h-12v-1h11v-3h1V30L55.001,30z"/>
+		</g>
+		<text transform="matrix(1 0 0 -1 -13.6572 -4.9883)" fill="#626E75" font-family="'ProximaNova-Semibold'" font-size="14">BAR</text>
+	</g>
+</symbol>
+<symbol  id="Callout" viewBox="-23.812 -10.847 49.812 21.347">
+	<path d="M24.674,10.5h-47.16c-0.729,0-1.327-0.73-1.327-1.631V-4.456c0-0.902,0.597-1.634,1.327-1.634h20.35h0.025l3.025-4.757
+		L4.299-6.09h20.375C25.405-6.09,26-5.358,26-4.456V8.869C26,9.77,25.405,10.5,24.674,10.5z"/>
+	<text transform="matrix(1 0 0 -1 -20.9219 -0.3643)" fill="#FFFFFF" font-family="'ProximaNova-Semibold'" font-size="10">Newberry</text>
+</symbol>
+<symbol  id="Circle" viewBox="-25 -50 50 60">
+	<path fill="#626E75" d="M19.759-20c0-10.771-8.731-19.5-19.501-19.5S-19.241-30.771-19.241-20c0,10.77,8.729,19.5,19.499,19.5
+		S19.759-9.23,19.759-20z"/>
+	<g id="XXX_12_">
+		<path fill="#FFFFFF" d="M1,10h-12V9H1V10L1,10z M-23,10h-2V9l0,0c0-2.532,0-9,0-9h1v9h1V10L-23,10z M-24-12h-1v-12h1V-12L-24-12z
+			 M-24-36h-1v-12h1V-36L-24-36z M-3-49h-12v-1h12V-49L-3-49z M21-49H9v-1h12V-49L21-49z M25-30h-1v-12h1V-30L25-30z M25-6h-1v-12h1
+			V-6L25-6z M25,10H13V9h11V6h1V10L25,10z"/>
+	</g>
+</symbol>
+<symbol  id="Diamond" viewBox="-25.027 -30 50 60">
+	<g>
+		<path fill="#626E75" d="M19.852,2.032c1.167-1.168,1.166-3.076,0-4.243L2.184-19.879c-1.166-1.166-3.076-1.167-4.243,0
+			L-19.906-2.032c-1.167,1.166-1.167,3.076,0,4.242l17.669,17.669c1.167,1.166,3.075,1.166,4.242-0.001L19.852,2.032z"/>
+	</g>
+	<g id="XXX_8_">
+		<path fill="#FFFFFF" d="M0.973,30h-12v-1h12V30L0.973,30z M-23.027,30h-2v-1l0,0c0-2.532,0-9,0-9h1v9h1V30L-23.027,30z M-24.027,8
+			h-1V-4h1V8L-24.027,8z M-24.027-16h-1v-12h1V-16L-24.027-16z M-3.027-29h-12v-1h12V-29L-3.027-29z M20.973-29h-12v-1h12V-29
+			L20.973-29z M24.973-10h-1v-12h1V-10L24.973-10z M24.973,14h-1V2h1V14L24.973,14z M24.973,30h-12v-1h11v-3h1V30L24.973,30z"/>
+	</g>
+</symbol>
+<symbol  id="Host" viewBox="-54.999 -30 110 60">
+	<g>
+		<path fill="none" stroke="#626E75" stroke-width="3" stroke-miterlimit="10" d="M-41.999-22.5c-1.65,0-3,1.35-3,3v38.999
+			c0,1.65,1.35,3,3,3h84c1.65,0,3-1.35,3-3V-19.5c0-1.65-1.35-3-3-3H-41.999z"/>
+	</g>
+	<g id="XXX_6_">
+		<path fill="#FFFFFF" d="M31.001,30h-12v-1h12V30L31.001,30z M7.001,30h-12v-1h12V30L7.001,30z M-16.999,30h-12v-1h12V30
+			L-16.999,30z M-40.999,30h-12v-1h12V30L-40.999,30z M-53.999,20h-1V8h1V20L-53.999,20z M-53.999-4h-1v-12h1V-4L-53.999-4z
+			 M-53.999-28h-1v-2h1l0,0l0,0l0,0l0,0c2.532,0,9,0,9,0v1h-9V-28L-53.999-28z M-20.999-29h-12v-1h12V-29L-20.999-29z M3.001-29h-12
+			v-1h12V-29L3.001-29z M27.001-29h-12v-1h12V-29L27.001-29z M51.001-29h-12v-1h12V-29L51.001-29z M55.001-10h-1v-12h1V-10
+			L55.001-10z M55.001,14h-1V2h1V14L55.001,14z M55.001,30h-12v-1h11v-3h1V30L55.001,30z"/>
+	</g>
+	<text transform="matrix(1 0 0 -1 -18.6133 -4.9883)" fill="#626E75" font-family="'ProximaNova-Semibold'" font-size="14">HOST</text>
+</symbol>
+<symbol  id="Large_Circle" viewBox="-25 -52 60 70">
+	<path fill="#626E75" d="M29.686-17.001c0-13.635-11.055-24.686-24.687-24.686c-13.634,0-24.685,11.051-24.685,24.686
+		c0,13.633,11.051,24.686,24.685,24.686C18.631,7.685,29.686-3.368,29.686-17.001z"/>
+	<g id="XXX_11_">
+		<path fill="#FFFFFF" d="M35,18H23v-1h12V18L35,18z M11,18H-1v-1h12V18L11,18z M-13,18h-12v-1h12V18L-13,18z M-24,6h-1V-6h1V6
+			L-24,6z M-24-18h-1v-12h1V-18L-24-18z M-24-42h-1v-10h1l0,0l0,0l0,0l0,0c0.5,0,1,0,1,0v1h-1V-42L-24-42z M1-51h-12v-1H1V-51L1-51z
+			 M25-51H13v-1h12V-51L25-51z M35-38h-1v-12h1V-38L35-38z M35-14h-1v-12h1V-14L35-14z M35,10h-1V-2h1V10L35,10z"/>
+	</g>
+</symbol>
+<symbol  id="Large_Diamond" viewBox="-30 -35 60 70">
+	<g>
+		<path fill="#626E75" d="M23.879,2.016c1.167-1.166,1.167-3.076,0-4.242L2.227-23.879c-1.167-1.166-3.076-1.167-4.242,0
+			L-23.879-2.017c-1.166,1.167-1.167,3.076,0,4.242l21.653,21.653c1.166,1.166,3.075,1.166,4.242,0L23.879,2.016z"/>
+	</g>
+	<g id="XXX_5_">
+		<path fill="#FFFFFF" d="M30,35H18v-1h12V35L30,35z M6,35H-6v-1H6V35L6,35z M-18,35h-12v-1h12V35L-18,35z M-29,23h-1V11h1V23
+			L-29,23z M-29-1h-1v-12h1V-1L-29-1z M-29-25h-1v-10h1l0,0l0,0l0,0l0,0c0.5,0,1,0,1,0v1h-1V-25L-29-25z M-4-34h-12v-1h12V-34L-4-34
+			z M20-34H8v-1h12V-34L20-34z M30-21h-1v-12h1V-21L30-21z M30,3h-1V-9h1V3L30,3z M30,27h-1V15h1V27L30,27z"/>
+	</g>
+</symbol>
+<symbol  id="Large_Square" viewBox="-30 -35 60 70">
+	<g id="Square_2_">
+		<g>
+			<path fill="#626E75" d="M25-22c0-1.65-1.35-3-3-3h-44c-1.65,0-3,1.35-3,3v44c0,1.65,1.35,3,3,3h44c1.65,0,3-1.35,3-3V-22z"/>
+		</g>
+	</g>
+	<g id="XXX_4_">
+		<path fill="#FFFFFF" d="M30,35H18v-1h12V35L30,35z M6,35H-6v-1H6V35L6,35z M-18,35h-12v-1h12V35L-18,35z M-29,23h-1V11h1V23
+			L-29,23z M-29-1h-1v-12h1V-1L-29-1z M-29-25h-1v-10h1l0,0l0,0l0,0l0,0c0.5,0,1,0,1,0v1h-1V-25L-29-25z M-4-34h-12v-1h12V-34L-4-34
+			z M20-34H8v-1h12V-34L20-34z M30-21h-1v-12h1V-21L30-21z M30,3h-1V-9h1V3L30,3z M30,27h-1V15h1V27L30,27z"/>
+	</g>
+</symbol>
+<symbol  id="Long_Table" viewBox="-25 -70 50 100">
+	<g>
+		<path fill="#626E75" d="M20-57c0-1.65-1.35-3-3-3h-34c-1.65,0-3,1.35-3,3v74c0,1.65,1.35,3,3,3h34c1.65,0,3-1.35,3-3V-57z"/>
+	</g>
+	<g id="XXX_3_">
+		<path fill="#FFFFFF" d="M1,30h-12v-1H1V30L1,30z M-23,30h-2v-1l0,0c0-2.532,0-9,0-9h1v9h1V30L-23,30z M-24,8h-1V-4h1V8L-24,8z
+			 M-24-16h-1v-12h1V-16L-24-16z M-24-40h-1v-12h1V-40L-24-40z M-24-64h-1v-6h1l0,0l0,0l0,0l0,0c1.707,0,5,0,5,0v1h-5V-64L-24-64z
+			 M5-69H-7v-1H5V-69L5-69z M25-66h-1v-3h-7v-1h8V-66L25-66z M25-42h-1v-12h1V-42L25-42z M25-18h-1v-12h1V-18L25-18z M25,6h-1V-6h1
+			V6L25,6z M25,30H13v-1h11V18h1V30L25,30z"/>
+	</g>
+</symbol>
+<symbol  id="Really_Long_Table" viewBox="-25 -70 50 140">
+	<g id="XXX_16_">
+		<path fill="#FFFFFF" d="M25,70H13v-1h12V70L25,70z M1,70h-12v-1H1V70L1,70z M-23,70h-2v-1l0,0c0-2.532,0-9,0-9h1v9h1V70L-23,70z
+			 M-24,48h-1V36h1V48L-24,48z M-24,24h-1V12h1V24L-24,24z M-24,0h-1v-12h1V0L-24,0z M-24-24h-1v-12h1V-24L-24-24z M-24-48h-1v-12h1
+			V-48L-24-48z M-11-69h-12v-1h12V-69L-11-69z M13-69H1v-1h12V-69L13-69z M25-58h-1v-12h1V-58L25-58z M25-34h-1v-12h1V-34L25-34z
+			 M25-10h-1v-12h1V-10L25-10z M25,14h-1V2h1V14L25,14z M25,38h-1V26h1V38L25,38z M25,62h-1V50h1V62L25,62z"/>
+	</g>
+	<polygon fill="#626E75" points="20,-60 -20,-60 -20,60 20,60 	"/>
+</symbol>
+<symbol  id="Really_Wide_Table" viewBox="-70 -25 140 50">
+	<g id="XXX_10_">
+		<path fill="#FFFFFF" d="M70,25H58v-1h12V25L70,25z M46,25H34v-1h12V25L46,25z M22,25H10v-1h12V25L22,25z M-2,25h-12v-1h12V25
+			L-2,25z M-26,25h-12v-1h12V25L-26,25z M-50,25h-12v-1h12V25L-50,25z M-69,21h-1V9h1V21L-69,21z M-69-3h-1v-12h1V-3L-69-3z M-56-24
+			h-12v-1h12V-24L-56-24z M-32-24h-12v-1h12V-24L-32-24z M-8-24h-12v-1h12V-24L-8-24z M16-24H4v-1h12V-24L16-24z M40-24H28v-1h12
+			V-24L40-24z M64-24H52v-1h12V-24L64-24z M70-7h-1v-12h1V-7L70-7z M70,17h-1V5h1V17L70,17z"/>
+	</g>
+	<polygon fill="#626E75" points="-60,-20.001 -60,19.999 60,19.999 60,-20.001 	"/>
+</symbol>
+<symbol  id="Small_Table" viewBox="-25 -45 50 50">
+	<g>
+		<path fill="#626E75" d="M20-32c0-1.65-1.35-3-3-3h-34c-1.65,0-3,1.35-3,3v24c0,1.65,1.35,3,3,3h34c1.65,0,3-1.35,3-3V-32z"/>
+	</g>
+	<g id="XXX_13_">
+		<path fill="#FFFFFF" d="M1,5h-12V4H1V5L1,5z M-23,5h-2V4l0,0c0-2.532,0-9,0-9h1v9h1V5L-23,5z M-24-17h-1v-12h1V-17L-24-17z
+			 M-24-41h-1v-4h1l0,0l0,0l0,0l0,0c2.146,0,7,0,7,0v1h-7V-41L-24-41z M7-44H-5v-1H7V-44L7-44z M25-39h-1v-5h-5v-1h6V-39L25-39z
+			 M25-15h-1v-12h1V-15L25-15z M25,5H13V4h11v-7h1V5L25,5z"/>
+	</g>
+</symbol>
+<symbol  id="Square" viewBox="-25 -50 50 60">
+	<g>
+		<path fill="#626E75" d="M20-37c0-1.65-1.35-3-3-3h-34c-1.65,0-3,1.35-3,3v34c0,1.65,1.35,3,3,3h34c1.65,0,3-1.35,3-3V-37z"/>
+	</g>
+	<g id="XXX_19_">
+		<path fill="#FFFFFF" d="M1,10h-12V9H1V10L1,10z M-23,10h-2V9l0,0c0-2.532,0-9,0-9h1v9h1V10L-23,10z M-24-12h-1v-12h1V-12L-24-12z
+			 M-24-36h-1v-12h1V-36L-24-36z M-3-49h-12v-1h12V-49L-3-49z M21-49H9v-1h12V-49L21-49z M25-30h-1v-12h1V-30L25-30z M25-6h-1v-12h1
+			V-6L25-6z M25,10H13V9h11V6h1V10L25,10z"/>
+	</g>
+</symbol>
+<symbol  id="Tall_Small_Table" viewBox="-19.999 -45 40 60">
+	<g>
+		<path fill="#626E75" d="M-12-35c-1.65,0-3,1.35-3,3V2c0,1.65,1.35,3,3,3h24c1.65,0,3-1.35,3-3v-34c0-1.65-1.35-3-3-3H-12z"/>
+	</g>
+	<g id="XXX_15_">
+		<path fill="#FFFFFF" d="M-3.999,15h-12v-1h12V15L-3.999,15z M-18.999,7h-1V-5h1V7L-18.999,7z M-18.999-17h-1v-12h1V-17L-18.999-17
+			z M-18.999-41h-1v-4h1l0,0l0,0l0,0l0,0c2.146,0,7,0,7,0v1h-7V-41L-18.999-41z M12.001-44h-12v-1h12V-44L12.001-44z M20.001-29h-1
+			v-12h1V-29L20.001-29z M20.001-5h-1v-12h1V-5L20.001-5z M20.001,15h-12v-1h11V7h1V15L20.001,15z"/>
+	</g>
+</symbol>
+<symbol  id="Wide_Table" viewBox="-45 -50 90 60">
+	<g>
+		<path fill="#626E75" d="M-37-40c-1.65,0-3,1.35-3,3v34c0,1.65,1.35,3,3,3h74c1.65,0,3-1.35,3-3v-34c0-1.65-1.35-3-3-3H-37z"/>
+	</g>
+	<g id="XXX_9_">
+		<path fill="#FFFFFF" d="M21,10H9V9h12V10L21,10z M-3,10h-12V9h12V10L-3,10z M-27,10h-12V9h12V10L-27,10z M-44,4h-1V-8h1V4L-44,4z
+			 M-44-20h-1v-12h1V-20L-44-20z M-44-44h-1v-6h1l0,0l0,0l0,0l0,0c1.707,0,5,0,5,0v1h-5V-44L-44-44z M-15-49h-12v-1h12V-49L-15-49z
+			 M9-49H-3v-1H9V-49L9-49z M33-49H21v-1h12V-49L33-49z M45-38h-1v-12h1V-38L45-38z M45-14h-1v-12h1V-14L45-14z M45,10H33V9h11V-2h1
+			V10L45,10z"/>
+	</g>
+</symbol>
+<polyline id="Border" fill="none" stroke="#626E75" stroke-width="3" stroke-miterlimit="10" points="450.032,608.5 918.5,608.5 
+	918.5,81.106 798.893,81.106 798.893,1.5 1.5,1.5 1.5,608.5 370.293,608.5 "/>
+<use xlink:href="#Circle"  width="50" height="60" id="XMLID_7_" x="-25" y="-50" transform="matrix(1 0 0 -1 355 280)" overflow="visible"/>
+<use xlink:href="#Diamond"  width="50" height="60" id="XMLID_4_" x="-25.027" y="-30" transform="matrix(1 0 0 -1 435.0273 300)" overflow="visible"/>
+<use xlink:href="#Long_Table"  width="50" height="100" id="XMLID_1_" x="-25" y="-70" transform="matrix(1 0 0 -1 195 190)" overflow="visible"/>
+<use xlink:href="#Small_Table"  width="50" height="50" id="XMLID_10_" x="-25" y="-45" transform="matrix(1 0 0 -1 125 275)" overflow="visible"/>
+<use xlink:href="#Host"  width="110" height="60" id="XMLID_5_" x="-54.999" y="-30" transform="matrix(1 0 0 -1 734.999 55)" overflow="visible"/>
+<use xlink:href="#Bar"  width="110" height="60" id="XMLID_2_" x="-54.999" y="-30" transform="matrix(1 0 0 -1 604.999 55)" overflow="visible"/>
+<use xlink:href="#Wide_Table"  width="90" height="60" id="XMLID_6_" x="-45" y="-50" transform="matrix(1 0 0 -1 104.9995 210)" overflow="visible"/>
+<use xlink:href="#Tall_Small_Table"  width="40" height="60" id="XMLID_15_" x="-19.999" y="-45" transform="matrix(1 0 0 -1 199.999 285)" overflow="visible"/>
+<use xlink:href="#Large_Circle"  width="60" height="70" id="XMLID_11_" x="-25" y="-52" transform="matrix(1 0 0 -1 345 208)" overflow="visible"/>
+<use xlink:href="#Square"  width="50" height="60" id="XMLID_14_" x="-25" y="-50" transform="matrix(1 0 0 -1 275 280)" overflow="visible"/>
+<use xlink:href="#Large_Square"  width="60" height="70" x="-30" y="-35" transform="matrix(1 0 0 -1 270 225)" overflow="visible"/>
+<use xlink:href="#Large_Diamond"  width="60" height="70" id="XMLID_3_" x="-30" y="-35" transform="matrix(1 0 0 -1 430 225)" overflow="visible"/>
+<use xlink:href="#Square"  width="50" height="60" id="XMLID_8_" x="-25" y="-50" transform="matrix(1 0 0 -1 555 210)" overflow="visible"/>
+<use xlink:href="#Square"  width="50" height="60" id="XMLID_9_" x="-25" y="-50" transform="matrix(1 0 0 -1 555 270)" overflow="visible"/>
+<use xlink:href="#Callout"  width="49.812" height="21.347" x="-23.812" y="-10.847" transform="matrix(1 0 0 -1 553.8115 264.1533)" overflow="visible"/>
+<use xlink:href="#Really_Long_Table"  width="50" height="140" x="-25" y="-70" transform="matrix(1 0 0 -1 195 80)" overflow="visible"/>
+<use xlink:href="#Really_Wide_Table"  width="140" height="50" x="-70" y="-25" transform="matrix(1 0 0 -1 80 165)" overflow="visible"/>
+<line fill="none" x1="590" y1="200" x2="590" y2="260"/>
+<text transform="matrix(1 0 0 1 610 210)" fill="#FFFFFF" font-family="'ProximaNova-Semibold'" font-size="14">ProximaNova Semibold 14pt</text>
+<text transform="matrix(1 0 0 1 610 230)" fill="#626E75" font-family="'MyriadPro-Regular'" font-size="12">Accent Color  - #626e75</text>
+<text id="XXX" transform="matrix(1 0 0 1 770 660)" font-family="'MyriadPro-Regular'" font-size="12">version 1.1</text>
+</svg>

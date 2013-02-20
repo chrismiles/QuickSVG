@@ -1,16 +1,18 @@
 //
-//  QuickSVGInstance.m
+//  QuickSVGElement.m
 //  QuickSVG
 //
 //  Created by Matthew Newberry on 9/28/12.
 //  Copyright (c) 2012 Matthew Newberry. All rights reserved.
 //
 
-#import "QuickSVGInstance.h"
+#import "QuickSVGElement.h"
 #import "QuickSVG.h"
-#import "QuickSVGInstance+Style.h"
+#import "QuickSVGParser.h"
+#import "QuickSVGElement+Style.h"
 #import "UIColor+Additions.h"
 #import "QuickSVGUtils.h"
+#import "SMXMLDocument.h"
 #import "UIBezierPath+Additions.h"
 
 #define kTransformKey @"matrix"
@@ -69,7 +71,7 @@ unichar const invalidCommand		= '*';
 @end
 
 
-@interface QuickSVGInstance ()
+@interface QuickSVGElement ()
 
 @property (nonatomic, assign) CGFloat pathScale;
 @property (nonatomic, strong) NSCharacterSet *separatorSet;
@@ -82,13 +84,12 @@ unichar const invalidCommand		= '*';
 @property (nonatomic, strong) NSMutableArray *shapeLayers;
 @property (nonatomic, assign) CGFloat scale;
 
-- (QuickSVGElementType) elementTypeForElement:(NSDictionary *) element;
-- (CALayer *) addTextWithAttributes:(NSDictionary *) attributes;
+- (QuickSVGElementType) elementTypeForKey:(NSString *)key;
+- (CALayer *) addText:(NSString *)text withAttributes:(NSDictionary *) attributes;
 - (UIBezierPath *) addPath:(NSString *) pathType withAttributes:(NSDictionary *) attributes;
 - (UIBezierPath *) addBasicShape:(NSString *) shapeType withAttributes:(NSDictionary *) attributes;
 - (UIBezierPath *) drawRectWithAttributes:(NSDictionary *) attributes;
 - (UIBezierPath *) drawCircleWithAttributes:(NSDictionary *) attributes;
-- (UIBezierPath *) drawEllipseWithAttributes:(NSDictionary *) attributes;
 - (UIBezierPath *) drawPathWithAttributes:(NSDictionary *) attributes;
 - (UIBezierPath *) drawLineWithAttributes:(NSDictionary *) attributes;
 - (UIBezierPath *) drawPolylineWithAttributes:(NSDictionary *) attributes;
@@ -101,11 +102,10 @@ unichar const invalidCommand		= '*';
 - (void)appendSVGCCommand:(Token *)token;
 - (void)appendSVGSCommand:(Token *)token;
 - (NSArray *) arrayFromPointsAttribute:(NSString *) points;
-- (BOOL)shouldIgnoreElement:(NSDictionary *)element;
 
 @end
 
-@implementation QuickSVGInstance
+@implementation QuickSVGElement
 
 - (id) initWithFrame:(CGRect)frame
 {
@@ -134,7 +134,7 @@ unichar const invalidCommand		= '*';
 {
 	BOOL shouldSelect = YES;
 	
-	if(_quickSVG.delegate == nil)
+	if(_quickSVG.parser.delegate == nil)
 		return;
 	
 	if([_quickSVG.delegate respondsToSelector:@selector(quickSVG:shouldSelectInstance:)]) {
@@ -191,45 +191,45 @@ unichar const invalidCommand		= '*';
     
     // Custom transform previously applied, need to flip the y axis to correspond for CG drawing
     if(self.attributes[@"transform"]) {
-        pathTransform = CGAffineTransformScale(pathTransform, 1, -1);        
+        pathTransform = CGAffineTransformConcat(CGAffineTransformScale(pathTransform, 1, -1), self.transform);
     }
     
 	[self.layer.sublayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
 	self.shapePath = [UIBezierPath bezierPath];
 		
-	for(NSDictionary *element in self.elements) {
+	for(SMXMLElement *element in self.elements) {
         
-		if(![element isKindOfClass:[NSDictionary class]])
+		if(![element isKindOfClass:[SMXMLElement class]])
 			continue;
 		
 		UIBezierPath *path = [UIBezierPath bezierPath];
-		
-		NSString *shapeKey = [[element allKeys] objectAtIndex:0];
-		QuickSVGElementType type = [self elementTypeForElement:element];
-		
-        if([self shouldIgnoreElement:element[shapeKey]]) {
-            continue;
-        }
+        
+        NSString *shapeKey = element.name;
+        NSDictionary *attributes = element.attributes;
+                
+		QuickSVGElementType type = [self elementTypeForKey:shapeKey];
 
 		CAShapeLayer *shapeLayer = [CAShapeLayer layer];
+        
+        CGAffineTransform elementTransform = CGAffineTransformIdentity;
+        if(attributes[@"transform"]) {
+            elementTransform = makeTransformFromSVGMatrix(attributes[@"transform"]);
+        }
 		
 		switch (type) {
 			case QuickSVGElementTypeBasicShape:
-				path = [self addBasicShape:shapeKey withAttributes:element[shapeKey]];
+				path = [self addBasicShape:shapeKey withAttributes:attributes];
 				break;
 			case QuickSVGElementTypePath:
-				path = [self addPath:shapeKey withAttributes:element[shapeKey]];
+				path = [self addPath:shapeKey withAttributes:attributes];
 				break;
 			case QuickSVGElementTypeText:
             {
-                if(element[shapeKey][@"text"]) {
-                    CALayer *textLayer = [self addTextWithAttributes:element[shapeKey]];
-                    
-                    if(self.quickSVG.shouldTreatTextAsPaths) {
-                        textLayer.affineTransform = pathTransform;
-                    }
-                    [self.layer addSublayer:textLayer];
+                CALayer *textLayer = [self addText:element.value withAttributes:attributes];
+                if(self.quickSVG.shouldTreatTextAsPaths) {
+                    textLayer.affineTransform = CGAffineTransformConcat(elementTransform, pathTransform);
                 }
+                [self.layer addSublayer:textLayer];
 			}
 				break;
 			case QuickSVGElementTypeUnknown:
@@ -241,7 +241,8 @@ unichar const invalidCommand		= '*';
 		
 		if(path) {
             [path applyTransform:pathTransform];
-			NSMutableDictionary *styles = [NSMutableDictionary dictionaryWithDictionary:element[shapeKey]];
+            [path applyTransform:elementTransform];
+			NSMutableDictionary *styles = [NSMutableDictionary dictionaryWithDictionary:attributes];
 			[styles addEntriesFromDictionary:_attributes];
             
 			shapeLayer.path = path.CGPath;
@@ -260,23 +261,10 @@ unichar const invalidCommand		= '*';
     CGFloat yFlip = rotation < 0 ? -getYScale(svgTransform) : getYScale(svgTransform);
     CGAffineTransform shapePathTransform = makeTransform(getXScale(svgTransform), yFlip, rotation, 0, 0);
     [_shapePath applyTransform:shapePathTransform];
-}
-
-- (BOOL)shouldIgnoreElement:(NSDictionary *)element
-{
-    BOOL ignoreElement = NO;
     
-    NSString *identity = element[@"id"];
-    if(identity) {
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF BEGINSWITH %@", self.quickSVG.ignorePattern];
-        ignoreElement = [predicate evaluateWithObject:identity];
+    if(CGSizeEqualToSize(self.frame.size, CGSizeZero)) {
+        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.shapePath.bounds.size.width, self.shapePath.bounds.size.height);
     }
-    
-    if([element[@"display"] isEqualToString:@"none"]) {
-        ignoreElement = YES;
-    }
-    
-    return ignoreElement;
 }
 
 - (void) setShapeLayers:(NSMutableArray *)shapeLayers
@@ -288,10 +276,8 @@ unichar const invalidCommand		= '*';
     }
 }
 
-- (QuickSVGElementType) elementTypeForElement:(NSDictionary *) element
+- (QuickSVGElementType) elementTypeForKey:(NSString *)key
 {
-	NSString *key = [[element allKeys] objectAtIndex:0];
-
 	if([kAcceptableBasicShapeTypes containsObject:key]) {
 		return QuickSVGElementTypeBasicShape;
 	}
@@ -306,11 +292,10 @@ unichar const invalidCommand		= '*';
 	}
 }
 
-- (CALayer *) addTextWithAttributes:(NSDictionary *) attributes
+- (CALayer *) addText:(NSString *)text withAttributes:(NSDictionary *) attributes
 {
     CALayer *layer;
     
-    NSString *text          = attributes[@"text"];
     CGFloat fontSize        = [attributes[@"font-size"] floatValue];
     NSString *fontFamily    = [attributes[@"font-family"] stringByReplacingOccurrencesOfString:@"'" withString:@""];
     UIFont *font            = [UIFont fontWithName:fontFamily size:fontSize];
@@ -383,7 +368,7 @@ unichar const invalidCommand		= '*';
 		return [self drawCircleWithAttributes:attributes];
 	}
 	else if([shapeType isEqualToString:@"ellipse"]) {
-		return [self drawEllipseWithAttributes:attributes];
+		return [self drawCircleWithAttributes:attributes];
 	}
 	else {
 //		if (DEBUG) {
@@ -408,24 +393,24 @@ unichar const invalidCommand		= '*';
 
 - (UIBezierPath *) drawCircleWithAttributes:(NSDictionary *) attributes
 {
-	CGPoint center = CGPointMake([attributes[@"cx"] floatValue], [attributes[@"cy"] floatValue]);
-	CGSize radii = CGSizeMake([attributes[@"r"] floatValue], [attributes[@"r"] floatValue]);
+    CGFloat cx = 0, cy = 0, rx = 0, ry = 0;
+    
+	if([attributes[@"cx"] length] > 0)
+        cx = [attributes[@"cx"] floatValue];
+    
+    if([attributes[@"cy"] length] > 0)
+        cy = [attributes[@"cy"] floatValue];
+    
+    if([attributes[@"rx"] length] > 0)
+        rx = [attributes[@"rx"] floatValue];
+    
+    if([attributes[@"ry"] length] > 0)
+        ry = [attributes[@"ry"] floatValue];
 	
-	CGRect frame = CGRectMake(center.x - radii.width / 2, center.y - radii.height / 2, radii.width, radii.height);
-	
-	UIBezierPath *circle = [UIBezierPath bezierPathWithOvalInRect:frame];
-	
-	return circle;
-}
-
-- (UIBezierPath *) drawEllipseWithAttributes:(NSDictionary *) attributes
-{
-	CGPoint center = CGPointMake([attributes[@"cx"] floatValue], [attributes[@"cy"] floatValue]);
-	CGSize radii = CGSizeMake([attributes[@"rx"] floatValue], [attributes[@"ry"] floatValue]);
-	
-	CGRect frame = CGRectMake(center.x - radii.width / 2, center.y - radii.height / 2, radii.width, radii.height);
-	
-	UIBezierPath *ellipse = [UIBezierPath bezierPathWithOvalInRect:frame];
+	if([attributes[@"r"] length] > 0)
+        rx = ry = [attributes[@"r"] floatValue];
+    
+    UIBezierPath *ellipse = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(cx - rx, cy - ry, rx * 2, ry * 2)];
 	
 	return ellipse;
 }

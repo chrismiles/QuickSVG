@@ -1,16 +1,24 @@
 //
-//  QuickSVGInstance.h
+//  QuickSVGElement.h
 //  QuickSVG
 //
 //  Created by Matthew Newberry on 9/28/12.
 //  Copyright (c) 2012 Matthew Newberry. All rights reserved.
 //
-
-#import "QuickSVGSymbol.h"
+#import <QuartzCore/QuartzCore.h>
 
 @class QuickSVG;
 
-@interface QuickSVGInstance : UIView
+typedef enum QuickSVGElementType
+{
+	QuickSVGElementTypeBasicShape = 0,
+	QuickSVGElementTypePath,
+	QuickSVGElementTypeLink,
+	QuickSVGElementTypeText,
+	QuickSVGElementTypeUnknown
+} QuickSVGElementType;
+
+@interface QuickSVGElement : UIView
 
 @property (nonatomic, weak) QuickSVG *quickSVG;
 @property (nonatomic, strong) id object;
