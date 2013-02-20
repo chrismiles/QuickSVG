@@ -94,6 +94,10 @@
     
     [root.children enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
        
+        if(self.isAborted) {
+            *stop = YES;
+        }
+        
         SMXMLElement *element = (SMXMLElement *)obj;
         [self parseElement:element];
     }];
