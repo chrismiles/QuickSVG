@@ -250,6 +250,9 @@
     if(draw) {
         instance.elements = [element.children count] > 0 ? [self flattenedElementsForElement:element] : @[element];
     }
+    
+    NSString *key = [[element.attributes allKeys] containsObject:@"id"] ? element.attributes[@"id"] : [NSString stringWithFormat:@"Instance%i", [_symbols count] + 1];
+    self.instances[key] = instance;
 
 	return instance;
 }
