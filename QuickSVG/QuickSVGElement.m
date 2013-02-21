@@ -191,7 +191,7 @@ unichar const invalidCommand		= '*';
     
     // Custom transform previously applied, need to flip the y axis to correspond for CG drawing
     if(self.attributes[@"transform"]) {
-        pathTransform = CGAffineTransformConcat(CGAffineTransformScale(pathTransform, 1, -1), self.transform);
+        pathTransform = CGAffineTransformScale(pathTransform, 1, -1);
     }
     
 	[self.layer.sublayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
@@ -231,7 +231,7 @@ unichar const invalidCommand		= '*';
             {
                 CALayer *textLayer = [self addText:element.value withAttributes:attributes];
                 if(self.quickSVG.shouldTreatTextAsPaths) {
-                    textLayer.affineTransform = CGAffineTransformConcat(pathTransform, elementTransform);
+                    textLayer.affineTransform = CGAffineTransformConcat(elementTransform, pathTransform);
                 }
                 [self.layer addSublayer:textLayer];
 			}

@@ -52,7 +52,12 @@
 {
 	[super viewDidAppear:animated];
 	
-	[self tableView:self.tableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    if(_objects.count > 0) {
+        NSURL *firstObject = _objects[0];
+        
+        if(![self isDirectory:firstObject])
+            [self tableView:self.tableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -150,6 +155,9 @@
             self.detailViewController.detailItem = object;
         }
     }
+    
+    if([self isDirectory:object])
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 @end
