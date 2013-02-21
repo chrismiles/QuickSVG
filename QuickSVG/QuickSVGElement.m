@@ -187,6 +187,9 @@ unichar const invalidCommand		= '*';
     CGFloat transX = self.frame.origin.x;
     CGFloat transY = self.frame.origin.y;
 
+    self.backgroundColor = [UIColor redColor];
+    self.alpha = 0.4;
+    
     pathTransform = CGAffineTransformTranslate(pathTransform, -transX, -transY);
     
     // Custom transform previously applied, need to flip the y axis to correspond for CG drawing
@@ -231,7 +234,7 @@ unichar const invalidCommand		= '*';
             {
                 CALayer *textLayer = [self addText:element.value withAttributes:attributes];
                 if(self.quickSVG.shouldTreatTextAsPaths) {
-                    textLayer.affineTransform = CGAffineTransformConcat(elementTransform, pathTransform);
+                    textLayer.affineTransform = CGAffineTransformConcat(pathTransform, elementTransform);
                 }
                 [self.layer addSublayer:textLayer];
 			}
@@ -257,10 +260,6 @@ unichar const invalidCommand		= '*';
             [_shapeLayers addObject:shapeLayer];
 		}
 	}
-    
-    if(CGSizeEqualToSize(self.frame.size, CGSizeZero)) {
-        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.shapePath.bounds.size.width, self.shapePath.bounds.size.height);
-    }
 }
 
 - (void) setShapeLayers:(NSMutableArray *)shapeLayers

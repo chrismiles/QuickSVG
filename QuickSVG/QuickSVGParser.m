@@ -28,7 +28,7 @@
 - (NSMutableArray *)flattenedElementsForElement:(SMXMLElement *)element;
 
 - (void)addInstanceOfSymbol:(SMXMLElement *)symbol child:(SMXMLElement *)child;
-- (QuickSVGElement *)elementFromXMLNode:(SMXMLElement *)element;
+- (QuickSVGElement *)elementFromXMLNode:(SMXMLElement *)element shouldDraw:(BOOL)draw;
 
 /* Parser Callbacks */
 - (void)notifyDidParseElement:(QuickSVGElement *)element;
@@ -37,6 +37,7 @@
 - (void)notifyDidAbort;
 
 /* Utilities */
+- (void)applyAttributesFrom:(SMXMLElement *)from toElement:(SMXMLElement *)to;
 - (BOOL)shouldAbortParsingElement:(SMXMLElement *)element;
 - (CGRect)frameFromAttributes:(NSDictionary *)attributes;
 
@@ -130,7 +131,7 @@
 
 - (void)handleDrawingElement:(SMXMLElement *)element
 {
-    QuickSVGElement *instance = [self elementFromXMLNode:element];
+    QuickSVGElement *instance = [self elementFromXMLNode:element shouldDraw:YES];
     [self notifyDidParseElement:instance];
 }
 
@@ -215,19 +216,16 @@
         if([self shouldAbortParsingElement:child]) {
             *stop = YES;
         }
-                
+        
         // Merge group properties, giving preference to child attributes
         if([child.parent.name isEqualToString:@"g"]) {
-            
-            NSMutableDictionary *attributes = [NSMutableDictionary dictionaryWithDictionary:child.parent.attributes];
-            [attributes addEntriesFromDictionary:child.attributes];
-            [child.attributes removeAllObjects];
-            [child.attributes addEntriesFromDictionary:attributes];
+            [self applyAttributesFrom:child.parent toElement:child];
         }
         
         if([child.children count] > 0) {
             [elements addObjectsFromArray:[self flattenedElementsForElement:child]];
-        } else {            
+        } else {
+            
             [elements addObject:child];
         }
     }];
@@ -236,7 +234,7 @@
 }
 
 #pragma Instance Factory
-- (QuickSVGElement *)elementFromXMLNode:(SMXMLElement *)element
+- (QuickSVGElement *)elementFromXMLNode:(SMXMLElement *)element shouldDraw:(BOOL)draw
 {
     CGRect frame = [self frameFromAttributes:element.attributes];
 
@@ -248,21 +246,28 @@
     
 	[instance.attributes addEntriesFromDictionary:element.attributes];
 	instance.quickSVG = self.quickSVG;
-    instance.elements = [element.children count] > 0 ? [self flattenedElementsForElement:element] : @[element];
+    
+    if(draw) {
+        instance.elements = [element.children count] > 0 ? [self flattenedElementsForElement:element] : @[element];
+    }
 
 	return instance;
 }
 
 - (void)addInstanceOfSymbol:(SMXMLElement *)symbol child:(SMXMLElement *)child
-{
-    QuickSVGElement *instance = [self elementFromXMLNode:child];
+{    
+	QuickSVGElement *instance = [self elementFromXMLNode:symbol shouldDraw:NO];
     instance.frame = [self frameFromAttributes:symbol.attributes];
     
-    NSMutableDictionary *attr = [NSMutableDictionary dictionaryWithDictionary:symbol.attributes];
-    [attr addEntriesFromDictionary:child.attributes];
-    instance.attributes = attr;
+    [self applyAttributesFrom:symbol toElement:child];
+    [instance.attributes removeAllObjects];
+    [instance.attributes addEntriesFromDictionary:child.attributes];
     instance.elements = symbol.children;
-
+    
+    if(child.attributes[@"transform"]) {
+        instance.transform = makeTransformFromSVGTransform(child.attributes[@"transform"]);
+    }
+    
     [self notifyDidParseElement:instance];
 }
 
@@ -296,7 +301,6 @@
 }
 
 
-
 #pragma Utilities
 
 - (BOOL)shouldAbortParsingElement:(SMXMLElement *)element
@@ -313,6 +317,14 @@
     [self notifyDidAbort];
 }
 
+- (void)applyAttributesFrom:(SMXMLElement *)from toElement:(SMXMLElement *)to
+{
+    NSMutableDictionary *attributes = [NSMutableDictionary dictionaryWithDictionary:from.attributes];
+    [attributes addEntriesFromDictionary:to.attributes];
+    [to.attributes removeAllObjects];
+    [to.attributes addEntriesFromDictionary:attributes];
+}
+
 - (CGRect)frameFromAttributes:(NSDictionary *)attributes
 {
     CGRect frame = CGRectZero;
@@ -323,6 +335,10 @@
         frame = CGRectMake([attributes[@"x"] floatValue], [attributes[@"y"] floatValue], [attributes[@"width"] floatValue], [attributes[@"height"] floatValue]);
     } else if(attributes[@"width"]){
         frame = CGRectMake(0,0, [attributes[@"width"] floatValue], [attributes[@"height"] floatValue]);
+    }
+    
+    if(attributes[@"transform"]) {
+        frame = CGRectApplyAffineTransform(frame, makeTransformFromSVGTransform(attributes[@"transform"]));
     }
     
     return frame;
