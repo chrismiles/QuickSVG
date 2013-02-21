@@ -12,6 +12,8 @@
 
 @interface MasterViewController : UITableViewController
 
+- (id)initWithDirectory:(NSString *)directory;
+
 @property (strong, nonatomic) DetailViewController *detailViewController;
 
 @end

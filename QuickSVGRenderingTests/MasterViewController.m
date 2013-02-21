@@ -12,21 +12,25 @@
 
 @interface MasterViewController () {
     NSMutableArray *_objects;
+    NSString *_directory;
 }
 @end
 
 @implementation MasterViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithDirectory:(NSString *)directory
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-		self.title = NSLocalizedString(@"Master", @"Master");
+    self = [super initWithStyle:UITableViewStylePlain];
+    if(self) {
+        _directory = directory;
+        
+        self.title = NSLocalizedString(@"Master", @"Master");
 		if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
 		    self.clearsSelectionOnViewWillAppear = NO;
 		    self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
 		}
     }
+    
     return self;
 }
 							
@@ -38,7 +42,7 @@
 	
 	_objects = [[NSMutableArray alloc] init];
 	
-	for(NSString *path in [[NSBundle mainBundle] pathsForResourcesOfType:@"svg" inDirectory:@"Sample SVGs"]) {
+	for(NSString *path in [[NSBundle mainBundle] pathsForResourcesOfType:@"" inDirectory:_directory]) {
 		NSURL *url = [NSURL fileURLWithPath:path];
 		[_objects addObject:url];
 	}
@@ -67,7 +71,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-	return _objects.count;
+	return _objects.count == 0 ? 0 : _objects.count;
 }
 
 // Customize the appearance of table view cells.
@@ -85,6 +89,7 @@
 
 
 	NSURL *url = _objects[indexPath.row];
+    cell.accessoryType = [self isDirectory:url] ? UITableViewCellAccessoryDetailDisclosureButton : UITableViewCellAccessoryNone;
 	cell.textLabel.text = [url lastPathComponent];
     return cell;
 }
@@ -93,6 +98,20 @@
 {
     // Return NO if you do not want the specified item to be editable.
     return YES;
+}
+
+- (BOOL)isDirectory:(NSURL *)url
+{
+    NSError *error;
+    NSDictionary *attribs = [[NSFileManager defaultManager] attributesOfItemAtPath:url.filePathURL.path error:&error];
+    
+    BOOL isDir = NO;
+    
+    if(!error) {
+        isDir = [attribs[NSFileType] isEqualToString:NSFileTypeDirectory];
+    }   
+    
+    return isDir;
 }
 
 
@@ -122,7 +141,14 @@
 	    self.detailViewController.detailItem = object;
         [self.navigationController pushViewController:self.detailViewController animated:YES];
     } else {
-        self.detailViewController.detailItem = object;
+        
+        if([self isDirectory:object]) {
+            MasterViewController *vc = [[MasterViewController alloc] initWithDirectory:[NSString stringWithFormat:@"%@/%@", _directory, [object lastPathComponent]]];
+            vc.detailViewController = self.detailViewController;
+            [self.navigationController pushViewController:vc animated:YES];
+        } else {
+            self.detailViewController.detailItem = object;
+        }
     }
 }
 

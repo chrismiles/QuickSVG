@@ -34,6 +34,7 @@
 {
 	_detailItem = newDetailItem;
     self.path = [UIBezierPath bezierPath];
+    NSLog(@"%@", newDetailItem);
 	
     [self configureView];
 	

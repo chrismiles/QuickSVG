@@ -23,7 +23,7 @@
 	    self.navigationController = [[UINavigationController alloc] initWithRootViewController:masterViewController];
 	    self.window.rootViewController = self.navigationController;
 	} else {
-	    MasterViewController *masterViewController = [[MasterViewController alloc] initWithNibName:nil bundle:nil];
+	    MasterViewController *masterViewController = [[MasterViewController alloc] initWithDirectory:@"Sample SVGs"];
 	    UINavigationController *masterNavigationController = [[UINavigationController alloc] initWithRootViewController:masterViewController];
 	    
 	    DetailViewController *detailViewController = [[DetailViewController alloc] initWithNibName:nil bundle:nil];

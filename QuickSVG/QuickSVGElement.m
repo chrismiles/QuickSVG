@@ -186,9 +186,6 @@ unichar const invalidCommand		= '*';
     
     CGFloat transX = self.frame.origin.x;
     CGFloat transY = self.frame.origin.y;
-
-    self.backgroundColor = [UIColor redColor];
-    self.alpha = 0.4;
     
     pathTransform = CGAffineTransformTranslate(pathTransform, -transX, -transY);
     
