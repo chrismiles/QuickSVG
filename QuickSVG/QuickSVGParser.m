@@ -15,7 +15,6 @@
 @interface QuickSVGParser ()
 
 @property (nonatomic, strong) SMXMLDocument *document;
-@property (nonatomic, assign) BOOL isAborted;
 
 - (void)parseElement:(SMXMLElement *)element;
 - (void)handleSVGElement:(SMXMLElement *)element;
@@ -35,8 +34,10 @@
 - (void)notifyDidParseElement:(QuickSVGElement *)element;
 - (void)notifyWillParse;
 - (void)notifyDidParse;
+- (void)notifyDidAbort;
 
 /* Utilities */
+- (BOOL)shouldAbortParsingElement:(SMXMLElement *)element;
 - (CGRect)frameFromAttributes:(NSDictionary *)attributes;
 
 @end
@@ -64,8 +65,8 @@
         return NO;
     
     if(_document) {
-        [self.document abort];
-        self.document = nil;
+        [self abort];
+        _document = nil;
     }
     
     [self notifyWillParse];
@@ -93,12 +94,13 @@
         [self handleSVGElement:root];
     
     [root.children enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-       
-        if(self.isAborted) {
+        
+        SMXMLElement *element = (SMXMLElement *)obj;
+        
+        if([self shouldAbortParsingElement:element]) {
             *stop = YES;
         }
         
-        SMXMLElement *element = (SMXMLElement *)obj;
         [self parseElement:element];
     }];
     
@@ -150,8 +152,12 @@
     NSArray *elements = [self flattenedElementsForElement:element];
     [elements enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         
-        SMXMLElement *element = (SMXMLElement *)obj;
-        [self parseElement:element];        
+        SMXMLElement *child = (SMXMLElement *)obj;
+        if([self shouldAbortParsingElement:child]) {
+            *stop = YES;
+        }
+
+        [self parseElement:child];
     }];
 }
 
@@ -190,8 +196,12 @@
     NSArray *children = [NSArray arrayWithArray:element.children];
     [children enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         
-        SMXMLElement *element = (SMXMLElement *)obj;
-        [self cleanElement:element];
+        SMXMLElement *child = (SMXMLElement *)obj;
+        if([self shouldAbortParsingElement:child]) {
+            *stop = YES;
+        }
+        
+        [self cleanElement:child];
     }];
 }
 
@@ -202,18 +212,22 @@
     [element.children enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         
         SMXMLElement *child = (SMXMLElement *)obj;
+        if([self shouldAbortParsingElement:child]) {
+            *stop = YES;
+        }
+                
+        // Merge group properties, giving preference to child attributes
+        if([child.parent.name isEqualToString:@"g"]) {
+            
+            NSMutableDictionary *attributes = [NSMutableDictionary dictionaryWithDictionary:child.parent.attributes];
+            [attributes addEntriesFromDictionary:child.attributes];
+            [child.attributes removeAllObjects];
+            [child.attributes addEntriesFromDictionary:attributes];
+        }
+        
         if([child.children count] > 0) {
             [elements addObjectsFromArray:[self flattenedElementsForElement:child]];
-        } else {
-            
-            // Merge group properties, giving preference to child attributes
-            if([child.parent.name isEqualToString:@"g"]) {
-                NSMutableDictionary *attributes = [NSMutableDictionary dictionaryWithDictionary:child.parent.attributes];
-                [attributes addEntriesFromDictionary:child.attributes];
-                [child.attributes removeAllObjects];
-                [child.attributes addEntriesFromDictionary:attributes];
-            }
-            
+        } else {            
             [elements addObject:child];
         }
     }];
@@ -229,7 +243,7 @@
 	QuickSVGElement *instance = [[QuickSVGElement alloc] initWithFrame:frame];
     
     if(element.attributes[@"transform"]) {
-        instance.transform = makeTransformFromSVGMatrix(element.attributes[@"transform"]);
+        instance.transform = makeTransformFromSVGTransform(element.attributes[@"transform"]);
     }
     
 	[instance.attributes addEntriesFromDictionary:element.attributes];
@@ -255,22 +269,29 @@
 #pragma Delegate callbacks
 - (void)notifyDidParseElement:(QuickSVGElement *)element
 {    
-    if(_delegate && [_delegate respondsToSelector:@selector(quickSVG:didParseElement:)]) {
+    if(!self.isAborted && _delegate && [_delegate respondsToSelector:@selector(quickSVG:didParseElement:)]) {
         [self.delegate quickSVG:self.quickSVG didParseElement:element];
     }
 }
 
 - (void)notifyWillParse
 {
-    if(_delegate && [_delegate respondsToSelector:@selector(quickSVGWillParse:)]) {
+    if(!self.isAborted && _delegate && [_delegate respondsToSelector:@selector(quickSVGWillParse:)]) {
         [self.delegate quickSVGWillParse:self.quickSVG];
     }
 }
 
 - (void)notifyDidParse
 {
-    if(_delegate && [_delegate respondsToSelector:@selector(quickSVGDidParse:)]) {
+    if(!self.isAborted && _delegate && [_delegate respondsToSelector:@selector(quickSVGDidParse:)]) {
         [self.delegate quickSVGDidParse:self.quickSVG];
+    }
+}
+
+- (void)notifyDidAbort
+{
+    if(!self.isAborted && _delegate && [_delegate respondsToSelector:@selector(quickSVGDidAbort:)]) {
+        [self.delegate quickSVGDidAbort:self.quickSVG];
     }
 }
 
@@ -278,10 +299,18 @@
 
 #pragma Utilities
 
+- (BOOL)shouldAbortParsingElement:(SMXMLElement *)element
+{
+    return self.isAborted || element.document != self.document;
+}
+
 - (void)abort
 {
 	self.isAborted = YES;
+    self.isParsing = NO;
     [self.document abort];
+    
+    [self notifyDidAbort];
 }
 
 - (CGRect)frameFromAttributes:(NSDictionary *)attributes

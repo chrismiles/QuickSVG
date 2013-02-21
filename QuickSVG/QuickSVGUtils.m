@@ -37,6 +37,31 @@ CGAffineTransform makeTransformFromSVGMatrix(NSString *matrix) {
     return makeTransform(xScale, yScale, rotation, t.tx, t.ty);
 }
 
+CGAffineTransform makeTransformFromSVGScale(NSString *scale)
+{
+    NSMutableString *m = [NSMutableString stringWithString:scale];
+    [m replaceOccurrencesOfString:@"scale(" withString:@"{" options:0 range:NSMakeRange(0, [m length])];
+    [m replaceOccurrencesOfString:@")" withString:@"}" options:0 range:NSMakeRange(0, [m length])];
+
+    CGPoint s = CGPointFromString(m);
+    CGAffineTransform t = CGAffineTransformMakeScale(s.x, s.y);
+    
+    return t;
+}
+
+CGAffineTransform makeTransformFromSVGTransform(NSString *svgTransform)
+{
+    CGAffineTransform transform = CGAffineTransformIdentity;
+    
+    if([svgTransform rangeOfString:@"matrix"].location != NSNotFound) {
+        transform = makeTransformFromSVGMatrix(svgTransform);
+    } else if([svgTransform rangeOfString:@"scale"].location != NSNotFound) {
+        transform = makeTransformFromSVGScale(svgTransform);
+    }
+    
+    return transform;
+}
+
 CGFloat getXScale(CGAffineTransform t) {
     return sqrtf(t.a * t.a + t.c * t.c);
 }

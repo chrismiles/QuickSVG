@@ -70,6 +70,11 @@
     });
 }
 
+- (void)quickSVGDidAbort:(QuickSVG *)quickSVG
+{
+    _holderView.layer.sublayers = nil;
+}
+
 - (void) resize
 {
     for(QuickSVGElement *instance in _quickSVG.parser.instances) {
@@ -78,9 +83,9 @@
     }
 }
 
-- (void)viewDidLoad
+- (void)viewDidAppear:(BOOL)animated
 {
-    [super viewDidLoad];
+    [super viewDidAppear:animated];
 
     self.instanceFrames = [NSMutableArray array];
 	self.view.backgroundColor = [UIColor whiteColor];
@@ -96,7 +101,6 @@
 	_scrollView.delegate = self;
     _holderView.layer.rasterizationScale = [UIScreen mainScreen].scale;
     _holderView.layer.delegate = self;
-    //_holderView.layer.shouldRasterize = YES;
 	
 	UITapGestureRecognizer *doubleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapGesture:)];
 	doubleTapGesture.numberOfTapsRequired = 2;

@@ -14,6 +14,7 @@
 @optional
 - (void)quickSVGWillParse:(QuickSVG *)quickSVG;
 - (void)quickSVGDidParse:(QuickSVG *)quickSVG;
+- (void)quickSVGDidAbort:(QuickSVG *)quickSVG;
 - (void)quickSVG:(QuickSVG *)quickSVG didParseElement:(QuickSVGElement *)element;
 @end
 
@@ -25,6 +26,7 @@
 @property (nonatomic, strong) NSMutableDictionary *groups;
 @property (nonatomic, weak) QuickSVG *quickSVG;
 @property (nonatomic) BOOL isParsing;
+@property (nonatomic, assign) BOOL isAborted;
 
 - (id)initWithQuickSVG:(QuickSVG *)quickSVG;
 - (BOOL)parseSVGFileWithURL:(NSURL *) url;

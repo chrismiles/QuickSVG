@@ -77,8 +77,22 @@
 	__block CGFloat lineWidth = 1.0;
 	shapeLayer.lineCap = kCALineCapSquare;
 	shapeLayer.lineJoin = kCALineJoinMiter;
-	
-	[attributes enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+    
+    // Check for inline style element
+    NSMutableDictionary *styles = [NSMutableDictionary dictionaryWithDictionary:attributes];
+    
+    if(attributes[@"style"]) {
+        NSArray *inlineStyles = [attributes[@"style"] componentsSeparatedByString:@";"];
+        [inlineStyles enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL *stop) {
+            NSArray *pieces = [obj componentsSeparatedByString:@":"];
+            if([pieces count] == 2) {
+                styles[pieces[0]] = pieces[1];
+            }
+        }];
+        [styles removeObjectForKey:@"style"];
+    }
+    	
+	[styles enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
 		
 		if([key isEqualToString:@"stroke-width"]) {
 			lineWidth = [obj floatValue];
@@ -93,7 +107,7 @@
 			}
 		}
 		else if([key isEqualToString:@"stroke-dasharray"]) {
-			NSArray *pieces = [attributes[@"stroke-dasharray"] componentsSeparatedByString:@","];
+			NSArray *pieces = [styles[@"stroke-dasharray"] componentsSeparatedByString:@","];
 			
 			float a = [pieces[0] floatValue];
 			float b = [pieces count] > 1 ? [pieces[1] floatValue] : a;
@@ -127,13 +141,13 @@
             }
 		}
 		else if([key isEqualToString:@"fill"]) {
-			if([[attributes allKeys] containsObject:@"fill-opacity"]) {
-				fillAlpha = [attributes[@"fill-opacity"] floatValue];
+			if([[styles allKeys] containsObject:@"fill-opacity"]) {
+				fillAlpha = [styles[@"fill-opacity"] floatValue];
 			}
 			
-			if([attributes[@"fill"] isEqualToString:@"none"]) {
+			if([styles[@"fill"] isEqualToString:@"none"]) {
 				fill = NO;
-			} else {
+			} else if([obj length] > 0){
 				NSString *hexString = [obj substringFromIndex:1];
 				fillColor = [UIColor colorWithHexString:hexString withAlpha:fillAlpha];
 				
@@ -142,10 +156,10 @@
 		}
 	}];
 	
-    NSString *enableBackground = [attributes[@"enable-background"] stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSString *enableBackground = [styles[@"enable-background"] stringByReplacingOccurrencesOfString:@" " withString:@""];
 	if(enableBackground && ![enableBackground isEqualToString:@"new"] && !fill) {
-		if([[attributes allKeys] containsObject:@"opacity"]) {
-			fillAlpha = [attributes[@"opacity"] floatValue];
+		if([[styles allKeys] containsObject:@"opacity"]) {
+			fillAlpha = [styles[@"opacity"] floatValue];
 		}
         
 		[UIColor colorWithWhite:0 alpha:fillAlpha];

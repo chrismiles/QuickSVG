@@ -199,6 +199,10 @@ unichar const invalidCommand		= '*';
 		
 	for(SMXMLElement *element in self.elements) {
         
+        if(self.quickSVG.parser.isAborted){
+            break;
+        }
+        
 		if(![element isKindOfClass:[SMXMLElement class]])
 			continue;
 		
@@ -253,14 +257,6 @@ unichar const invalidCommand		= '*';
             [_shapeLayers addObject:shapeLayer];
 		}
 	}
-    
-    CGAffineTransform svgTransform = [self svgTransform];
-    
-    // MN - Hack, need to better understand coordinate system transform adjustments
-    CGFloat rotation = getRotation(svgTransform);
-    CGFloat yFlip = rotation < 0 ? -getYScale(svgTransform) : getYScale(svgTransform);
-    CGAffineTransform shapePathTransform = makeTransform(getXScale(svgTransform), yFlip, rotation, 0, 0);
-    [_shapePath applyTransform:shapePathTransform];
     
     if(CGSizeEqualToSize(self.frame.size, CGSizeZero)) {
         self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.shapePath.bounds.size.width, self.shapePath.bounds.size.height);

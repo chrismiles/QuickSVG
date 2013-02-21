@@ -9,7 +9,9 @@
 #import <Foundation/Foundation.h>
 
 CGAffineTransform makeTransform(CGFloat xScale, CGFloat yScale, CGFloat theta, CGFloat tx, CGFloat ty);
+CGAffineTransform makeTransformFromSVGScale(NSString *scale);
 CGAffineTransform makeTransformFromSVGMatrix(NSString *matrix);
+CGAffineTransform makeTransformFromSVGTransform(NSString *svgTransform);
 
 CGFloat getXScale(CGAffineTransform t);
 CGFloat getYScale(CGAffineTransform t);
