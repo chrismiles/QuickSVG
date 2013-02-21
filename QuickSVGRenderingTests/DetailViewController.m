@@ -112,10 +112,32 @@
     UISlider *slider = [[UISlider alloc] initWithFrame:CGRectMake(10, 0, 200, 25)];
     slider.value = 1;
     [slider addTarget:self action:@selector(scaleSliderChanged:) forControlEvents:UIControlEventValueChanged];
-    [self.view addSubview:slider];
+    //[self.view addSubview:slider];
     
-    UIBarButtonItem *resize = [[UIBarButtonItem alloc] initWithTitle:@"Resize" style:UIBarButtonItemStyleBordered target:self action:@selector(resize)];
-    self.navigationItem.rightBarButtonItem = resize;
+    UIBarButtonItem *save = [[UIBarButtonItem alloc] initWithTitle:@"Save Image" style:UIBarButtonItemStyleBordered target:self action:@selector(saveImage)];
+    self.navigationItem.rightBarButtonItem = save;
+}
+
+- (void)saveImage
+{
+    // Begin image context
+    UIGraphicsBeginImageContextWithOptions(_holderView.bounds.size, YES, [UIScreen mainScreen].scale);
+    [[UIColor whiteColor] set];
+    CGContextFillRect(UIGraphicsGetCurrentContext(), _holderView.bounds);
+    [_holderView.layer renderInContext:UIGraphicsGetCurrentContext()];
+    CGImageRef screenshotRef = CGBitmapContextCreateImage(UIGraphicsGetCurrentContext());
+    UIImage *screenshot = [[UIImage alloc] initWithCGImage:screenshotRef];
+    
+    // End image context
+    UIGraphicsEndImageContext();
+    // Release CGImage
+    CGImageRelease(screenshotRef);
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *filePath =  [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png", [[_detailItem lastPathComponent] stringByDeletingPathExtension]]];
+    
+    [[NSFileManager defaultManager] createFileAtPath:filePath contents:UIImagePNGRepresentation(screenshot) attributes:nil];
 }
 
 - (id<CAAction>)actionForLayer:(CALayer *)layer forKey:(NSString *)event
