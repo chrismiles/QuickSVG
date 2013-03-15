@@ -82,7 +82,7 @@
     self.document = [[SMXMLDocument alloc] initWithData:data error:&error];
     
     if(error) {
-        NSLog(@"%@", error);
+        [self abort];
         return NO;
     }
     
@@ -239,6 +239,7 @@
     CGRect frame = [self frameFromAttributes:element.attributes];
 
 	QuickSVGElement *instance = [[QuickSVGElement alloc] initWithFrame:frame];
+    instance.layer.delegate = nil;
     
     if(element.attributes[@"transform"]) {
         instance.transform = makeTransformFromSVGTransform(element.attributes[@"transform"]);
@@ -298,7 +299,7 @@
 
 - (void)notifyDidAbort
 {
-    if(!self.isAborted && _delegate && [_delegate respondsToSelector:@selector(quickSVGDidAbort:)]) {
+    if(self.isAborted && _delegate && [_delegate respondsToSelector:@selector(quickSVGDidAbort:)]) {
         [self.delegate quickSVGDidAbort:self.quickSVG];
     }
 }
