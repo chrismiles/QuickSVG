@@ -81,7 +81,6 @@ unichar const invalidCommand		= '*';
 @property (nonatomic, assign) BOOL validLastControlPoint;
 @property (nonatomic, strong) NSMutableArray *tokens;
 @property (nonatomic, strong) UIBezierPath *bezierPathBeingDrawn;
-@property (nonatomic, strong) NSMutableArray *shapeLayers;
 @property (nonatomic, assign) CGFloat scale;
 
 - (QuickSVGElementType) elementTypeForKey:(NSString *)key;

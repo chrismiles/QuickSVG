@@ -26,5 +26,6 @@ typedef enum QuickSVGElementType
 @property (nonatomic, strong) UIBezierPath *shapePath;
 @property (nonatomic, strong) NSArray *elements;
 @property (nonatomic, readonly) CGAffineTransform svgTransform;
+@property (nonatomic, strong) NSMutableArray *shapeLayers;
 
 @end
