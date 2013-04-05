@@ -119,6 +119,8 @@
         [self handleGroupElement:element];
     } else if([element.name isEqualToString:@"use"]) {
         [self handleUseElement:element];
+    } else if([element.name isEqualToString:@"text"]) {
+        [self handleTextElement:element];
     } else {
         [self handleDrawingElement:element];
     }
@@ -173,6 +175,11 @@
     [self addInstanceOfSymbol:symbol child:element];
 }
 
+- (void)handleTextElement:(SMXMLElement *)element
+{
+    [self handleDrawingElement:element];
+}
+
 - (BOOL)shouldIgnoreElement:(SMXMLElement *)element
 {
     BOOL ignore = NO;
@@ -217,15 +224,11 @@
             *stop = YES;
         }
         
-        // Merge group properties, giving preference to child attributes
-        if([child.parent.name isEqualToString:@"g"]) {
-            [self applyAttributesFrom:child.parent toElement:child];
-        }
+        [self applyAttributesFrom:child.parent toElement:child];
         
         if([child.children count] > 0) {
             [elements addObjectsFromArray:[self flattenedElementsForElement:child]];
         } else {
-            
             [elements addObject:child];
         }
     }];
@@ -246,6 +249,7 @@
     }
     
 	[instance.attributes addEntriesFromDictionary:element.attributes];
+    instance.attributes[@"elementName"] = element.name;
 	instance.quickSVG = self.quickSVG;
     
     if(draw) {

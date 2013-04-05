@@ -195,7 +195,7 @@ unichar const invalidCommand		= '*';
     
 	[self.layer.sublayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
 	self.shapePath = [UIBezierPath bezierPath];
-		
+    
 	for(SMXMLElement *element in self.elements) {
         
         if(self.quickSVG.parser.isAborted){
@@ -277,7 +277,7 @@ unichar const invalidCommand		= '*';
 	else if([kAcceptablePathTypes containsObject:key]) {
 		return QuickSVGElementTypePath;
 	}
-	else if([key isEqualToString:@"text"]) {
+	else if([key isEqualToString:@"text"] || [key isEqualToString:@"tspan"]) {
 		return QuickSVGElementTypeText;
 	}
 	else {
@@ -286,9 +286,9 @@ unichar const invalidCommand		= '*';
 }
 
 - (CALayer *) addText:(NSString *)text withAttributes:(NSDictionary *) attributes
-{
+{    
     CALayer *layer;
-    
+        
     CGFloat fontSize        = [attributes[@"font-size"] floatValue];
     NSString *fontFamily    = [attributes[@"font-family"] stringByReplacingOccurrencesOfString:@"'" withString:@""];
     UIFont *font            = [UIFont fontWithName:fontFamily size:fontSize];
@@ -303,18 +303,25 @@ unichar const invalidCommand		= '*';
     }
     
     CGSize textSize         = [text sizeWithFont:font];
-
+    
     if(self.quickSVG.shouldTreatTextAsPaths) {
         CAShapeLayer *shapeLayer = [CAShapeLayer layer];
         shapeLayer.anchorPoint = CGPointMake(0,0);
         shapeLayer.fillColor = fontColor;
-
+        
         CGMutablePathRef textPath = CGPathCreateMutable();
         CGPathForTextWithFont(&textPath, text, font);
         shapeLayer.path = textPath;
+        
+        if(attributes[@"x"] && attributes[@"y"]) {
+            // Y is negative here to compensate for the inverse matrix of CALayer
+            CGAffineTransform transform = CGAffineTransformMakeTranslation([attributes[@"x"] floatValue], -[attributes[@"y"] floatValue]);
+            shapeLayer.path = CGPathCreateCopyByTransformingPath(textPath, &transform);
+        }
+        
         CGPathRelease(textPath);
         
-        layer = shapeLayer;        
+        layer = shapeLayer;
     } else {
         CATextLayer *textLayer = [CATextLayer layer];
         textLayer.anchorPoint = CGPointMake(0,0);
