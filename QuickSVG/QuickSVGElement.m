@@ -230,9 +230,11 @@ unichar const invalidCommand		= '*';
             {
                 CALayer *textLayer = [self addText:element.value withAttributes:attributes];
                 if(self.quickSVG.shouldTreatTextAsPaths) {
-                    textLayer.affineTransform = CGAffineTransformConcat(elementTransform, pathTransform);
+                    CAShapeLayer *l = (CAShapeLayer *)textLayer;
+                    path = [UIBezierPath bezierPathWithCGPath:l.path];
+                } else {
+                    [self.layer addSublayer:textLayer];
                 }
-                [self.layer addSublayer:textLayer];
 			}
 				break;
 			case QuickSVGElementTypeUnknown:
