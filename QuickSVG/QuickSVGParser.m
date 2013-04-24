@@ -129,6 +129,7 @@
 - (void)handleSVGElement:(SMXMLElement *)element
 {
     self.quickSVG.canvasFrame = [self frameFromAttributes:element.attributes];
+
 }
 
 - (void)handleDrawingElement:(SMXMLElement *)element

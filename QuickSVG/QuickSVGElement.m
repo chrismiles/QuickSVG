@@ -316,7 +316,9 @@ unichar const invalidCommand		= '*';
         if(attributes[@"x"] && attributes[@"y"]) {
             // Y is negative here to compensate for the inverse matrix of CALayer
             CGAffineTransform transform = CGAffineTransformMakeTranslation([attributes[@"x"] floatValue], -[attributes[@"y"] floatValue]);
-            shapeLayer.path = CGPathCreateCopyByTransformingPath(textPath, &transform);
+            CGPathRef path = CGPathCreateCopyByTransformingPath(textPath, &transform);
+            shapeLayer.path = path;
+            CGPathRelease(path);
         }
         
         CGPathRelease(textPath);

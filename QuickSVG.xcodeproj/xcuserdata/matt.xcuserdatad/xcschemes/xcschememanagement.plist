@@ -9,7 +9,7 @@
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>11</integer>
+			<integer>7</integer>
 		</dict>
 		<key>BuildQuickSVGFramework.xcscheme</key>
 		<dict>
@@ -21,7 +21,7 @@
 			<key>isShown</key>
 			<true/>
 			<key>orderHint</key>
-			<integer>7</integer>
+			<integer>4</integer>
 		</dict>
 		<key>QuickSVG.xcscheme</key>
 		<dict>
@@ -40,7 +40,7 @@
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>8</integer>
+			<integer>5</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
