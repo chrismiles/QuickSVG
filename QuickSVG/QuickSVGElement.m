@@ -213,6 +213,7 @@ unichar const invalidCommand		= '*';
 		QuickSVGElementType type = [self elementTypeForKey:shapeKey];
 
 		CAShapeLayer *shapeLayer = [CAShapeLayer layer];
+        shapeLayer.contentsScale = [UIScreen mainScreen].scale;
         
         CGAffineTransform elementTransform = CGAffineTransformIdentity;
         if(attributes[@"transform"]) {
@@ -332,6 +333,7 @@ unichar const invalidCommand		= '*';
         textLayer.rasterizationScale = textLayer.contentsScale;
         textLayer.foregroundColor = fontColor;
         textLayer.bounds = CGRectMake(0, 0, textSize.width, textSize.height);
+        textLayer.contentsScale = [UIScreen mainScreen].scale;
         
         CGFontRef fontRef = CGFontCreateWithFontName((__bridge CFStringRef)[font fontName]);
         [textLayer setFont:fontRef];
