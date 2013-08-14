@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
 
   s.ios.deployment_target = '5.0'
 
-  s.source       = { :git => "https://github.com/quickcue/QuickSVG.git", :tag => '0.2' }
+  s.source       = { :git => "https://github.com/quickcue/QuickSVG.git", :tag => '0.2.1' }
   s.source_files = 'QuickSVG/*.{h,m}'
 
   s.requires_arc = true
