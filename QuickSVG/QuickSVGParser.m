@@ -60,11 +60,17 @@
 	return self;
 }
 
-- (BOOL)parseSVGFileWithURL:(NSURL *) url
+- (BOOL)parseSVGString:(NSString *)string
 {
-	if (url == nil)
+    if ([string length] == 0)
         return NO;
     
+    NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
+    return [self parseSVGWithData:data];
+}
+
+- (BOOL)parseSVGWithData:(NSData *)data
+{
     if(_document) {
         [self abort];
         _document = nil;
@@ -78,7 +84,6 @@
     _isAborted = NO;
     
     NSError *error;
-	NSData *data = [NSData dataWithContentsOfURL:url];
     self.document = [[SMXMLDocument alloc] initWithData:data error:&error];
     
     if(error) {
@@ -108,6 +113,12 @@
     [self notifyDidParse];
     
     return YES;
+}
+
+- (BOOL)parseSVGFileWithURL:(NSURL *) url
+{
+	NSData *data = [NSData dataWithContentsOfURL:url];
+    return [self parseSVGWithData:data];
 }
 
 #pragma Elements

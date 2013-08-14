@@ -30,6 +30,7 @@
 
 - (id)initWithQuickSVG:(QuickSVG *)quickSVG;
 - (BOOL)parseSVGFileWithURL:(NSURL *) url;
+- (BOOL)parseSVGString:(NSString *)string;
 
 - (void)abort;
 

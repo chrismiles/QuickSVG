@@ -50,6 +50,11 @@
     return [self.parser parseSVGFileWithURL:url];
 }
 
+- (BOOL)parseSVGString:(NSString *)string;
+{
+    return [self.parser parseSVGString:string];
+}
+
 - (void)setParserDelegate:(id<QuickSVGParserDelegate>)parserDelegate
 {
     _parser.delegate = parserDelegate;

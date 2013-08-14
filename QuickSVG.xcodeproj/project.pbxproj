@@ -123,7 +123,7 @@
 		C9090D2E161316BC001145EC /* QuickSVG-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "QuickSVG-Prefix.pch"; sourceTree = "<group>"; };
 		C9090D2F161316BC001145EC /* QuickSVG.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuickSVG.h; sourceTree = "<group>"; };
 		C9090D31161316BC001145EC /* QuickSVG.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = QuickSVG.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		C9090D38161316BC001145EC /* QuickSVGTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = QuickSVGTests.octest; path = UnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9090D38161316BC001145EC /* UnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9090D39161316BC001145EC /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		C9090D43161316BC001145EC /* QuickSVGTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "QuickSVGTests-Info.plist"; sourceTree = "<group>"; };
 		C9090D45161316BC001145EC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -220,7 +220,7 @@
 			isa = PBXGroup;
 			children = (
 				C9090D27161316BC001145EC /* libQuickSVG.a */,
-				C9090D38161316BC001145EC /* QuickSVGTests.octest */,
+				C9090D38161316BC001145EC /* UnitTests.octest */,
 				C9090D6816135E10001145EC /* RenderingTests.app */,
 			);
 			name = Products;
@@ -374,7 +374,7 @@
 			);
 			name = UnitTests;
 			productName = QuickSVGTests;
-			productReference = C9090D38161316BC001145EC /* QuickSVGTests.octest */;
+			productReference = C9090D38161316BC001145EC /* UnitTests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
 		C9090D6716135E10001145EC /* RenderingTests */ = {

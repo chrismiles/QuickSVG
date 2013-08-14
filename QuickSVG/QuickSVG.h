@@ -45,6 +45,8 @@
 // A shortcut to the parser
 - (BOOL)parseSVGFileWithURL:(NSURL *) url;
 
+- (BOOL)parseSVGString:(NSString *)string;
+
 
 - (id)initWithDelegate:(id<QuickSVGDelegate>)delegate;
 @end
