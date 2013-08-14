@@ -22,6 +22,8 @@
 @property (nonatomic) id <QuickSVGParserDelegate> parserDelegate;
 @property (nonatomic, strong) QuickSVGParser *parser;
 
+@property (nonatomic, strong) UIView *view;
+
 // This allows you to have visible layers within the SVG that are ignored by the renderer
 // Useful for creating templates with elements that you do not want to be displayed in the final
 // product

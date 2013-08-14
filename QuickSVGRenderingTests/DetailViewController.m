@@ -34,7 +34,6 @@
 {
 	_detailItem = newDetailItem;
     self.path = [UIBezierPath bezierPath];
-    NSLog(@"%@", newDetailItem);
 	
     [self configureView];
 	
@@ -58,7 +57,11 @@
     assert([element.layer isKindOfClass:[CALayer class]]);
     dispatch_async(dispatch_get_main_queue(), ^{
         element.frame = CGRectMake(element.frame.origin.x - CGRectGetMinX(_quickSVG.canvasFrame), element.frame.origin.y - CGRectGetMinY(_quickSVG.canvasFrame), element.frame.size.width, element.frame.size.height);
-        [_holderView addSubview:element];
+        
+        /*
+         Uncomment the line below to asyncronously add all parsed views
+         */
+        //[_holderView addSubview:element];
     });
 }
 
@@ -67,9 +70,12 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         _holderView.frame = CGRectMake(0, 0, CGRectGetWidth(_quickSVG.canvasFrame), CGRectGetHeight(_quickSVG.canvasFrame));
         _scrollView.contentSize = _holderView.frame.size;
-        NSLog(@"%@", NSStringFromCGRect(_holderView.frame));
-        NSLog(@"%@", NSStringFromCGRect(_quickSVG.canvasFrame));
         _scrollView.backgroundColor = [UIColor colorWithWhite:0.95 alpha:1];
+        
+        /*
+         Comment the line below to add all parsed views at once
+         */
+        [_holderView addSubview:quickSVG.view];
     });
 }
 

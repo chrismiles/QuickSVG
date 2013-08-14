@@ -83,6 +83,7 @@
     [_instances removeAllObjects];
     [_groups removeAllObjects];
     [_elements removeAllObjects];
+    
     _isAborted = NO;
     
     NSError *error;
@@ -142,12 +143,12 @@
 - (void)handleSVGElement:(SMXMLElement *)element
 {
     self.quickSVG.canvasFrame = [self frameFromAttributes:element.attributes];
+    _quickSVG.view = [[UIView alloc] initWithFrame:self.quickSVG.canvasFrame];
 }
 
 - (void)handleDrawingElement:(SMXMLElement *)element
 {
     QuickSVGElement *instance = [self elementFromXMLNode:element shouldDraw:YES];
-    [_elements addObject:instance];
     [self notifyDidParseElement:instance];
 }
 
@@ -295,7 +296,10 @@
 
 #pragma Delegate callbacks
 - (void)notifyDidParseElement:(QuickSVGElement *)element
-{    
+{
+    [_elements addObject:element];
+    [self.quickSVG.view addSubview:element];
+    
     if(!self.isAborted && _delegate && [_delegate respondsToSelector:@selector(quickSVG:didParseElement:)]) {
         [self.delegate quickSVG:self.quickSVG didParseElement:element];
     }
