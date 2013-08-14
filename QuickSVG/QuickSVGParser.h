@@ -24,6 +24,7 @@
 @property (nonatomic, strong) NSMutableDictionary *symbols;
 @property (nonatomic, strong) NSMutableDictionary *instances;
 @property (nonatomic, strong) NSMutableDictionary *groups;
+@property (nonatomic, strong) NSMutableArray *elements;
 @property (nonatomic, weak) QuickSVG *quickSVG;
 @property (nonatomic) BOOL isParsing;
 @property (nonatomic, assign) BOOL isAborted;

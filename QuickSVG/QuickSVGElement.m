@@ -163,6 +163,17 @@ unichar const invalidCommand		= '*';
     [super setFrame:frame];
 }
 
+- (CGSize)sizeThatFits:(CGSize)size
+{
+    return CGPathGetBoundingBox(_shapePath.CGPath).size;
+}
+
+- (void) setAttributes:(NSMutableDictionary *)attributes
+{
+    _attributes = attributes;
+    [self setElements:_elements];
+}
+
 - (CGAffineTransform) svgTransform
 {
     CGAffineTransform transform = CGAffineTransformIdentity;

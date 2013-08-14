@@ -14,19 +14,19 @@
 + (NSDictionary *) supportedStyleAttributes
 {
     NSDictionary *attributes = @{
-                                @"stroke"               : @[],
-                                @"stroke-width"         : @[],
-                                @"stroke-linecap"       : @[@"butt", @"round", @"square"],
-                                @"stroke-dasharray"     : @[],
-                                @"stroke-linejoin"      : @[@"bevel", @"round", @"miter"],
-                                @"stroke-miterlimit"    : @[],
-                                @"stroke-opacity"       : @[],
-                                @"fill"                 : @[],
-                                @"fill-opacity"         : @[],
-                                @"enable-background"    : @[],
-                                @"opacity"              : @[]
-    };
- 
+                                 @"stroke"               : @[],
+                                 @"stroke-width"         : @[],
+                                 @"stroke-linecap"       : @[@"butt", @"round", @"square"],
+                                 @"stroke-dasharray"     : @[],
+                                 @"stroke-linejoin"      : @[@"bevel", @"round", @"miter"],
+                                 @"stroke-miterlimit"    : @[],
+                                 @"stroke-opacity"       : @[],
+                                 @"fill"                 : @[],
+                                 @"fill-opacity"         : @[],
+                                 @"enable-background"    : @[],
+                                 @"opacity"              : @[]
+                                 };
+    
     return attributes;
 }
 
@@ -75,6 +75,7 @@
 	__block CGFloat fillAlpha = 1.0;
 	__block CGFloat strokeAlpha = 1.0;
 	__block CGFloat lineWidth = 1.0;
+    __block CGFloat opacity = 1.0;
 	shapeLayer.lineCap = kCALineCapSquare;
 	shapeLayer.lineJoin = kCALineJoinMiter;
     
@@ -91,7 +92,7 @@
         }];
         [styles removeObjectForKey:@"style"];
     }
-    	
+    
 	[styles enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
 		
 		if([key isEqualToString:@"stroke-width"]) {
@@ -154,6 +155,11 @@
 				fill = YES;
 			}
 		}
+        else if([key isEqualToString:@"opacity"]) {
+			if([[styles allKeys] containsObject:@"opacity"]) {
+				opacity = [styles[@"opacity"] floatValue];
+			}
+		}
 	}];
 	
     NSString *enableBackground = [styles[@"enable-background"] stringByReplacingOccurrencesOfString:@" " withString:@""];
@@ -166,6 +172,7 @@
 		fill = YES;
 	}
 	
+    shapeLayer.opacity = opacity;
 	shapeLayer.fillColor = fill ? fillColor.CGColor : nil;
 	
 	if(stroke) {

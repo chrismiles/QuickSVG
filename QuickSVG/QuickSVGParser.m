@@ -54,6 +54,7 @@
 		self.symbols = [NSMutableDictionary dictionary];
 		self.instances = [NSMutableDictionary dictionary];
 		self.groups = [NSMutableDictionary dictionary];
+        self.elements = [NSMutableArray array];
 		self.isAborted = NO;
 	}
 	
@@ -81,6 +82,7 @@
     [_symbols removeAllObjects];
     [_instances removeAllObjects];
     [_groups removeAllObjects];
+    [_elements removeAllObjects];
     _isAborted = NO;
     
     NSError *error;
@@ -140,12 +142,12 @@
 - (void)handleSVGElement:(SMXMLElement *)element
 {
     self.quickSVG.canvasFrame = [self frameFromAttributes:element.attributes];
-
 }
 
 - (void)handleDrawingElement:(SMXMLElement *)element
 {
     QuickSVGElement *instance = [self elementFromXMLNode:element shouldDraw:YES];
+    [_elements addObject:instance];
     [self notifyDidParseElement:instance];
 }
 
@@ -161,7 +163,7 @@
 
 - (void)handleGroupElement:(SMXMLElement *)element
 {
-    NSString *key = [[element.attributes allKeys] containsObject:@"id"] ? element.attributes[@"id"] : [NSString stringWithFormat:@"Group%i", [_symbols count] + 1];
+    NSString *key = [[element.attributes allKeys] containsObject:@"id"] ? element.attributes[@"id"] : [NSString stringWithFormat:@"Group%i", [_groups count] + 1];
     self.groups[key] = element;
     
     NSArray *elements = [self flattenedElementsForElement:element];
