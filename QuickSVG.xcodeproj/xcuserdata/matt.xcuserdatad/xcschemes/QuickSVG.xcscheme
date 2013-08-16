@@ -39,12 +39,22 @@
             </BuildableReference>
          </TestableReference>
          <TestableReference
-            skipped = "NO">
+            skipped = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C936218A17BE59C900434767"
                BuildableName = "QuickSVGDemoTests.xctest"
                BlueprintName = "QuickSVGDemoTests"
+               ReferencedContainer = "container:QuickSVG.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C93621AB17BE69EE00434767"
+               BuildableName = "QuickSVG Tests.xctest"
+               BlueprintName = "QuickSVG Tests"
                ReferencedContainer = "container:QuickSVG.xcodeproj">
             </BuildableReference>
          </TestableReference>

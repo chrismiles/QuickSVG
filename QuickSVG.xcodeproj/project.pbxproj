@@ -12,9 +12,8 @@
 		C936214D17BE588D00434767 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C936214C17BE588D00434767 /* XCTest.framework */; };
 		C936214E17BE588D00434767 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C936213E17BE588D00434767 /* Foundation.framework */; };
 		C936215017BE588D00434767 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C936214F17BE588D00434767 /* UIKit.framework */; };
-		C936215317BE588D00434767 /* libQuickSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C936213B17BE588D00434767 /* libQuickSVG.a */; };
 		C936215917BE588D00434767 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C936215717BE588D00434767 /* InfoPlist.strings */; };
-		C936215B17BE588D00434767 /* QuickSVGTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C936215A17BE588D00434767 /* QuickSVGTests.m */; };
+		C936215B17BE588D00434767 /* QuickSVGW3Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = C936215A17BE588D00434767 /* QuickSVGW3Tests.m */; };
 		C936216917BE59C900434767 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C936213E17BE588D00434767 /* Foundation.framework */; };
 		C936216B17BE59C900434767 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C936216A17BE59C900434767 /* CoreGraphics.framework */; };
 		C936216C17BE59C900434767 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C936214F17BE588D00434767 /* UIKit.framework */; };
@@ -31,6 +30,7 @@
 		C936218E17BE59CA00434767 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C936214F17BE588D00434767 /* UIKit.framework */; };
 		C936219617BE59CA00434767 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C936219417BE59CA00434767 /* InfoPlist.strings */; };
 		C936219817BE59CA00434767 /* QuickSVGDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C936219717BE59CA00434767 /* QuickSVGDemoTests.m */; };
+		C93621A717BE64A800434767 /* Resources in Resources */ = {isa = PBXBuildFile; fileRef = C93621A617BE64A800434767 /* Resources */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,7 +73,7 @@
 		C936214F17BE588D00434767 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		C936215617BE588D00434767 /* QuickSVGTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "QuickSVGTests-Info.plist"; sourceTree = "<group>"; };
 		C936215817BE588D00434767 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		C936215A17BE588D00434767 /* QuickSVGTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuickSVGTests.m; sourceTree = "<group>"; };
+		C936215A17BE588D00434767 /* QuickSVGW3Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuickSVGW3Tests.m; sourceTree = "<group>"; };
 		C936216817BE59C900434767 /* QuickSVGDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuickSVGDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C936216A17BE59C900434767 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		C936216F17BE59C900434767 /* QuickSVGDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "QuickSVGDemo-Info.plist"; sourceTree = "<group>"; };
@@ -93,6 +93,11 @@
 		C936219317BE59CA00434767 /* QuickSVGDemoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "QuickSVGDemoTests-Info.plist"; sourceTree = "<group>"; };
 		C936219517BE59CA00434767 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C936219717BE59CA00434767 /* QuickSVGDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuickSVGDemoTests.m; sourceTree = "<group>"; };
+		C93621A617BE64A800434767 /* Resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Resources; sourceTree = "<group>"; };
+		C93621B217BE69EE00434767 /* QuickSVG Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "QuickSVG Tests-Info.plist"; sourceTree = "<group>"; };
+		C93621B417BE69EE00434767 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C93621B617BE69EE00434767 /* QuickSVG_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuickSVG_Tests.m; sourceTree = "<group>"; };
+		C93621B817BE69EE00434767 /* QuickSVG Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "QuickSVG Tests-Prefix.pch"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,7 +113,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C936215317BE588D00434767 /* libQuickSVG.a in Frameworks */,
 				C936214D17BE588D00434767 /* XCTest.framework in Frameworks */,
 				C936215017BE588D00434767 /* UIKit.framework in Frameworks */,
 				C936214E17BE588D00434767 /* Foundation.framework in Frameworks */,
@@ -145,6 +149,7 @@
 				C936215417BE588D00434767 /* QuickSVGTests */,
 				C936216D17BE59C900434767 /* QuickSVGDemo */,
 				C936219117BE59CA00434767 /* QuickSVGDemoTests */,
+				C93621B017BE69EE00434767 /* QuickSVG Tests */,
 				C936213D17BE588D00434767 /* Frameworks */,
 				C936213C17BE588D00434767 /* Products */,
 			);
@@ -192,7 +197,7 @@
 		C936215417BE588D00434767 /* QuickSVGTests */ = {
 			isa = PBXGroup;
 			children = (
-				C936215A17BE588D00434767 /* QuickSVGTests.m */,
+				C936215A17BE588D00434767 /* QuickSVGW3Tests.m */,
 				C936215517BE588D00434767 /* Supporting Files */,
 			);
 			path = QuickSVGTests;
@@ -201,6 +206,7 @@
 		C936215517BE588D00434767 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C93621A617BE64A800434767 /* Resources */,
 				C936215617BE588D00434767 /* QuickSVGTests-Info.plist */,
 				C936215717BE588D00434767 /* InfoPlist.strings */,
 			);
@@ -249,6 +255,25 @@
 			children = (
 				C936219317BE59CA00434767 /* QuickSVGDemoTests-Info.plist */,
 				C936219417BE59CA00434767 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C93621B017BE69EE00434767 /* QuickSVG Tests */ = {
+			isa = PBXGroup;
+			children = (
+				C93621B617BE69EE00434767 /* QuickSVG_Tests.m */,
+				C93621B117BE69EE00434767 /* Supporting Files */,
+			);
+			path = "QuickSVG Tests";
+			sourceTree = "<group>";
+		};
+		C93621B117BE69EE00434767 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C93621B217BE69EE00434767 /* QuickSVG Tests-Info.plist */,
+				C93621B317BE69EE00434767 /* InfoPlist.strings */,
+				C93621B817BE69EE00434767 /* QuickSVG Tests-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -336,7 +361,7 @@
 				ORGANIZATIONNAME = quickcue;
 				TargetAttributes = {
 					C936214A17BE588D00434767 = {
-						TestTargetID = C936216717BE59C900434767;
+						TestTargetID = C936213A17BE588D00434767;
 					};
 					C936218A17BE59C900434767 = {
 						TestTargetID = C936216717BE59C900434767;
@@ -369,6 +394,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C93621A717BE64A800434767 /* Resources in Resources */,
 				C936215917BE588D00434767 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -406,7 +432,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C936215B17BE588D00434767 /* QuickSVGTests.m in Sources */,
+				C936215B17BE588D00434767 /* QuickSVGW3Tests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -481,6 +507,14 @@
 			isa = PBXVariantGroup;
 			children = (
 				C936219517BE59CA00434767 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		C93621B317BE69EE00434767 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C93621B417BE69EE00434767 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -562,7 +596,8 @@
 				GCC_PREFIX_HEADER = "QuickSVG/QuickSVG-Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
+				SKIP_INSTALL = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -574,14 +609,14 @@
 				GCC_PREFIX_HEADER = "QuickSVG/QuickSVG-Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
+				SKIP_INSTALL = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
 		C936216217BE588D00434767 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/QuickSVGDemo.app/QuickSVGDemo";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -595,7 +630,7 @@
 				);
 				INFOPLIST_FILE = "QuickSVGTests/QuickSVGTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
@@ -603,7 +638,6 @@
 		C936216317BE588D00434767 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/QuickSVGDemo.app/QuickSVGDemo";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -613,7 +647,7 @@
 				GCC_PREFIX_HEADER = "QuickSVG/QuickSVG-Prefix.pch";
 				INFOPLIST_FILE = "QuickSVGTests/QuickSVGTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
@@ -719,6 +753,7 @@
 				C936216017BE588D00434767 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C936216117BE588D00434767 /* Build configuration list for PBXNativeTarget "QuickSVGTests" */ = {
 			isa = XCConfigurationList;
@@ -727,6 +762,7 @@
 				C936216317BE588D00434767 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C936219917BE59CA00434767 /* Build configuration list for PBXNativeTarget "QuickSVGDemo" */ = {
 			isa = XCConfigurationList;
@@ -735,6 +771,7 @@
 				C936219B17BE59CA00434767 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C936219C17BE59CA00434767 /* Build configuration list for PBXNativeTarget "QuickSVGDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -743,6 +780,7 @@
 				C936219E17BE59CA00434767 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

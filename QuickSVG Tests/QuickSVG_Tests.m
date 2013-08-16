@@ -1,6 +1,6 @@
 //
-//  QuickSVGTests.m
-//  QuickSVGTests
+//  QuickSVG_Tests.m
+//  QuickSVG Tests
 //
 //  Created by Matthew Newberry on 8/16/13.
 //  Copyright (c) 2013 quickcue. All rights reserved.
@@ -8,11 +8,11 @@
 
 #import <XCTest/XCTest.h>
 
-@interface QuickSVGTests : XCTestCase
+@interface QuickSVG_Tests : XCTestCase
 
 @end
 
-@implementation QuickSVGTests
+@implementation QuickSVG_Tests
 
 - (void)setUp
 {
