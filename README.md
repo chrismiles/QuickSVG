@@ -1,18 +1,10 @@
 QuickSVG
 ========
 
-
-#### Overview
-QuickSVG is a simple SVG parser that has been designed to handle various SVG file formats.
-
-The 0.1 release currently supports native support for Adobe Illustrator SVG formatting my focusing on rendering all symbol elements. QuickSVG will render all paths grouped within a defined symbol element.   
+### Goals
+This is a complete rewrite of QuickSVG. The ultimate goal is full conformance to the SVG 1.1 (and upcoming 2.0) specs. 
 
 
-#### Usage
-
-```
-NSURL *url = [NSURL fileURLWithPath:@"/path/to/file.svg"];
-QuickSVG *svg = [QuickSVG svgFromURL:url)];
-
-[self.view addSubview:svg.view];
-```
+* Full unit testing with image comparison to verify renderings
+* Independent parsers for each spec (1.1, 2.0)
+* Very easy to use and understand

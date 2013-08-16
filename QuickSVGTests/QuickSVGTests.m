@@ -2,16 +2,13 @@
 //  QuickSVGTests.m
 //  QuickSVGTests
 //
-//  Created by Matthew Newberry on 9/26/12.
-//  Copyright (c) 2012 Matthew Newberry. All rights reserved.
+//  Created by Matthew Newberry on 8/16/13.
+//  Copyright (c) 2013 quickcue. All rights reserved.
 //
 
-#import "QuickSVGTests.h"
-#import "QuickSVG.h"
+#import <XCTest/XCTest.h>
 
-@interface QuickSVGTests ()
-
-@property (nonatomic, strong) QuickSVG *quickSVG;
+@interface QuickSVGTests : XCTestCase
 
 @end
 
@@ -20,45 +17,18 @@
 - (void)setUp
 {
     [super setUp];
-    
-	self.quickSVG = [[QuickSVG alloc] init];
+    // Put setup code here. This method is called before the invocation of each test method in the class.
 }
 
 - (void)tearDown
 {
-    self.quickSVG = nil;
-    
+    // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
 }
 
-- (void) testParsingSVGFiles
+- (void)testExample
 {
-	NSArray *svgFiles = [[NSBundle bundleForClass:[self class]] pathsForResourcesOfType:@"svg" inDirectory:@"Sample SVGs"];
-	
-	for(NSString *filePath in svgFiles) {
-		NSURL *fileURL = [NSURL fileURLWithPath:svgFiles[0]];
-		STAssertTrue([_quickSVG parseSVGFileWithURL:fileURL], @"Failed To Parse SVG File: %@", @"");
-	}
-}
-
-- (void) testAddingRects
-{
-	STAssertTrue(NO, @"Failed to added rects");
-}
-
-- (void) testAddingCircles
-{
-	STAssertTrue(NO, @"Failed to added circles");
-}
-
-- (void) testAddingEllipses
-{
-	STAssertTrue(NO, @"Failed to added ellipses");
-}
-
-- (void) testSymbolLinkageWithUse
-{
-	
+    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
 }
 
 @end

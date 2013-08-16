@@ -4,68 +4,30 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>AutomatedTests.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-			<key>orderHint</key>
-			<integer>7</integer>
-		</dict>
-		<key>BuildQuickSVGFramework.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>3</integer>
-		</dict>
-		<key>Framework.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<true/>
-			<key>orderHint</key>
-			<integer>4</integer>
-		</dict>
 		<key>QuickSVG.xcscheme</key>
 		<dict>
-			<key>isShown</key>
-			<true/>
 			<key>orderHint</key>
-			<integer>1</integer>
-		</dict>
-		<key>QuickSVGRenderingTests.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>2</integer>
-		</dict>
-		<key>RenderingTests.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<true/>
-			<key>orderHint</key>
-			<integer>5</integer>
+			<integer>0</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>C9090D26161316BC001145EC</key>
+		<key>C936213A17BE588D00434767</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C9090D37161316BC001145EC</key>
+		<key>C936214A17BE588D00434767</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C9090D6716135E10001145EC</key>
+		<key>C936216717BE59C900434767</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C9090D9416135E6D001145EC</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>C9090DA116136387001145EC</key>
+		<key>C936218A17BE59C900434767</key>
 		<dict>
 			<key>primary</key>
 			<true/>

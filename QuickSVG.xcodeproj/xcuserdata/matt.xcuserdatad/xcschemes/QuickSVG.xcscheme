@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0450"
+   LastUpgradeVersion = "0500"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C9090D26161316BC001145EC"
+               BlueprintIdentifier = "C936213A17BE588D00434767"
                BuildableName = "libQuickSVG.a"
                BlueprintName = "QuickSVG"
                ReferencedContainer = "container:QuickSVG.xcodeproj">
@@ -32,9 +32,19 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C9090D37161316BC001145EC"
-               BuildableName = "UnitTests.octest"
-               BlueprintName = "UnitTests"
+               BlueprintIdentifier = "C936214A17BE588D00434767"
+               BuildableName = "QuickSVGTests.xctest"
+               BlueprintName = "QuickSVGTests"
+               ReferencedContainer = "container:QuickSVG.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C936218A17BE59C900434767"
+               BuildableName = "QuickSVGDemoTests.xctest"
+               BlueprintName = "QuickSVGDemoTests"
                ReferencedContainer = "container:QuickSVG.xcodeproj">
             </BuildableReference>
          </TestableReference>
