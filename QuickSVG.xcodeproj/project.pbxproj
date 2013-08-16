@@ -94,10 +94,6 @@
 		C936219517BE59CA00434767 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C936219717BE59CA00434767 /* QuickSVGDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuickSVGDemoTests.m; sourceTree = "<group>"; };
 		C93621A617BE64A800434767 /* Resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Resources; sourceTree = "<group>"; };
-		C93621B217BE69EE00434767 /* QuickSVG Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "QuickSVG Tests-Info.plist"; sourceTree = "<group>"; };
-		C93621B417BE69EE00434767 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		C93621B617BE69EE00434767 /* QuickSVG_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuickSVG_Tests.m; sourceTree = "<group>"; };
-		C93621B817BE69EE00434767 /* QuickSVG Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "QuickSVG Tests-Prefix.pch"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,7 +145,6 @@
 				C936215417BE588D00434767 /* QuickSVGTests */,
 				C936216D17BE59C900434767 /* QuickSVGDemo */,
 				C936219117BE59CA00434767 /* QuickSVGDemoTests */,
-				C93621B017BE69EE00434767 /* QuickSVG Tests */,
 				C936213D17BE588D00434767 /* Frameworks */,
 				C936213C17BE588D00434767 /* Products */,
 			);
@@ -255,25 +250,6 @@
 			children = (
 				C936219317BE59CA00434767 /* QuickSVGDemoTests-Info.plist */,
 				C936219417BE59CA00434767 /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		C93621B017BE69EE00434767 /* QuickSVG Tests */ = {
-			isa = PBXGroup;
-			children = (
-				C93621B617BE69EE00434767 /* QuickSVG_Tests.m */,
-				C93621B117BE69EE00434767 /* Supporting Files */,
-			);
-			path = "QuickSVG Tests";
-			sourceTree = "<group>";
-		};
-		C93621B117BE69EE00434767 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				C93621B217BE69EE00434767 /* QuickSVG Tests-Info.plist */,
-				C93621B317BE69EE00434767 /* InfoPlist.strings */,
-				C93621B817BE69EE00434767 /* QuickSVG Tests-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -507,14 +483,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				C936219517BE59CA00434767 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		C93621B317BE69EE00434767 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C93621B417BE69EE00434767 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
