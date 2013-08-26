@@ -748,9 +748,7 @@ unichar const invalidCommand		= '*';
 }
 
 - (void) encodeWithCoder:(NSCoder *)aCoder
-{
-    [super encodeWithCoder:aCoder];
-    
+{    
 	[aCoder encodeObject:_shapeLayers forKey:@"shapeLayers"];
     [aCoder encodeObject:_shapePath forKey:@"shapePath"];
 	[aCoder encodeObject:self.attributes forKey:@"attributes"];
