@@ -571,8 +571,8 @@ unichar const invalidCommand		= '*';
 	unichar command = [stringToken characterAtIndex:0];
 	while (index < [stringTokens count]) {
 		if (![_commandSet characterIsMember:command]) {
-			NSLog(@"*** Error: Path string parse error: found float where expecting command at token %d in path %s.",
-				  index, [attr cStringUsingEncoding:NSUTF8StringEncoding]);
+			NSLog(@"*** Error: Path string parse error: found float where expecting command at token %ldd in path %s.",
+				  (long)(long)index, [attr cStringUsingEncoding:NSUTF8StringEncoding]);
 			return nil;
 		}
 		Token *token = [[Token alloc] initWithCommand:command];
@@ -584,8 +584,8 @@ unichar const invalidCommand		= '*';
 			NSScanner *floatScanner = [NSScanner scannerWithString:stringToken];
 			float value;
 			if (![floatScanner scanFloat:&value]) {
-				NSLog(@"*** Error: Path string parse error: expected float or command at token %d (but found %s) in path %s.",
-					  index, [stringToken cStringUsingEncoding:NSUTF8StringEncoding], [attr cStringUsingEncoding:NSUTF8StringEncoding]);
+				NSLog(@"*** Error: Path string parse error: expected float or command at token %ld (but found %s) in path %s.",
+					  (long)index, [stringToken cStringUsingEncoding:NSUTF8StringEncoding], [attr cStringUsingEncoding:NSUTF8StringEncoding]);
 				return nil;
 			}
 			// Maintain scale.

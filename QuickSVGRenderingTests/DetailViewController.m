@@ -61,7 +61,7 @@
         /*
          Uncomment the line below to asyncronously add all parsed views
          */
-        //[_holderView addSubview:element];
+        [_holderView addSubview:element];
     });
 }
 
@@ -75,7 +75,7 @@
         /*
          Comment the line below to add all parsed views at once
          */
-        [_holderView addSubview:quickSVG.view];
+        //[self.holderView addSubview:quickSVG.view];
     });
 }
 
@@ -98,25 +98,16 @@
 
     self.instanceFrames = [NSMutableArray array];
 	self.view.backgroundColor = [UIColor whiteColor];
-	self.scrollView = [[UIScrollView alloc] initWithFrame:self.view.frame];
-    _scrollView.backgroundColor = [UIColor whiteColor];
-
-    self.holderView = [[UIView alloc] initWithFrame:self.scrollView.frame];
-    [_scrollView addSubview:_holderView];
     	
 	_scrollView.minimumZoomScale = 0.5;
 	_scrollView.maximumZoomScale = 3.0;
 	_scrollView.bouncesZoom = YES;
 	_scrollView.delegate = self;
-    _holderView.layer.rasterizationScale = [UIScreen mainScreen].scale;
-    _holderView.layer.delegate = self;
 	
 	UITapGestureRecognizer *doubleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapGesture:)];
 	doubleTapGesture.numberOfTapsRequired = 2;
 	[_scrollView addGestureRecognizer:doubleTapGesture];
-	
-	[self.view addSubview:_scrollView];
-    
+	   
     UISlider *slider = [[UISlider alloc] initWithFrame:CGRectMake(10, 0, 200, 25)];
     slider.value = 1;
     [slider addTarget:self action:@selector(scaleSliderChanged:) forControlEvents:UIControlEventValueChanged];
@@ -147,12 +138,6 @@
     
     [[NSFileManager defaultManager] createFileAtPath:filePath contents:UIImagePNGRepresentation(screenshot) attributes:nil];
 }
-
-- (id<CAAction>)actionForLayer:(CALayer *)layer forKey:(NSString *)event
-{
-    return NULL;
-}
-
 
 - (void) scaleSliderChanged:(UISlider *) slider
 {    
@@ -192,7 +177,7 @@
  //   _holderView.layer.shouldRasterize = NO;
 }
 
-- (void) scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(float)scale
+- (void) scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(CGFloat)scale
 {
     _holderView.layer.rasterizationScale = [UIScreen mainScreen].scale * scale;
    // _holderView.layer.shouldRasterize = YES;
@@ -209,8 +194,18 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
 		self.title = NSLocalizedString(@"Detail", @"Detail");
-		self.quickSVG = [[QuickSVG alloc] initWithDelegate:self];
+		      
+        self.scrollView = [[UIScrollView alloc] initWithFrame:self.view.frame];
+        _scrollView.backgroundColor = [UIColor whiteColor];
+        
+        self.holderView = [[UIView alloc] initWithFrame:self.scrollView.frame];
+        [_scrollView addSubview:_holderView];
+        
+        [self.view addSubview:_scrollView];
+        
+        self.quickSVG = [[QuickSVG alloc] initWithDelegate:self];
         self.quickSVG.parserDelegate = self;
+
     }
     return self;
 }

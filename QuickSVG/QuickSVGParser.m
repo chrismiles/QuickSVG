@@ -154,7 +154,7 @@
 
 - (void)handleSymbolElement:(SMXMLElement *)element
 {
-    NSString *key = [[element.attributes allKeys] containsObject:@"id"] ? element.attributes[@"id"] : [NSString stringWithFormat:@"Symbol%i", [_symbols count] + 1];
+    NSString *key = [[element.attributes allKeys] containsObject:@"id"] ? element.attributes[@"id"] : [NSString stringWithFormat:@"Symbol%i", (int)[_symbols count] + 1];
     
     NSMutableArray *flat = [self flattenedElementsForElement:element];
     [element.children removeAllObjects];
@@ -164,7 +164,7 @@
 
 - (void)handleGroupElement:(SMXMLElement *)element
 {
-    NSString *key = [[element.attributes allKeys] containsObject:@"id"] ? element.attributes[@"id"] : [NSString stringWithFormat:@"Group%i", [_groups count] + 1];
+    NSString *key = [[element.attributes allKeys] containsObject:@"id"] ? element.attributes[@"id"] : [NSString stringWithFormat:@"Group%i", (int)[_groups count] + 1];
     self.groups[key] = element;
     
     NSArray *elements = [self flattenedElementsForElement:element];
@@ -257,7 +257,6 @@
     CGRect frame = [self frameFromAttributes:element.attributes];
 
 	QuickSVGElement *instance = [[QuickSVGElement alloc] initWithFrame:frame];
-    instance.layer.delegate = nil;
     
     if(element.attributes[@"transform"]) {
         instance.transform = makeTransformFromSVGTransform(element.attributes[@"transform"]);
@@ -271,7 +270,7 @@
         instance.elements = [element.children count] > 0 ? [self flattenedElementsForElement:element] : @[element];
     }
     
-    NSString *key = [[element.attributes allKeys] containsObject:@"id"] ? element.attributes[@"id"] : [NSString stringWithFormat:@"Instance%i", [_symbols count] + 1];
+    NSString *key = [[element.attributes allKeys] containsObject:@"id"] ? element.attributes[@"id"] : [NSString stringWithFormat:@"Instance%i", (int)[_symbols count] + 1];
     self.instances[key] = instance;
 
 	return instance;
