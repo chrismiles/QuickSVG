@@ -314,7 +314,7 @@ unichar const invalidCommand		= '*';
         fontColor = [UIColor colorWithHexString:[attributes[@"fill"] substringFromIndex:1] withAlpha:1].CGColor;
     }
     
-    CGSize textSize         = [text sizeWithFont:font];
+    CGSize textSize         = [text sizeWithAttributes:@{NSFontAttributeName : font}];
     
     if(self.quickSVG.shouldTreatTextAsPaths) {
         CAShapeLayer *shapeLayer = [CAShapeLayer layer];
