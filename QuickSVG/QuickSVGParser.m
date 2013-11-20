@@ -72,50 +72,54 @@
 
 - (BOOL)parseSVGWithData:(NSData *)data
 {
-    if(_document) {
-        [self abort];
-        _document = nil;
-    }
+    __block BOOL successful = YES;
     
-    [self notifyWillParse];
-    
-    [_symbols removeAllObjects];
-    [_instances removeAllObjects];
-    [_groups removeAllObjects];
-    [_elements removeAllObjects];
-    
-    _isAborted = NO;
-    
-    NSError *error;
-    self.document = [[SMXMLDocument alloc] initWithData:data error:&error];
-    
-    if(error) {
-        [self abort];
-        return NO;
-    }
-    
-    self.isParsing = YES;
-    
-    SMXMLElement *root = self.document.root;
-    [self cleanElement:root];
-    
-    if([root.name isEqualToString:@"svg"])
-        [self handleSVGElement:root];
-    
-    [root.children enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        
-        SMXMLElement *element = (SMXMLElement *)obj;
-        
-        if([self shouldAbortParsingElement:element]) {
-            *stop = YES;
+    [UIView performWithoutAnimation:^{
+        if(_document) {
+            [self abort];
+            _document = nil;
         }
         
-        [self parseElement:element];
+        [self notifyWillParse];
+        
+        [_symbols removeAllObjects];
+        [_instances removeAllObjects];
+        [_groups removeAllObjects];
+        [_elements removeAllObjects];
+        
+        _isAborted = NO;
+        
+        NSError *error;
+        self.document = [[SMXMLDocument alloc] initWithData:data error:&error];
+        
+        if(error) {
+            [self abort];
+            successful = NO;
+        }
+        
+        self.isParsing = YES;
+        
+        SMXMLElement *root = self.document.root;
+        [self cleanElement:root];
+        
+        if([root.name isEqualToString:@"svg"])
+            [self handleSVGElement:root];
+        
+        [root.children enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            
+            SMXMLElement *element = (SMXMLElement *)obj;
+            
+            if([self shouldAbortParsingElement:element]) {
+                *stop = YES;
+            }
+            
+            [self parseElement:element];
+        }];
+        
+        [self notifyDidParse];
     }];
     
-    [self notifyDidParse];
-    
-    return YES;
+    return successful;
 }
 
 - (BOOL)parseSVGFileWithURL:(NSURL *) url
