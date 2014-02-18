@@ -1,10 +1,8 @@
-//
-//  UIBezierPath+Additions.m
-//  QuickSVG
-//
-//  Created by Matthew Newberry on 12/27/12.
-//  Copyright (c) 2012 Matthew Newberry. All rights reserved.
-//
+/*
+ Erica Sadun, http://ericasadun.com
+ iPhone Developer's Cookbook, 6.x Edition
+ BSD License, Use at your own risk
+ */
 
 #import "UIBezierPath+Additions.h"
 
