@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 Matthew Newberry. All rights reserved.
 //
 
+@import Foundation;
+@import AppKit;
 @class QuickSVGElement, QuickSVG, QuickSVGParser;
 @protocol QuickSVGParserDelegate;
 
@@ -22,7 +24,7 @@
 @property (nonatomic) id <QuickSVGParserDelegate> parserDelegate;
 @property (nonatomic, strong) QuickSVGParser *parser;
 
-@property (nonatomic, strong) UIView *view;
+//@property (nonatomic, strong) UIView *view;
 
 // This allows you to have visible layers within the SVG that are ignored by the renderer
 // Useful for creating templates with elements that you do not want to be displayed in the final
@@ -39,6 +41,9 @@
 
 // The parsed frame that encapsulates the entire SVG document
 @property (nonatomic, assign) CGRect canvasFrame;
+
+
+@property (nonatomic, strong, readonly) NSBezierPath *bezierPath;
 
 
 // Syncronous shortcut

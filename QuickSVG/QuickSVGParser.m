@@ -145,7 +145,7 @@
 - (void)handleSVGElement:(SMXMLElement *)element
 {
     self.quickSVG.canvasFrame = [self frameFromAttributes:element.attributes];
-    _quickSVG.view = [[UIView alloc] initWithFrame:self.quickSVG.canvasFrame];
+//    _quickSVG.view = [[UIView alloc] initWithFrame:self.quickSVG.canvasFrame];
 }
 
 - (void)handleDrawingElement:(SMXMLElement *)element
@@ -256,14 +256,14 @@
 #pragma Instance Factory
 - (QuickSVGElement *)elementFromXMLNode:(SMXMLElement *)element shouldDraw:(BOOL)draw
 {
-    CGRect frame = [self frameFromAttributes:element.attributes];
+//    CGRect frame = [self frameFromAttributes:element.attributes];
 
-	QuickSVGElement *instance = [[QuickSVGElement alloc] initWithFrame:frame];
+	QuickSVGElement *instance = [[QuickSVGElement alloc] init];
     
-    if(element.attributes[@"transform"]) {
-        instance.transform = makeTransformFromSVGTransform(element.attributes[@"transform"]);
-    }
-    
+//    if(element.attributes[@"transform"]) {
+//        instance.transform = makeTransformFromSVGTransform(element.attributes[@"transform"]);
+//    }
+
 	[instance.attributes addEntriesFromDictionary:element.attributes];
     instance.attributes[@"elementName"] = element.name;
 	instance.quickSVG = self.quickSVG;
@@ -281,17 +281,17 @@
 - (void)addInstanceOfSymbol:(SMXMLElement *)symbol child:(SMXMLElement *)child
 {    
 	QuickSVGElement *instance = [self elementFromXMLNode:symbol shouldDraw:NO];
-    instance.frame = [self frameFromAttributes:symbol.attributes];
-    
+//    instance.frame = [self frameFromAttributes:symbol.attributes];
+
     [self applyAttributesFrom:symbol toElement:child];
     [instance.attributes removeAllObjects];
     [instance.attributes addEntriesFromDictionary:child.attributes];
     instance.elements = symbol.children;
     
-    if(child.attributes[@"transform"]) {
-        instance.transform = makeTransformFromSVGTransform(child.attributes[@"transform"]);
-    }
-    
+//    if(child.attributes[@"transform"]) {
+//        instance.transform = makeTransformFromSVGTransform(child.attributes[@"transform"]);
+//    }
+
     [self notifyDidParseElement:instance];
 }
 
@@ -299,8 +299,8 @@
 - (void)notifyDidParseElement:(QuickSVGElement *)element
 {
     [_elements addObject:element];
-    [self.quickSVG.view addSubview:element];
-    
+//    [self.quickSVG.view addSubview:element];
+
     if(!self.isAborted && _delegate && [_delegate respondsToSelector:@selector(quickSVG:didParseElement:)]) {
         [self.delegate quickSVG:self.quickSVG didParseElement:element];
     }

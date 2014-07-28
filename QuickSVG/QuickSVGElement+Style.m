@@ -7,7 +7,7 @@
 //
 
 #import "QuickSVGElement+Style.h"
-#import "UIColor+Additions.h"
+//#import "UIColor+Additions.h"
 
 @implementation QuickSVGElement (Style)
 
@@ -34,6 +34,9 @@
 {
     return [[[self supportedStyleAttributes] allKeys] containsObject:attribute];
 }
+
+
+/*
 
 #pragma KVO
 - (void) dealloc
@@ -180,5 +183,6 @@
 		shapeLayer.lineWidth = lineWidth;
 	}
 }
+*/
 
 @end

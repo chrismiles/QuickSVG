@@ -22,6 +22,22 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		8301D6571980A79400C2E6CA /* QuickSVGParserMac.h in Headers */ = {isa = PBXBuildFile; fileRef = 8301D6561980A79400C2E6CA /* QuickSVGParserMac.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8301D65D1980A79400C2E6CA /* QuickSVGParserMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8301D6521980A79300C2E6CA /* QuickSVGParserMac.framework */; };
+		8301D6641980A79400C2E6CA /* QuickSVGParserMacTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8301D6631980A79400C2E6CA /* QuickSVGParserMacTests.m */; };
+		8301D6761980AAA800C2E6CA /* QuickSVG.h in Headers */ = {isa = PBXBuildFile; fileRef = C9090D2F161316BC001145EC /* QuickSVG.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8301D67B1980AEA700C2E6CA /* QuickSVG.m in Sources */ = {isa = PBXBuildFile; fileRef = C9090D31161316BC001145EC /* QuickSVG.m */; };
+		8301D67C1980AEE500C2E6CA /* QuickSVGParser.h in Headers */ = {isa = PBXBuildFile; fileRef = C9A2713D16D552170095A680 /* QuickSVGParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8301D67D1980AEEA00C2E6CA /* QuickSVGParser.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A2713E16D552170095A680 /* QuickSVGParser.m */; };
+		8301D67E1980AEEE00C2E6CA /* QuickSVGElement.h in Headers */ = {isa = PBXBuildFile; fileRef = C90061C01615C5DE000BD559 /* QuickSVGElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8301D67F1980AEF300C2E6CA /* QuickSVGElement.m in Sources */ = {isa = PBXBuildFile; fileRef = C90061C11615C5DE000BD559 /* QuickSVGElement.m */; };
+		8301D6881980B2B300C2E6CA /* NSAffineTransform+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 8301D6861980B2B300C2E6CA /* NSAffineTransform+Additions.h */; };
+		8301D6891980B2B300C2E6CA /* NSAffineTransform+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8301D6871980B2B300C2E6CA /* NSAffineTransform+Additions.m */; };
+		8301D6911980E1BE00C2E6CA /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8301D6901980E1BE00C2E6CA /* AppKit.framework */; };
+		8301D6941980E81600C2E6CA /* SMXMLDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = C9A2713916D550010095A680 /* SMXMLDocument.h */; };
+		8301D6951980E81D00C2E6CA /* SMXMLDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A2713A16D550010095A680 /* SMXMLDocument.m */; };
+		8301D6961980E84200C2E6CA /* QuickSVGUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = C97F3C691680CB93006A70C3 /* QuickSVGUtils.h */; };
+		8301D6971980E84800C2E6CA /* QuickSVGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C97F3C6A1680CB93006A70C3 /* QuickSVGUtils.m */; };
 		C90061C21615C5DE000BD559 /* QuickSVGElement.h in Headers */ = {isa = PBXBuildFile; fileRef = C90061C01615C5DE000BD559 /* QuickSVGElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C90061C31615C5DE000BD559 /* QuickSVGElement.m in Sources */ = {isa = PBXBuildFile; fileRef = C90061C11615C5DE000BD559 /* QuickSVGElement.m */; };
 		C90061C41615C5DE000BD559 /* QuickSVGElement.m in Sources */ = {isa = PBXBuildFile; fileRef = C90061C11615C5DE000BD559 /* QuickSVGElement.m */; };
@@ -36,7 +52,7 @@
 		C9090D49161316BC001145EC /* QuickSVGTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9090D48161316BC001145EC /* QuickSVGTests.m */; };
 		C9090D581613187B001145EC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9090D561613187B001145EC /* CoreGraphics.framework */; };
 		C9090D591613187B001145EC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9090D571613187B001145EC /* QuartzCore.framework */; };
-		C9090D5B16131B8E001145EC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9090D5A16131B8E001145EC /* UIKit.framework */; };
+		C9090D5B16131B8E001145EC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9090D5A16131B8E001145EC /* UIKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		C9090D6316135B19001145EC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9090D5A16131B8E001145EC /* UIKit.framework */; };
 		C9090D6A16135E10001145EC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9090D5A16131B8E001145EC /* UIKit.framework */; };
 		C9090D6B16135E10001145EC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9090D2A161316BC001145EC /* Foundation.framework */; };
@@ -79,6 +95,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		8301D65E1980A79400C2E6CA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9090D1E161316BC001145EC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8301D6511980A79300C2E6CA;
+			remoteInfo = QuickSVGParserMac;
+		};
 		C9090D3E161316BC001145EC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C9090D1E161316BC001145EC /* Project object */;
@@ -116,6 +139,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8301D6521980A79300C2E6CA /* QuickSVGParserMac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = QuickSVGParserMac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8301D6551980A79400C2E6CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8301D6561980A79400C2E6CA /* QuickSVGParserMac.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuickSVGParserMac.h; sourceTree = "<group>"; };
+		8301D65C1980A79400C2E6CA /* QuickSVGParserMacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuickSVGParserMacTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8301D6621980A79400C2E6CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8301D6631980A79400C2E6CA /* QuickSVGParserMacTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuickSVGParserMacTests.m; sourceTree = "<group>"; };
+		8301D6861980B2B300C2E6CA /* NSAffineTransform+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAffineTransform+Additions.h"; sourceTree = "<group>"; };
+		8301D6871980B2B300C2E6CA /* NSAffineTransform+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAffineTransform+Additions.m"; sourceTree = "<group>"; };
+		8301D6901980E1BE00C2E6CA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/AppKit.framework; sourceTree = DEVELOPER_DIR; };
 		C90061C01615C5DE000BD559 /* QuickSVGElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuickSVGElement.h; sourceTree = "<group>"; };
 		C90061C11615C5DE000BD559 /* QuickSVGElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuickSVGElement.m; sourceTree = "<group>"; };
 		C9090D27161316BC001145EC /* libQuickSVG.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libQuickSVG.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -163,6 +195,22 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		8301D64E1980A79300C2E6CA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8301D6911980E1BE00C2E6CA /* AppKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8301D6591980A79400C2E6CA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8301D65D1980A79400C2E6CA /* QuickSVGParserMac.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C9090D24161316BC001145EC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -204,6 +252,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8301D6531980A79400C2E6CA /* QuickSVGParserMac */ = {
+			isa = PBXGroup;
+			children = (
+				8301D6561980A79400C2E6CA /* QuickSVGParserMac.h */,
+				8301D6541980A79400C2E6CA /* Supporting Files */,
+			);
+			path = QuickSVGParserMac;
+			sourceTree = "<group>";
+		};
+		8301D6541980A79400C2E6CA /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8301D6551980A79400C2E6CA /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8301D6601980A79400C2E6CA /* QuickSVGParserMacTests */ = {
+			isa = PBXGroup;
+			children = (
+				8301D6631980A79400C2E6CA /* QuickSVGParserMacTests.m */,
+				8301D6611980A79400C2E6CA /* Supporting Files */,
+			);
+			path = QuickSVGParserMacTests;
+			sourceTree = "<group>";
+		};
+		8301D6611980A79400C2E6CA /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8301D6621980A79400C2E6CA /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		C9090D1C161316BC001145EC = {
 			isa = PBXGroup;
 			children = (
@@ -211,6 +293,8 @@
 				C9090D41161316BC001145EC /* QuickSVGTests */,
 				C9090D6D16135E10001145EC /* QuickSVGRenderingTests */,
 				C9090DB4161368B6001145EC /* Sample SVGs */,
+				8301D6531980A79400C2E6CA /* QuickSVGParserMac */,
+				8301D6601980A79400C2E6CA /* QuickSVGParserMacTests */,
 				C9090D29161316BC001145EC /* Frameworks */,
 				C9090D28161316BC001145EC /* Products */,
 			);
@@ -222,6 +306,8 @@
 				C9090D27161316BC001145EC /* libQuickSVG.a */,
 				C9090D38161316BC001145EC /* UnitTests.octest */,
 				C9090D6816135E10001145EC /* RenderingTests.app */,
+				8301D6521980A79300C2E6CA /* QuickSVGParserMac.framework */,
+				8301D65C1980A79400C2E6CA /* QuickSVGParserMacTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -229,6 +315,7 @@
 		C9090D29161316BC001145EC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8301D6901980E1BE00C2E6CA /* AppKit.framework */,
 				C9A2714116D558CB0095A680 /* CoreText.framework */,
 				C9090D5A16131B8E001145EC /* UIKit.framework */,
 				C9090D561613187B001145EC /* CoreGraphics.framework */,
@@ -267,6 +354,8 @@
 				C97F3C6A1680CB93006A70C3 /* QuickSVGUtils.m */,
 				C971CAB5168CE9B00040A7FF /* UIBezierPath+Additions.h */,
 				C971CAB6168CE9B00040A7FF /* UIBezierPath+Additions.m */,
+				8301D6861980B2B300C2E6CA /* NSAffineTransform+Additions.h */,
+				8301D6871980B2B300C2E6CA /* NSAffineTransform+Additions.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -321,6 +410,19 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		8301D64F1980A79300C2E6CA /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8301D67C1980AEE500C2E6CA /* QuickSVGParser.h in Headers */,
+				8301D6941980E81600C2E6CA /* SMXMLDocument.h in Headers */,
+				8301D6571980A79400C2E6CA /* QuickSVGParserMac.h in Headers */,
+				8301D6761980AAA800C2E6CA /* QuickSVG.h in Headers */,
+				8301D67E1980AEEE00C2E6CA /* QuickSVGElement.h in Headers */,
+				8301D6961980E84200C2E6CA /* QuickSVGUtils.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C9090DAB1613641A001145EC /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -330,6 +432,7 @@
 				C9090DC716137E1A001145EC /* UIColor+Additions.h in Headers */,
 				C9A040B816723C4E00BB82C1 /* QuickSVGElement+Style.h in Headers */,
 				C97F3C6B1680CB93006A70C3 /* QuickSVGUtils.h in Headers */,
+				8301D6881980B2B300C2E6CA /* NSAffineTransform+Additions.h in Headers */,
 				C971CAB7168CE9B00040A7FF /* UIBezierPath+Additions.h in Headers */,
 				C9A2713B16D550010095A680 /* SMXMLDocument.h in Headers */,
 				C9A2713F16D552170095A680 /* QuickSVGParser.h in Headers */,
@@ -339,6 +442,42 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		8301D6511980A79300C2E6CA /* QuickSVGParserMac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8301D6691980A79400C2E6CA /* Build configuration list for PBXNativeTarget "QuickSVGParserMac" */;
+			buildPhases = (
+				8301D64D1980A79300C2E6CA /* Sources */,
+				8301D64E1980A79300C2E6CA /* Frameworks */,
+				8301D64F1980A79300C2E6CA /* Headers */,
+				8301D6501980A79300C2E6CA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = QuickSVGParserMac;
+			productName = QuickSVGParserMac;
+			productReference = 8301D6521980A79300C2E6CA /* QuickSVGParserMac.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		8301D65B1980A79400C2E6CA /* QuickSVGParserMacTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8301D66A1980A79400C2E6CA /* Build configuration list for PBXNativeTarget "QuickSVGParserMacTests" */;
+			buildPhases = (
+				8301D6581980A79400C2E6CA /* Sources */,
+				8301D6591980A79400C2E6CA /* Frameworks */,
+				8301D65A1980A79400C2E6CA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8301D65F1980A79400C2E6CA /* PBXTargetDependency */,
+			);
+			name = QuickSVGParserMacTests;
+			productName = QuickSVGParserMacTests;
+			productReference = 8301D65C1980A79400C2E6CA /* QuickSVGParserMacTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		C9090D26161316BC001145EC /* QuickSVG */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C9090D4C161316BC001145EC /* Build configuration list for PBXNativeTarget "QuickSVG" */;
@@ -375,7 +514,7 @@
 			name = UnitTests;
 			productName = QuickSVGTests;
 			productReference = C9090D38161316BC001145EC /* UnitTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productType = "com.apple.product-type.bundle.ocunit-test";
 		};
 		C9090D6716135E10001145EC /* RenderingTests */ = {
 			isa = PBXNativeTarget;
@@ -401,8 +540,18 @@
 		C9090D1E161316BC001145EC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0450;
-				ORGANIZATIONNAME = "Matthew Newberry";
+				CLASSPREFIX = "";
+				LastUpgradeCheck = 0600;
+				ORGANIZATIONNAME = "Chris Miles";
+				TargetAttributes = {
+					8301D6511980A79300C2E6CA = {
+						CreatedOnToolsVersion = 6.0;
+					};
+					8301D65B1980A79400C2E6CA = {
+						CreatedOnToolsVersion = 6.0;
+						TestTargetID = 8301D6511980A79300C2E6CA;
+					};
+				};
 			};
 			buildConfigurationList = C9090D21161316BC001145EC /* Build configuration list for PBXProject "QuickSVG" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -420,11 +569,27 @@
 				C9090D37161316BC001145EC /* UnitTests */,
 				C9090D6716135E10001145EC /* RenderingTests */,
 				C9090DA116136387001145EC /* Framework */,
+				8301D6511980A79300C2E6CA /* QuickSVGParserMac */,
+				8301D65B1980A79400C2E6CA /* QuickSVGParserMacTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		8301D6501980A79300C2E6CA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8301D65A1980A79400C2E6CA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C9090D35161316BC001145EC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -493,6 +658,26 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		8301D64D1980A79300C2E6CA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8301D6971980E84800C2E6CA /* QuickSVGUtils.m in Sources */,
+				8301D67B1980AEA700C2E6CA /* QuickSVG.m in Sources */,
+				8301D67D1980AEEA00C2E6CA /* QuickSVGParser.m in Sources */,
+				8301D67F1980AEF300C2E6CA /* QuickSVGElement.m in Sources */,
+				8301D6951980E81D00C2E6CA /* SMXMLDocument.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8301D6581980A79400C2E6CA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8301D6641980A79400C2E6CA /* QuickSVGParserMacTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C9090D23161316BC001145EC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -505,6 +690,7 @@
 				C971CAB8168CE9B00040A7FF /* UIBezierPath+Additions.m in Sources */,
 				C9A2713C16D550010095A680 /* SMXMLDocument.m in Sources */,
 				C9A2714016D552170095A680 /* QuickSVGParser.m in Sources */,
+				8301D6891980B2B300C2E6CA /* NSAffineTransform+Additions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -538,6 +724,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		8301D65F1980A79400C2E6CA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8301D6511980A79300C2E6CA /* QuickSVGParserMac */;
+			targetProxy = 8301D65E1980A79400C2E6CA /* PBXContainerItemProxy */;
+		};
 		C9090D3F161316BC001145EC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C9090D26161316BC001145EC /* QuickSVG */;
@@ -583,6 +774,156 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		8301D6651980A79400C2E6CA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_VERSION = A;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = QuickSVGParserMac/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		8301D6661980A79400C2E6CA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_VERSION = A;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = QuickSVGParserMac/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		8301D6671980A79400C2E6CA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = QuickSVGParserMacTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		8301D6681980A79400C2E6CA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = QuickSVGParserMacTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
 		C9090D4A161316BC001145EC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -605,6 +946,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -632,7 +974,6 @@
 		C9090D4D161316BC001145EC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
 				DSTROOT = /tmp/QuickSVG.dst;
@@ -649,7 +990,6 @@
 		C9090D4E161316BC001145EC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
 				DSTROOT = /tmp/QuickSVG.dst;
@@ -696,7 +1036,6 @@
 		C9090D9216135E10001145EC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "QuickSVGRenderingTests/QuickSVGRenderingTests-Prefix.pch";
@@ -711,7 +1050,6 @@
 		C9090D9316135E10001145EC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "QuickSVGRenderingTests/QuickSVGRenderingTests-Prefix.pch";
@@ -743,6 +1081,22 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8301D6691980A79400C2E6CA /* Build configuration list for PBXNativeTarget "QuickSVGParserMac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8301D6651980A79400C2E6CA /* Debug */,
+				8301D6661980A79400C2E6CA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		8301D66A1980A79400C2E6CA /* Build configuration list for PBXNativeTarget "QuickSVGParserMacTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8301D6671980A79400C2E6CA /* Debug */,
+				8301D6681980A79400C2E6CA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		C9090D21161316BC001145EC /* Build configuration list for PBXProject "QuickSVG" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

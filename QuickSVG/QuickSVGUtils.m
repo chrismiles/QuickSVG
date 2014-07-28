@@ -8,6 +8,7 @@
 
 #import "QuickSVGUtils.h"
 #import <CoreText/CoreText.h>
+#import <CoreGraphics/CoreGraphics.h>
 
 CGAffineTransform makeTransform(CGFloat xScale, CGFloat yScale, CGFloat theta, CGFloat tx, CGFloat ty) {
     CGAffineTransform t = CGAffineTransformIdentity;
@@ -21,13 +22,27 @@ CGAffineTransform makeTransform(CGFloat xScale, CGFloat yScale, CGFloat theta, C
     return t;
 }
 
+static CGAffineTransform CGAffineTransformFromString(NSString *string)
+{
+    string = [string stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"[ ]"]];
+    NSArray *components = [string componentsSeparatedByString:@","];
+    CGAffineTransform transform;
+    transform.a = [[components objectAtIndex:0] floatValue];
+    transform.b = [[components objectAtIndex:1] floatValue];
+    transform.c = [[components objectAtIndex:2] floatValue];
+    transform.d = [[components objectAtIndex:3] floatValue];
+    transform.tx = [[components objectAtIndex:4] floatValue];
+    transform.ty = [[components objectAtIndex:5] floatValue];
+    return transform;
+}
+
 CGAffineTransform makeTransformFromSVGMatrix(NSString *matrix) {
     
     NSMutableString *m = [NSMutableString stringWithString:matrix];
     [m replaceOccurrencesOfString:@"matrix(" withString:@"{" options:0 range:NSMakeRange(0, [m length])];
     [m replaceOccurrencesOfString:@")" withString:@"}" options:0 range:NSMakeRange(0, [m length])];
     [m replaceOccurrencesOfString:@" " withString:@"," options:0 range:NSMakeRange(0, [m length])];
-	
+
 	CGAffineTransform t = CGAffineTransformFromString(m);
     
     CGFloat xScale = getXScale(t);
@@ -43,7 +58,8 @@ CGAffineTransform makeTransformFromSVGScale(NSString *scale)
     [m replaceOccurrencesOfString:@"scale(" withString:@"{" options:0 range:NSMakeRange(0, [m length])];
     [m replaceOccurrencesOfString:@")" withString:@"}" options:0 range:NSMakeRange(0, [m length])];
 
-    CGPoint s = CGPointFromString(m);
+//    CGPoint s = CGPointFromString(m);
+    CGPoint s = NSPointToCGPoint(NSPointFromString(m));
     CGAffineTransform t = CGAffineTransformMakeScale(s.x, s.y);
     
     return t;
@@ -102,7 +118,7 @@ CGAffineTransform CGAffineTransformFromRectToRectKeepAspectRatio(CGRect fromRect
     return CGAffineTransformFromRectToRect(fromRect, toRect);
 }
 
-void CGPathForTextWithFont(CGMutablePathRef *path, NSString *text, UIFont *font)
+void CGPathForTextWithFont(CGMutablePathRef *path, NSString *text, QuickSVGFont *font)
 {
 	if(text == nil)
 		return;

@@ -7,6 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+@import AppKit;
+
+
+typedef NSFont QuickSVGFont;
 
 CGAffineTransform makeTransform(CGFloat xScale, CGFloat yScale, CGFloat theta, CGFloat tx, CGFloat ty);
 CGAffineTransform makeTransformFromSVGScale(NSString *scale);
@@ -22,4 +26,4 @@ CGFloat aspectScale(CGSize sourceSize, CGSize destSize);
 CGAffineTransform CGAffineTransformFromRectToRect(CGRect fromRect, CGRect toRect);
 CGAffineTransform CGAffineTransformFromRectToRectKeepAspectRatio(CGRect fromRect, CGRect toRect);
 
-void CGPathForTextWithFont(CGMutablePathRef *path, NSString *text, UIFont *font);
+void CGPathForTextWithFont(CGMutablePathRef *path, NSString *text, QuickSVGFont *font);
